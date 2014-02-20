@@ -37,7 +37,7 @@ class Professor(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
-    rating = models.DecimalField(default=2.5)
+    overall_rating = models.DecimalField(max_digits=2,decimal_places=1,default=2.)
     no_of_ratings = models.IntegerField(default=0)
     picture = models.ImageField(upload_to='professors', blank=True)
     fk_university_id = models.ForeignKey(University)
@@ -77,18 +77,6 @@ class Rating(models.Model):
         return self.rating
 
 
-# Every course is delivered by one university and is taught by many professors
-class Course(models.Model):
-    course_name = models.CharField(max_length=512)
-    start_date = models.DateField
-    fk_university_id = models.ForeignKey(University)
-    fk_department_id = models.ForeignKey(Department)
-    fk_professor_id = models.ManyToManyField(Professor)
-
-    def __unicode__(self):
-        return self.course_name
-
-
 # Every university will have many departments and every course will belong to a department
 class Department(models.Model):
     department_name = models.CharField(max_length=512)
@@ -96,3 +84,15 @@ class Department(models.Model):
 
     def __unicode__(self):
         return self.department_name
+
+
+# Every course is delivered by one university and is taught by many professors
+class Course(models.Model):
+    course_name = models.CharField(max_length=512)
+    start_date = models.DateField(null=True)
+    fk_university_id = models.ForeignKey(University)
+    fk_department_id = models.ForeignKey(Department)
+    fk_professor_id = models.ManyToManyField(Professor)
+
+    def __unicode__(self):
+        return self.course_name

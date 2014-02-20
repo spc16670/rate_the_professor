@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0fdaadbd-7116-47ff-8a26-6e5c5fea5112" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rate_the_professor/admin.py" afterPath="$PROJECT_DIR$/rate_the_professor/admin.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rate_the_professor/models.py" afterPath="$PROJECT_DIR$/rate_the_professor/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rate_the_professor_project.iws" />
@@ -62,23 +62,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="74" selection-start="2450" selection-end="2450" vertical-scroll-proportion="-17.8125" vertical-offset="360" max-vertical-offset="1545">
+            <state line="42" column="52" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.77205884" vertical-offset="0" max-vertical-offset="1560">
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/rate_the_professor/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="29" selection-start="413" selection-end="413" vertical-scroll-proportion="0.22995283" vertical-offset="0" max-vertical-offset="848">
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,8 +111,8 @@
         <option value="$PROJECT_DIR$/rate_the_professor_project/urls.py" />
         <option value="$PROJECT_DIR$/rate_the_professor_project/settings.py" />
         <option value="$PROJECT_DIR$/templates/rate_the_professor/index.html" />
-        <option value="$PROJECT_DIR$/rate_the_professor/models.py" />
         <option value="$PROJECT_DIR$/rate_the_professor/admin.py" />
+        <option value="$PROJECT_DIR$/rate_the_professor/models.py" />
       </list>
     </option>
   </component>
@@ -441,7 +430,11 @@
       <created>1392932263832</created>
       <updated>1392932263832</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="models updated">
+      <created>1392932486285</created>
+      <updated>1392932486285</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -496,7 +489,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="31" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="285">
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -580,15 +573,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="74" selection-start="2450" selection-end="2450" vertical-scroll-proportion="-17.8125" vertical-offset="360" max-vertical-offset="1545">
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="164" selection-end="164" vertical-scroll-proportion="-8.125" vertical-offset="0" max-vertical-offset="285">
@@ -598,9 +582,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="29" selection-start="413" selection-end="413" vertical-scroll-proportion="0.22995283" vertical-offset="0" max-vertical-offset="848">
+        <state line="14" column="31" selection-start="446" selection-end="446" vertical-scroll-proportion="0.2476415" vertical-offset="0" max-vertical-offset="848">
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="52" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.77205884" vertical-offset="0" max-vertical-offset="1560">
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
