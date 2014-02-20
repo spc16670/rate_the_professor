@@ -8,7 +8,7 @@ class University(models.Model):
     website_url = models.URLField()
 
     def __unicode__(self):
-        return self.name
+        return self.uni_name
 
 
 # UserProfile table extending User model
@@ -86,7 +86,7 @@ class Course(models.Model):
     fk_professor_id = models.ManyToManyField(Professor)
 
     def __unicode__(self):
-        return self.name
+        return self.course_name
 
 
 # Every university will have many departments and every course will belong to a department
@@ -95,4 +95,4 @@ class Department(models.Model):
     fk_university_id = models.ForeignKey(University)
 
     def __unicode__(self):
-        return self.name
+        return self.department_name
