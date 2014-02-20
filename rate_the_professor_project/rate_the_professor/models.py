@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 # Every university will be unique and will have a website
 class University(models.Model):
-    name = models.CharField(max_length=256, unique=True)
-    url = models.URLField()
+    uni_name = models.CharField(max_length=256, unique=True)
+    website_url = models.URLField()
 
     def __unicode__(self):
         return self.name
@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
     # The additional attributes we wish to include.
-    university = models.ForeignKey(University)
+    fk_university_id = models.ForeignKey(University)
     picture = models.ImageField(upload_to='users', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
@@ -26,20 +26,22 @@ class UserProfile(models.Model):
 
 # Admin table references ids of users who have been given admin rights
 class Admin(models.Model):
-    user = models.OneToOneField(UserProfile)
+    fk_user_id = models.OneToOneField(UserProfile)
 
     def __unicode__(self):
         return self.user.username
 
 
 # Every professor will receive many ratings, may teach many modules but works for one university
-class Lecturer(models.Model):
+class Professor(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
+    rating = models.DecimalField(default=2.5)
+    no_of_ratings = models.IntegerField(default=0)
     picture = models.ImageField(upload_to='professors', blank=True)
     fk_university_id = models.ForeignKey(University)
-    website = models.URLField()
+    website_url = models.URLField()
 
     def __unicode__(self):
         return self.last_name
@@ -48,19 +50,20 @@ class Lecturer(models.Model):
 # Rating table will store all ratings submitted by a user and received by a professor
 class Rating(models.Model):
     fk_user_id = models.ForeignKey(UserProfile)
-    fk_lecturer_id = models.ForeignKey(Lecturer)
-    communication = models.DecimalField(max_digits=3,decimal_places=2,default=5.00)
-    knowledge = models.DecimalField(max_digits=3,decimal_places=2,default=5.00)
-    approachability = models.DecimalField(max_digits=3,decimal_places=2,default=5.00)
-    enthusiasm = models.DecimalField(max_digits=3,decimal_places=2,default=5.00)
-    explaining_material = models.DecimalField(max_digits=3,decimal_places=2,default=5.00)
+    fk_professor_id = models.ForeignKey(Professor)
+    communication = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
+    knowledge = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
+    approachability = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
+    enthusiasm = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
+    clarity = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
+    fun = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
 
     # rating will be a calculated field
     def _calculate_rating(self):
-        return (self.communication + self.knowledge + self.approachability + self.enthusiasm + self.explaining_material) / 5
+        return (self.communication + self.knowledge + self.approachability
+                + self.enthusiasm + self.clarity + self.fun) / 6
 
     rating = property(_calculate_rating)
-
     comment = models.CharField(max_length=1024)
     # DateField.auto_now
     # Automatically set the field to now every time the object is saved. Useful for last-modified timestamps.
@@ -71,14 +74,25 @@ class Rating(models.Model):
     datetime = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return self.user.username
+        return self.rating
 
 
-# Every course is delivered by one university and is tought by one lecturer
+# Every course is delivered by one university and is taught by many professors
 class Course(models.Model):
-    name = models.CharField(max_length=512)
+    course_name = models.CharField(max_length=512)
+    start_date = models.DateField
     fk_university_id = models.ForeignKey(University)
-    fk_lecturer_id = models.ForeignKey(Lecturer)
+    fk_department_id = models.ForeignKey(Department)
+    fk_professor_id = models.ManyToManyField(Professor)
+
+    def __unicode__(self):
+        return self.name
+
+
+# Every university will have many departments and every course will belong to a department
+class Department(models.Model):
+    department_name = models.CharField(max_length=512)
+    fk_university_id = models.ForeignKey(University)
 
     def __unicode__(self):
         return self.name
