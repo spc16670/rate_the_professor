@@ -65,7 +65,7 @@
       <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="52" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.77205884" vertical-offset="0" max-vertical-offset="1560">
+            <state line="73" column="26" selection-start="3202" selection-end="3202" vertical-scroll-proportion="1.3419118" vertical-offset="0" max-vertical-offset="1530">
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -434,7 +434,11 @@
       <created>1392932486285</created>
       <updated>1392932486285</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="models updated">
+      <created>1392933319527</created>
+      <updated>1392933319527</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -591,7 +595,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="52" selection-start="1552" selection-end="1552" vertical-scroll-proportion="0.77205884" vertical-offset="0" max-vertical-offset="1560">
+        <state line="73" column="26" selection-start="3202" selection-end="3202" vertical-scroll-proportion="1.3419118" vertical-offset="0" max-vertical-offset="1530">
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>

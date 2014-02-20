@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 # Every university will be unique and will have a website
 class University(models.Model):
     uni_name = models.CharField(max_length=256, unique=True)
@@ -57,13 +56,6 @@ class Rating(models.Model):
     enthusiasm = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
     clarity = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
     fun = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
-
-    # rating will be a calculated field
-    def _calculate_rating(self):
-        return (self.communication + self.knowledge + self.approachability
-                + self.enthusiasm + self.clarity + self.fun) / 6
-
-    rating = property(_calculate_rating)
     comment = models.CharField(max_length=1024)
     # DateField.auto_now
     # Automatically set the field to now every time the object is saved. Useful for last-modified timestamps.
@@ -72,6 +64,12 @@ class Rating(models.Model):
     # Automatically set the field to now when the object is first created. Useful for creation of timestamps.
     # Note that the current date is always used its not just a default value that you can override.
     datetime = models.DateTimeField(auto_now_add=True)
+
+    # Rating will have a calculated property
+    def _calculate_rating(self):
+        return (self.communication + self.knowledge + self.approachability
+                + self.enthusiasm + self.clarity + self.fun) / 6
+    rating = property(_calculate_rating)
 
     def __unicode__(self):
         return self.rating
@@ -89,10 +87,10 @@ class Department(models.Model):
 # Every course is delivered by one university and is taught by many professors
 class Course(models.Model):
     course_name = models.CharField(max_length=512)
-    start_date = models.DateField(null=True)
     fk_university_id = models.ForeignKey(University)
     fk_department_id = models.ForeignKey(Department)
     fk_professor_id = models.ManyToManyField(Professor)
+    start_date = models.DateField(null=True)
 
     def __unicode__(self):
         return self.course_name
