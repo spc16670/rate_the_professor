@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Every university will be unique and will have a website
 class University(models.Model):
     uni_name = models.CharField(max_length=256, unique=True)
@@ -36,7 +37,7 @@ class Professor(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
-    overall_rating = models.DecimalField(max_digits=2,decimal_places=1,default=2.)
+    overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     no_of_ratings = models.IntegerField(default=0)
     picture = models.ImageField(upload_to='professors', blank=True)
     fk_university_id = models.ForeignKey(University)
@@ -50,12 +51,12 @@ class Professor(models.Model):
 class Rating(models.Model):
     fk_user_id = models.ForeignKey(UserProfile)
     fk_professor_id = models.ForeignKey(Professor)
-    communication = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
-    knowledge = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
-    approachability = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
-    enthusiasm = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
-    clarity = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
-    fun = models.DecimalField(max_digits=2,decimal_places=1,default=2.5)
+    communication = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+    knowledge = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+    approachability = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+    enthusiasm = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+    clarity = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+    awesomeness = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     comment = models.CharField(max_length=1024)
     # DateField.auto_now
     # Automatically set the field to now every time the object is saved. Useful for last-modified timestamps.
@@ -68,7 +69,7 @@ class Rating(models.Model):
     # Rating will have a calculated property
     def _calculate_rating(self):
         return (self.communication + self.knowledge + self.approachability
-                + self.enthusiasm + self.clarity + self.fun) / 6
+                + self.enthusiasm + self.clarity + self.awesomeness) / 6
     rating = property(_calculate_rating)
 
     def __unicode__(self):
@@ -92,5 +93,6 @@ class Course(models.Model):
     fk_professor_id = models.ManyToManyField(Professor)
     start_date = models.DateField(null=True)
 
+    #TODO: format start_date to sth like MM-yy
     def __unicode__(self):
         return self.course_name
