@@ -32,15 +32,37 @@ class Admin(models.Model):
         return self.user.username
 
 
+# Every university will have many departments and every course will belong to a department
+class Department(models.Model):
+    department_name = models.CharField(max_length=512)
+    fk_university = models.ForeignKey(University)
+
+    def __unicode__(self):
+        return self.department_name
+
+
+# Every course is delivered by one university and is taught by many professors
+class Course(models.Model):
+    course_name = models.CharField(max_length=512)
+    fk_university = models.ForeignKey(University)
+    fk_department = models.ForeignKey(Department)
+    start_date = models.DateField()
+
+    #TODO: format start_date to sth like MM-yy
+    def __unicode__(self):
+        return self.course_name
+
+
 # Every professor will receive many ratings, may teach many modules but works for one university
 class Professor(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
     overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
-    no_of_ratings = models.IntegerField(default=0)
+    no_of_ratings = models.IntegerField(default=1)
     picture = models.ImageField(upload_to='professors', blank=True)
     fk_university = models.ForeignKey(University)
+    fk_courses_taught = models.ManyToManyField(Course)
     website_url = models.URLField()
 
     def __unicode__(self):
@@ -49,7 +71,7 @@ class Professor(models.Model):
 
 # Rating table will store all ratings submitted by a user and received by a professor
 class Rating(models.Model):
-    fk_user = models.ForeignKey(UserProfile)
+    fk_user = models.ForeignKey(UserProfile, null=True)
     fk_professor = models.ForeignKey(Professor)
     communication = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     knowledge = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
@@ -57,7 +79,7 @@ class Rating(models.Model):
     enthusiasm = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     clarity = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     awesomeness = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
-    comment = models.CharField(max_length=1024)
+    comment = models.CharField(max_length=1024, null=True)
     # DateField.auto_now
     # Automatically set the field to now every time the object is saved. Useful for last-modified timestamps.
     # Note that the current date is always used its not just a default value that you can override.
@@ -74,25 +96,3 @@ class Rating(models.Model):
 
     def __unicode__(self):
         return self.rating
-
-
-# Every university will have many departments and every course will belong to a department
-class Department(models.Model):
-    department_name = models.CharField(max_length=512)
-    fk_university = models.ForeignKey(University)
-
-    def __unicode__(self):
-        return self.department_name
-
-
-# Every course is delivered by one university and is taught by many professors
-class Course(models.Model):
-    course_name = models.CharField(max_length=512)
-    fk_university = models.ForeignKey(University)
-    fk_department = models.ForeignKey(Department)
-    fk_professor = models.ManyToManyField(Professor)
-    start_date = models.DateField(null=True)
-
-    #TODO: format start_date to sth like MM-yy
-    def __unicode__(self):
-        return self.course_name
