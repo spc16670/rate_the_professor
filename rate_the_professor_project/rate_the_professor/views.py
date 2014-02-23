@@ -2,17 +2,24 @@
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from rate_the_professor.models import Rating, Professor
+
 
 def index(request):
     # Request the context of the request.
     # The context contains information such as the client's machine details, for example.
     context = RequestContext(request)
 
-    # Construct a dictionary to pass to the template engine as its context.
-    # Note the key boldmessage is the same as {{ boldmessage }} in the template!
-    context_dict = {'boldmessage': "I am bold font from the context"}
+    # RECENT RATINGS
+    recent_ratings = Rating.objects.order_by('-id')[:12]
 
-    # Return a rendered response to send to the client.
-    # We make use of the shortcut function to make our lives easier.
-    # Note that the first parameter is the template we wish to use.
+    # TOP 5
+    top_professors = Professor.objects.order_by('-overall_rating')[:5]
+
+     # BOTTOM 5
+    bottom_professors = Professor.objects.order_by('overall_rating')[:5]
+    context_dict = {'recent_ratings': recent_ratings, 'top_professors': top_professors,
+                    'bottom_professors': top_professors}
+
+    # Render the response and send it back!
     return render_to_response('rate_the_professor/index.html', context_dict, context)

@@ -66,7 +66,8 @@ class Professor(models.Model):
     website_url = models.URLField()
 
     def __unicode__(self):
-        return self.last_name
+        return u'%s %s - %s - ratings: %d overall: %.2f' % (self.first_name, self.last_name, self.fk_university,
+                                                            self.no_of_ratings, self.overall_rating)
 
 
 # Rating table will store all ratings submitted by a user and received by a professor
@@ -95,4 +96,6 @@ class Rating(models.Model):
     rating = property(_calculate_rating)
 
     def __unicode__(self):
-        return self.rating
+        return u'%s - %s %s Rating: %.2f - %s' % (self.comment, self.fk_professor.first_name,
+                                                  self.fk_professor.last_name, self.rating,
+                                                  self.fk_professor.fk_university)

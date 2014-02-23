@@ -10,14 +10,26 @@ def populate():
     department = add_department('School of Computing Science', university)
 
     from datetime import datetime
-    course = add_course('Internet Technology', university, department, datetime.now())
+    course_internet_technology = add_course('Internet Technology', university, department, datetime.now())
+    course_databases = add_course('Information Systems and Databases', university, department, datetime.now())
+    course_programming = add_course('Programming', university, department, datetime.now())
 
-    professor = add_professor('Mr', 'Leif', 'Azzopardi', university)
+    professor_leif = add_professor('Mr', 'Leif', 'Azzopardi', university)
+    professor_ron = add_professor('Mr', 'Ron', 'Poet', university)
+    professor_david = add_professor('Mr', 'David', 'Manlove', university)
+    professor_alessandro = add_professor('Mr', 'Alessandro', 'Vinciarelli', university)
 
-    rating = add_rating(professor, 'A good professor')
+    rating_leif = add_rating(professor_leif, 'Comedian!')
+    rating_ron = add_rating(professor_ron, 'Creepy!')
+    rating_david = add_rating(professor_david, 'Ordnung must sein!')
+    rating_alessndro = add_rating(professor_alessandro, 'Makes you feel the power!')
 
     # Update courses taught by a professor
-    professor.fk_courses_taught.add(course)
+    professor_leif.fk_courses_taught.add(course_internet_technology)
+    professor_ron.fk_courses_taught.add(course_databases)
+    professor_david.fk_courses_taught.add(course_programming)
+    professor_alessandro.fk_courses_taught.add(course_programming)
+
 
     # Print out what we have added to the user.
     for u in University.objects.all():

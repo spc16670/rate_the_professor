@@ -6,8 +6,39 @@
     </head>
 
     <body>
-        <h1>Tech4Leif</h1>
-        Rules!
+    <!-- RECENT COMMENTS -->
+        <h1>Recent Comments</h1>
+        {% if recent_ratings %}
+            <ul>
+                {% for rating in recent_ratings %}
+                <li>{{ rating }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no ratings present.</strong>
+        {% endif %}
+    <!-- TOP -->
+        <h1>Top Professors</h1>
+        {% if top_professors %}
+            <ul>
+                {% for professor in top_professors %}
+                <li>{{ professor }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no professors present.</strong>
+        {% endif %}
+    <!-- BOTTOM -->
+         <h1>Bottom Professors</h1>
+        {% if bottom_professors %}
+            <ul>
+                {% for professor in bottom_professors %}
+                <li>{{ professor }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no professors present.</strong>
+        {% endif %}
     </body>
 
 </html>
