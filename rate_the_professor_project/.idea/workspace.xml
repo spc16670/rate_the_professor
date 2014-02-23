@@ -65,7 +65,7 @@
       <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="0" selection-start="2939" selection-end="2939" vertical-scroll-proportion="0.2369146" vertical-offset="833" max-vertical-offset="1560">
+            <state line="92" column="16" selection-start="3817" selection-end="3817" vertical-scroll-proportion="0.8471074" vertical-offset="765" max-vertical-offset="1560">
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -252,8 +252,8 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -445,10 +445,14 @@
       <created>1392933952758</created>
       <updated>1392933952758</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="models updated">
+      <created>1393077894489</created>
+      <updated>1393077894489</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
-  <component name="TodoView" selected-index="4">
+  <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
       <are-packages-shown value="false" />
       <are-modules-shown value="false" />
@@ -614,7 +618,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="0" selection-start="2939" selection-end="2939" vertical-scroll-proportion="0.2369146" vertical-offset="833" max-vertical-offset="1560">
+        <state line="92" column="16" selection-start="3817" selection-end="3817" vertical-scroll-proportion="0.8471074" vertical-offset="765" max-vertical-offset="1560">
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>

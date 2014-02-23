@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
     # The additional attributes we wish to include.
-    fk_university_id = models.ForeignKey(University)
+    fk_university = models.ForeignKey(University)
     picture = models.ImageField(upload_to='users', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
@@ -26,7 +26,7 @@ class UserProfile(models.Model):
 
 # Admin table references ids of users who have been given admin rights
 class Admin(models.Model):
-    fk_user_id = models.OneToOneField(UserProfile)
+    fk_user = models.OneToOneField(UserProfile)
 
     def __unicode__(self):
         return self.user.username
@@ -40,7 +40,7 @@ class Professor(models.Model):
     overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     no_of_ratings = models.IntegerField(default=0)
     picture = models.ImageField(upload_to='professors', blank=True)
-    fk_university_id = models.ForeignKey(University)
+    fk_university = models.ForeignKey(University)
     website_url = models.URLField()
 
     def __unicode__(self):
@@ -49,8 +49,8 @@ class Professor(models.Model):
 
 # Rating table will store all ratings submitted by a user and received by a professor
 class Rating(models.Model):
-    fk_user_id = models.ForeignKey(UserProfile)
-    fk_professor_id = models.ForeignKey(Professor)
+    fk_user = models.ForeignKey(UserProfile)
+    fk_professor = models.ForeignKey(Professor)
     communication = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     knowledge = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     approachability = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
@@ -79,7 +79,7 @@ class Rating(models.Model):
 # Every university will have many departments and every course will belong to a department
 class Department(models.Model):
     department_name = models.CharField(max_length=512)
-    fk_university_id = models.ForeignKey(University)
+    fk_university = models.ForeignKey(University)
 
     def __unicode__(self):
         return self.department_name
@@ -88,9 +88,9 @@ class Department(models.Model):
 # Every course is delivered by one university and is taught by many professors
 class Course(models.Model):
     course_name = models.CharField(max_length=512)
-    fk_university_id = models.ForeignKey(University)
-    fk_department_id = models.ForeignKey(Department)
-    fk_professor_id = models.ManyToManyField(Professor)
+    fk_university = models.ForeignKey(University)
+    fk_department = models.ForeignKey(Department)
+    fk_professor = models.ManyToManyField(Professor)
     start_date = models.DateField(null=True)
 
     #TODO: format start_date to sth like MM-yy
