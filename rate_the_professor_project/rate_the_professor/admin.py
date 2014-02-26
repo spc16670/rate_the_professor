@@ -1,6 +1,7 @@
 from django.contrib import admin
 from rate_the_professor.models import Admin, UserProfile, Rating, University, Course, Professor, Department
 
+
 # Just pass for now
 class PageAdmin(admin.ModelAdmin):
     pass

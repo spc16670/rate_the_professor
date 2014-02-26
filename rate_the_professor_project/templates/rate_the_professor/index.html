@@ -22,7 +22,7 @@
         {% if top_professors %}
             <ul>
                 {% for professor in top_professors %}
-                <li>{{ professor }}</li>
+                <li><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor }}</a></li>
                 {% endfor %}
             </ul>
         {% else %}

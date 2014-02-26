@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rate the Professor</title>
+    </head>
+
+    <body>
+        <h1>{{ professor }}</h1>
+        {% if professor %}
+            {% if ratings %}
+            <ul>
+
+                {% for rating in ratings %}
+                <li>{{ rating.comment }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+                <strong>No ratings currently for professor</strong>
+            {% endif %}
+        {% else %}
+            The specified professor {{ professor }} does not exist!
+        {% endif %}
+    </body>
+</html>
