@@ -91,7 +91,7 @@ def add_course(course_name, university, department, start_date):
     c = Course.objects.get_or_create(course_name=course_name, fk_university=university, fk_department=department,
                                      start_date=start_date)[0]
     return c
-
+# a new comment
 # Start execution here!
 if __name__ == '__main__':
     print "Starting RateTheProfessor population script..."
