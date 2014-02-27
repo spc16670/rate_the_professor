@@ -1,44 +1,90 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+<head>
+	<title>Rate The Professor</title>
 
-    <head>
-        <title>Rate the Professor</title>
-    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+    <link href="{% static 'css/bootstrap-responsive.css' %}" rel="stylesheet">
 
-    <body>
-    <!-- RECENT COMMENTS -->
-        <h1>Recent Comments</h1>
-        {% if recent_ratings %}
-            <ul>
-                {% for rating in recent_ratings %}
-                <li>{{ rating }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no ratings present.</strong>
-        {% endif %}
-    <!-- TOP -->
-        <h1>Top Professors</h1>
-        {% if top_professors %}
-            <ul>
-                {% for professor in top_professors %}
-                <li><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no professors present.</strong>
-        {% endif %}
-    <!-- BOTTOM -->
-         <h1>Bottom Professors</h1>
-        {% if bottom_professors %}
-            <ul>
-                {% for professor in bottom_professors %}
-                <li>{{ professor }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no professors present.</strong>
-        {% endif %}
-    </body>
+	<style type="text/css">
+		.navbardiv {
+			height: 200px;
+			padding: 20px;
+		}
+	</style>
+</head>
 
+<body>
+
+	<div class="container">
+
+		<!-- NAVIGATION BAR -->
+	    <div class="navbardiv">
+		    <a class="brand" href="#"><img src="{% static 'logo.png' %}" width="300px" class="img-rounded"></a>
+	    </div>
+
+		    <!-- MOST RECENT RATINGS -->
+		    <div class="span6 well">
+
+		    	<h3>Recent Ratings</h3>
+		        {% if recent_ratings %}
+			    	<table class="table">
+		                {% for rating in recent_ratings %}
+			    		<tr>
+			                <td>{{ rating }}</td>
+			    			<td>Logo</td><td>Lecturer's Name</td><td>Rating</td>
+			    		</tr>
+		                {% endfor %}
+			    	</table>
+		        {% else %}
+		            <strong>There are no ratings present.</strong>
+		        {% endif %}
+		    </div>
+
+		    <!-- TOP 5 LECTURERS -->
+		    <div class="span4 well">
+		        <h4>Top Professors</h4>
+		        {% if top_professors %}
+			    	<table class="table">
+		                {% for professor in top_professors %}
+		                <tr>
+		                	<td>{{ professor }}</td>
+		                </tr>
+		                {% endfor %}
+		            </table>
+		        {% else %}
+		            <strong>There are no professors present.</strong>
+		        {% endif %}
+		    </div>
+
+		    <!-- BOTTOM 5 LECTURERS -->
+		    <div class="span4 well">
+		        <h4>Bottom 5 Professors</h4>
+		        {% if bottom_professors %}
+			    	<table class="table">
+		                {% for professor in bottom_professors %}
+			            <tr>
+			                <td>{{ professor }}</td>
+			            </tr>
+		                {% endfor %}
+		            </table>
+		        {% else %}
+		            <strong>There are no professors present.</strong>
+		        {% endif %}
+		    </div>
+    </div>
+
+    <footer>
+    <div class="container">
+        <p>&copy; iTech4Leif 2014</p>
+    </div>
+	</footer>
+
+    <script src="{% static 'js/jquery-2.0.3.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
 </html>
