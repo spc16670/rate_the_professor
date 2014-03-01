@@ -18,6 +18,7 @@ def populate():
     course_ap = add_course('Advanced Programming', university, department, datetime.now())
     course_re = add_course('Requirements Engineering', university, department, datetime.now())
     course_ads = add_course('Algorithms and Data Structures', university, department, datetime.now())
+    course_cs = add_course('Cyber Security', university, department, datetime.now())
     
     course_tlac = add_course('Topics in Linear Algebra and Calculus', university, department_math, datetime.now())
     course_mrdb = add_course('Mechanics of Rigid and Deformable Bodies', university, department_math, datetime.now())
@@ -56,6 +57,7 @@ def populate():
     # Update courses taught by a professor
     professor_leif.fk_courses_taught.add(course_internet_technology)
     professor_ron.fk_courses_taught.add(course_databases)
+    professor_ron.fk_courses_taught.add(course_cs)
     professor_david.fk_courses_taught.add(course_programming)
     professor_alessandro.fk_courses_taught.add(course_programming)
     professor_julie.fk_courses_taught.add(course_se)
