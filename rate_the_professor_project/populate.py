@@ -16,6 +16,8 @@ def populate():
     course_programming = add_course('Programming', university, department, datetime.now())
     course_se = add_course('Software Engeneering', university, department, datetime.now())
     course_ap = add_course('Advanced Programming', university, department, datetime.now())
+    course_re = add_course('Requirements Engineering', university, department, datetime.now())
+    course_ads = add_course('Algorithms and Data Structures', university, department, datetime.now())
     
     course_tlac = add_course('Topics in Linear Algebra and Calculus', university, department_math, datetime.now())
     course_mrdb = add_course('Mechanics of Rigid and Deformable Bodies', university, department_math, datetime.now())
@@ -29,6 +31,8 @@ def populate():
     professor_alessandro = add_professor('Mr', 'Alessandro', 'Vinciarelli', university)
     professor_julie = add_professor('Dr.', 'Julie', 'Williamson', university)
     professor_simon = add_professor('Dr.', 'Simon', 'Gay', university)
+    professor_inah = add_professor('Dr.', 'Inah', 'Omoronyia', university)
+    professor_davitw = add_professor('Dr.', 'David', 'Watt', university)
     
     professor_tara = add_professor('Dr.', 'Tara', 'Brendle', university)
     professor_andrewbaggaley = add_professor('Dr.', 'Andrew', 'Baggaley', university)
@@ -37,14 +41,18 @@ def populate():
     
     rating_leif = add_rating(professor_leif, 'Comedian!')
     rating_ron = add_rating(professor_ron, 'Creepy!')
-    rating_ron = add_rating(professor_ron, 'Boring')
-    rating_ron = add_rating(professor_ron, 'I want to go to sleep')
+    rating_ron2 = add_rating(professor_ron, 'Boring')
+    rating_ron3 = add_rating(professor_ron, 'I want to go to sleep')
     rating_david = add_rating(professor_david, 'Ordnung must sein!')
-    rating_david = add_rating(professor_david, 'Pedantic')
+    rating_david2 = add_rating(professor_david, 'Pedantic')
     rating_alessndro = add_rating(professor_alessandro, 'Makes you feel the power!')
     rating_julie = add_rating(professor_julie, 'Ok')
+    rating_julie2 = add_rating(professor_julie, 'Ok')
     rating_simon = add_rating(professor_simon, 'Bad notes')
-
+    rating_inah = add_rating(professor_inah, 'Confusing')
+    rating_inah2 = add_rating(professor_inah, 'I dont know what to write')
+    rating_davidw = add_rating(professor_davidw, 'Everything fine')
+    
     # Update courses taught by a professor
     professor_leif.fk_courses_taught.add(course_internet_technology)
     professor_ron.fk_courses_taught.add(course_databases)
@@ -52,6 +60,8 @@ def populate():
     professor_alessandro.fk_courses_taught.add(course_programming)
     professor_julie.fk_courses_taught.add(course_se)
     professor_simon.fk_courses_taught.add(course_ap)
+    professor_inah.fk_courses_taught.add(course_re)
+    professor_davidw.fk_courses_taught.add(course_ads)
     
     #Mathematics dep
     professor_davidbourne.fk_courses_taught.add(course_tlac)
