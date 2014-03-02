@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
     # The additional attributes we wish to include.
-    fk_university = models.ForeignKey(University)
+    university = models.ForeignKey(University)
     picture = models.ImageField(upload_to='users', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!

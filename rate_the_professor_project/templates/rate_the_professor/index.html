@@ -25,6 +25,15 @@
 		<!-- NAVIGATION BAR -->
 	    <div class="navbardiv">
 		    <a class="brand" href="#"><img src="{% static 'logo.png' %}" width="300px" class="img-rounded"></a>
+
+
+            {% if user.is_authenticated %}
+                <a href="/rate_the_professor/logout/">Logout {{ user.username }}</a><br />
+            {% else %}
+            <!-- Coung - please feel free to turn the login.html into a e.g. a pop up  -->
+                <a href="/rate_the_professor/register/">Register Here</a><br>
+                <a href="/rate_the_professor/login/">Login</a>
+            {% endif %}
 	    </div>
 
 		    <!-- MOST RECENT RATINGS -->
@@ -52,7 +61,8 @@
 			    	<table class="table">
 		                {% for professor in top_professors %}
 		                <tr>
-		                	<td>{{ professor }}</td>
+                            <!-- turned into a link to see if isauthenticated logic kicks in when visitng a professors page-->
+		                	<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor }}</a></td>
 		                </tr>
 		                {% endfor %}
 		            </table>

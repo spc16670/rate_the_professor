@@ -20,5 +20,12 @@
         {% else %}
             The specified professor {{ professor }} does not exist!
         {% endif %}
+
+
+        {% if user.is_authenticated %}
+             <strong>Leave a comment</strong>
+        {% else %}
+             <strong>Log In to leave comments</strong>
+        {% endif %}
     </body>
 </html>

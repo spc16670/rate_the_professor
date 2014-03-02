@@ -1,5 +1,20 @@
 from django import forms
-from rate_the_professor.models import Rating, Professor
+from rate_the_professor.models import Rating, Professor, UserProfile
+from django.contrib.auth.models import User
+
+
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password')
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('university', 'picture')
 
 
 class RatingForm(forms.ModelForm):
@@ -41,4 +56,4 @@ class ProfessorForm(forms.ModelForm):
         # This way we don't need every field in the model present.
         # Some fields may allow NULL values, so we may not want to include them...
         # Here, we are hiding the foreign key.
-        fields = ('title', 'first_name', 'last_name', '', '', 'website_url')
+        fields = ('title', 'first_name', 'last_name', 'website_url')

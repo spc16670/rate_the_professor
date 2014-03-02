@@ -33,7 +33,7 @@ def populate():
     professor_julie = add_professor('Dr.', 'Julie', 'Williamson', university)
     professor_simon = add_professor('Dr.', 'Simon', 'Gay', university)
     professor_inah = add_professor('Dr.', 'Inah', 'Omoronyia', university)
-    professor_davitw = add_professor('Dr.', 'David', 'Watt', university)
+    professor_davidw = add_professor('Dr.', 'David', 'Watt', university)
     
     professor_tara = add_professor('Dr.', 'Tara', 'Brendle', university)
     professor_andrewbaggaley = add_professor('Dr.', 'Andrew', 'Baggaley', university)
@@ -69,8 +69,8 @@ def populate():
     professor_davidbourne.fk_courses_taught.add(course_tlac)
     professor_davidbourne.fk_courses_taught.add(course_mrdb)
     professor_andrewbaggaley.fk_courses_taught.add(course_mm)
-    professor_tarabrendle.fk_courses_taught.add(course_aa) 
-    professor_christinacobbold.fk_courses_taught.add(course_mc) 
+    professor_tara.fk_courses_taught.add(course_aa)
+    professor_christina.fk_courses_taught.add(course_mc)
     # Print out what we have added to the user.
     for u in University.objects.all():
         for p in Professor.objects.filter(fk_university=u):
