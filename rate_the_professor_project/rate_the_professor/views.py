@@ -4,10 +4,8 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
-from rate_the_professor.models import Rating, Professor
-from rate_the_professor.forms import UserForm, UserProfileForm
-
-
+from rate_the_professor.models import Rating, Professor, UserProfile
+from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
 
 def index(request):
     context = RequestContext(request)
@@ -27,11 +25,28 @@ def professor(request, professor_id):
     context_dict = {'professor_id': professor_id}
     try:
         professor = Professor.objects.get(id=professor_id)
-        ratings = Rating.objects.filter(fk_professor=professor_id)
+        ratings = Rating.objects.filter(professor=professor_id)
         context_dict['ratings'] = ratings
         context_dict['professor'] = professor
     except Professor.DoesNotExist:
         pass
+        # A HTTP POST?
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # Save the new category to the database.
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.professor = Professor(id=professor_id)
+            form.save()
+            context_dict['form'] = form
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            print form.errors
+    else:
+        form = RatingForm()
+        context_dict['form'] = form
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
 

@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0fdaadbd-7116-47ff-8a26-6e5c5fea5112" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rate_the_professor/login.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rate_the_professor/register.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rate_the_professor/add_rating.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rate_the_professor/forms.py" afterPath="$PROJECT_DIR$/rate_the_professor/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rate_the_professor/index.html" afterPath="$PROJECT_DIR$/templates/rate_the_professor/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rate_the_professor/models.py" afterPath="$PROJECT_DIR$/rate_the_professor/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/populate.py" afterPath="$PROJECT_DIR$/populate.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rate_the_professor/professor.html" afterPath="$PROJECT_DIR$/templates/rate_the_professor/professor.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rate_the_professor/urls.py" afterPath="$PROJECT_DIR$/rate_the_professor/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rate_the_professor/views.py" afterPath="$PROJECT_DIR$/rate_the_professor/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -34,19 +31,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="57" selection-start="234" selection-end="234" vertical-scroll-proportion="0.0" vertical-offset="1682" max-vertical-offset="2280">
+            <state line="38" column="44" selection-start="1649" selection-end="1649" vertical-scroll-proportion="0.53038675" vertical-offset="90" max-vertical-offset="2505">
+              <folding>
+                <element signature="e#26#68#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_rating.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/add_rating.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="210">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/login.html">
+      <file leaf-file-name="tests.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rate_the_professor/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="71" selection-start="308" selection-end="308" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="405">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
               <folding />
             </state>
           </provider>
@@ -55,11 +63,9 @@
       <file leaf-file-name="forms.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="19" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="975">
+            <state line="31" column="80" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="10" max-vertical-offset="915">
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
-                <marker date="1393736250564" expanded="true" signature="1341:2255" placeholder="..." />
-                <marker date="1393736250564" expanded="true" signature="1838:2255" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -68,7 +74,16 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="56" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+            <state line="4" column="82" selection-start="227" selection-end="227" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="71" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="405">
               <folding />
             </state>
           </provider>
@@ -83,48 +98,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="professor.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/professor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="36" selection-start="643" selection-end="643" vertical-scroll-proportion="-15.625" vertical-offset="0" max-vertical-offset="540">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index2.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index2.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="20" selection-start="618" selection-end="697" vertical-scroll-proportion="-13.125" vertical-offset="45" max-vertical-offset="750">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="26" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1590">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rate_the_professor/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+            <state line="63" column="37" selection-start="2216" selection-end="2216" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1605">
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index.html">
+      <file leaf-file-name="professor.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/professor.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="63" column="84" selection-start="1986" selection-end="1986" vertical-scroll-proportion="0.5487805" vertical-offset="630" max-vertical-offset="1575">
+            <state line="24" column="18" selection-start="582" selection-end="586" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="795">
               <folding />
             </state>
           </provider>
@@ -159,14 +147,15 @@
         <option value="$PROJECT_DIR$/rate_the_professor_project/urls.py" />
         <option value="$PROJECT_DIR$/rate_the_professor/admin.py" />
         <option value="$PROJECT_DIR$/templates/rate_the_professor/register.html" />
-        <option value="$PROJECT_DIR$/rate_the_professor/models.py" />
-        <option value="$PROJECT_DIR$/rate_the_professor/forms.py" />
-        <option value="$PROJECT_DIR$/populate.py" />
-        <option value="$PROJECT_DIR$/rate_the_professor/urls.py" />
-        <option value="$PROJECT_DIR$/rate_the_professor/views.py" />
         <option value="$PROJECT_DIR$/templates/rate_the_professor/login.html" />
-        <option value="$PROJECT_DIR$/templates/rate_the_professor/professor.html" />
         <option value="$PROJECT_DIR$/templates/rate_the_professor/index.html" />
+        <option value="$PROJECT_DIR$/templates/rate_the_professor/add_professor.html" />
+        <option value="$PROJECT_DIR$/populate.py" />
+        <option value="$PROJECT_DIR$/templates/rate_the_professor/professor.html" />
+        <option value="$PROJECT_DIR$/rate_the_professor/forms.py" />
+        <option value="$PROJECT_DIR$/rate_the_professor/urls.py" />
+        <option value="$PROJECT_DIR$/rate_the_professor/models.py" />
+        <option value="$PROJECT_DIR$/rate_the_professor/views.py" />
       </list>
     </option>
   </component>
@@ -201,7 +190,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -300,6 +288,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -307,8 +296,8 @@
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -323,130 +312,6 @@
       <recent name="$PROJECT_DIR$/media/professors" />
       <recent name="$PROJECT_DIR$/templates/rate_the_professor" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree">
-    <UpdateInfo date="Moments ago" ActionInfo="_Update">
-      <UpdatedFiles>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated from server" />
-          <option name="myStatusName" value="Changed on server" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CHANGED_ON_SERVER" />
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Updated" />
-            <option name="myStatusName" value="Changed" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="UPDATED" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/populate.py</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/templates/rate_the_professor/index.html</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Created" />
-            <option name="myStatusName" value="Created" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="CREATED" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/css/bootstrap-responsive.css</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/css/bootstrap-responsive.min.css</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/css/bootstrap.css</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/css/bootstrap.min.css</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/img/glyphicons-halflings-white.png</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/img/glyphicons-halflings.png</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/js/bootstrap.js</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/js/bootstrap.min.js</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/js/jquery-2.1.0.min.js</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/static/logo.png</PATH>
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/templates/rate_the_professor/index2.html</PATH>
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Deleted" />
-            <option name="myStatusName" value="Deleted" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="true" />
-            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          </FILE-GROUP>
-          <FILE-GROUP>
-            <option name="myUpdateName" value="Restored" />
-            <option name="myStatusName" value="Will be restored" />
-            <option name="mySupportsDeletion" value="false" />
-            <option name="myCanBeAbsent" value="false" />
-            <option name="myId" value="RESTORED" />
-          </FILE-GROUP>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Modified" />
-          <option name="myStatusName" value="Modified" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MODIFIED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Skipped" />
-          <option name="myStatusName" value="Skipped" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SKIPPED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with conflicts" />
-          <option name="myStatusName" value="Will be merged with conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_CONFLICTS" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with tree conflicts" />
-          <option name="myStatusName" value="Merged with tree conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged with property conflicts" />
-          <option name="myStatusName" value="Will be merged with property conflicts" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Merged" />
-          <option name="myStatusName" value="Will be merged" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="MERGED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Not in repository" />
-          <option name="myStatusName" value="Not in repository" />
-          <option name="mySupportsDeletion" value="true" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UNKNOWN" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally added" />
-          <option name="myStatusName" value="Locally added" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_ADDED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Locally removed" />
-          <option name="myStatusName" value="Locally removed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="LOCALLY_REMOVED" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Switched" />
-          <option name="myStatusName" value="Switched" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="SWITCHED" />
-        </FILE-GROUP>
-      </UpdatedFiles>
-    </UpdateInfo>
   </component>
   <component name="RunManager">
     <configuration default="true" type="tests" factoryName="py.test">
@@ -640,7 +505,11 @@
       <created>1393163759366</created>
       <updated>1393163759366</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="authentication added">
+      <created>1393737927713</created>
+      <updated>1393737927713</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -670,17 +539,17 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19206008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18125" sideWeight="0.67060083" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32914287" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -698,7 +567,8 @@
     <MESSAGE value="models updated" />
     <MESSAGE value="simple population script added" />
     <MESSAGE value="simple population script slightly improved" />
-    <option name="LAST_COMMIT_MESSAGE" value="simple population script slightly improved" />
+    <MESSAGE value="authentication added" />
+    <option name="LAST_COMMIT_MESSAGE" value="authentication added" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -711,30 +581,31 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="57" selection-start="2345" selection-end="2345" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1305">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="0" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="300">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor_project/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="0" selection-start="4973" selection-end="4973" vertical-scroll-proportion="0.0" vertical-offset="1630" max-vertical-offset="2625">
-          <folding />
-        </state>
+        <state line="138" column="0" selection-start="4973" selection-end="4973" vertical-scroll-proportion="0.0" vertical-offset="1630" max-vertical-offset="2625" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor_project/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="55" selection-start="561" selection-end="561" vertical-scroll-proportion="0.25083613" vertical-offset="0" max-vertical-offset="598">
+        <state line="10" column="55" selection-start="561" selection-end="561" vertical-scroll-proportion="0.25083613" vertical-offset="0" max-vertical-offset="598" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="71" selection-start="308" selection-end="308" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="405">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rate_the_professor_project/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="4" selection-start="718" selection-end="718" vertical-scroll-proportion="0.451505" vertical-offset="0" max-vertical-offset="598" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="20" selection-start="618" selection-end="697" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="750">
           <folding />
         </state>
       </provider>
@@ -742,9 +613,21 @@
     <entry file="file://$PROJECT_DIR$/rate_the_professor/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="0" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/populate.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="101" column="38" selection-start="5344" selection-end="5351" vertical-scroll-proportion="1.7950237" vertical-offset="0" max-vertical-offset="1770">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="26" selection-start="502" selection-end="502" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="1575">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -755,77 +638,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/rate_the_professor/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="905">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="19" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="975">
+        <state line="31" column="80" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="10" max-vertical-offset="915">
           <folding>
             <element signature="e#0#24#0" expanded="true" />
-            <marker date="1393736250564" expanded="true" signature="1341:2255" placeholder="..." />
-            <marker date="1393736250564" expanded="true" signature="1838:2255" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/populate.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="18" selection-start="4332" selection-end="4332" vertical-scroll-proportion="1.7809365" vertical-offset="0" max-vertical-offset="1770">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="26" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1590">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rate_the_professor/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="57" selection-start="234" selection-end="234" vertical-scroll-proportion="0.0" vertical-offset="1682" max-vertical-offset="2280">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="71" selection-start="308" selection-end="308" vertical-scroll-proportion="-6.25" vertical-offset="0" max-vertical-offset="405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rate_the_professor_project/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="4" selection-start="718" selection-end="718" vertical-scroll-proportion="0.451505" vertical-offset="0" max-vertical-offset="598">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rate_the_professor/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="56" selection-start="396" selection-end="396" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+        <state line="4" column="82" selection-start="227" selection-end="227" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="195">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/add_rating.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="905">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/professor.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="36" selection-start="643" selection-end="643" vertical-scroll-proportion="-15.625" vertical-offset="0" max-vertical-offset="540">
+        <state line="24" column="18" selection-start="582" selection-end="586" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="795">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index2.html">
+    <entry file="file://$PROJECT_DIR$/rate_the_professor/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="20" selection-start="618" selection-end="697" vertical-scroll-proportion="-13.125" vertical-offset="45" max-vertical-offset="750">
-          <folding />
+        <state line="63" column="37" selection-start="2216" selection-end="2216" vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1605">
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rate_the_professor/index.html">
+    <entry file="file://$PROJECT_DIR$/rate_the_professor/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="84" selection-start="1986" selection-end="1986" vertical-scroll-proportion="0.5487805" vertical-offset="630" max-vertical-offset="1575">
-          <folding />
+        <state line="38" column="44" selection-start="1649" selection-end="1649" vertical-scroll-proportion="0.53038675" vertical-offset="90" max-vertical-offset="2505">
+          <folding>
+            <element signature="e#26#68#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

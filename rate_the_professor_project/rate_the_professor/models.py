@@ -26,7 +26,7 @@ class UserProfile(models.Model):
 
 # Admin table references ids of users who have been given admin rights
 class Admin(models.Model):
-    fk_user = models.OneToOneField(UserProfile)
+    user = models.OneToOneField(UserProfile)
 
     def __unicode__(self):
         return self.user.username
@@ -35,7 +35,7 @@ class Admin(models.Model):
 # Every university will have many departments and every course will belong to a department
 class Department(models.Model):
     department_name = models.CharField(max_length=512)
-    fk_university = models.ForeignKey(University)
+    university = models.ForeignKey(University)
 
     def __unicode__(self):
         return self.department_name
@@ -44,8 +44,8 @@ class Department(models.Model):
 # Every course is delivered by one university and is taught by many professors
 class Course(models.Model):
     course_name = models.CharField(max_length=512)
-    fk_university = models.ForeignKey(University)
-    fk_department = models.ForeignKey(Department)
+    university = models.ForeignKey(University)
+    department = models.ForeignKey(Department)
     start_date = models.DateField()
 
     #TODO: format start_date to sth like MM-yy
@@ -61,19 +61,19 @@ class Professor(models.Model):
     overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     no_of_ratings = models.IntegerField(default=1)
     picture = models.ImageField(upload_to='professors', blank=True)
-    fk_university = models.ForeignKey(University)
-    fk_courses_taught = models.ManyToManyField(Course)
+    university = models.ForeignKey(University)
+    courses_taught = models.ManyToManyField(Course)
     website_url = models.URLField()
 
     def __unicode__(self):
-        return u'%s %s - %s - ratings: %d overall: %.2f' % (self.first_name, self.last_name, self.fk_university,
+        return u'%s %s - %s - ratings: %d overall: %.2f' % (self.first_name, self.last_name, self.university,
                                                             self.no_of_ratings, self.overall_rating)
 
 
 # Rating table will store all ratings submitted by a user and received by a professor
 class Rating(models.Model):
-    fk_user = models.ForeignKey(UserProfile, null=True)
-    fk_professor = models.ForeignKey(Professor)
+    user = models.ForeignKey(User, null=True)
+    professor = models.ForeignKey(Professor)
     communication = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     knowledge = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     approachability = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
@@ -96,6 +96,6 @@ class Rating(models.Model):
     rating = property(_calculate_rating)
 
     def __unicode__(self):
-        return u'%s - %s %s Rating: %.2f - %s' % (self.comment, self.fk_professor.first_name,
-                                                  self.fk_professor.last_name, self.rating,
-                                                  self.fk_professor.fk_university)
+        return u'%s - %s %s Rating: %.2f - %s' % (self.comment, self.professor.first_name,
+                                                  self.professor.last_name, self.rating,
+                                                  self.professor.university)

@@ -55,25 +55,25 @@ def populate():
     rating_davidw = add_rating(professor_davidw, 'Everything fine')
     
     # Update courses taught by a professor
-    professor_leif.fk_courses_taught.add(course_internet_technology)
-    professor_ron.fk_courses_taught.add(course_databases)
-    professor_ron.fk_courses_taught.add(course_cs)
-    professor_david.fk_courses_taught.add(course_programming)
-    professor_alessandro.fk_courses_taught.add(course_programming)
-    professor_julie.fk_courses_taught.add(course_se)
-    professor_simon.fk_courses_taught.add(course_ap)
-    professor_inah.fk_courses_taught.add(course_re)
-    professor_davidw.fk_courses_taught.add(course_ads)
+    professor_leif.courses_taught.add(course_internet_technology)
+    professor_ron.courses_taught.add(course_databases)
+    professor_ron.courses_taught.add(course_cs)
+    professor_david.courses_taught.add(course_programming)
+    professor_alessandro.courses_taught.add(course_programming)
+    professor_julie.courses_taught.add(course_se)
+    professor_simon.courses_taught.add(course_ap)
+    professor_inah.courses_taught.add(course_re)
+    professor_davidw.courses_taught.add(course_ads)
     
     #Mathematics dep
-    professor_davidbourne.fk_courses_taught.add(course_tlac)
-    professor_davidbourne.fk_courses_taught.add(course_mrdb)
-    professor_andrewbaggaley.fk_courses_taught.add(course_mm)
-    professor_tara.fk_courses_taught.add(course_aa)
-    professor_christina.fk_courses_taught.add(course_mc)
+    professor_davidbourne.courses_taught.add(course_tlac)
+    professor_davidbourne.courses_taught.add(course_mrdb)
+    professor_andrewbaggaley.courses_taught.add(course_mm)
+    professor_tara.courses_taught.add(course_aa)
+    professor_christina.courses_taught.add(course_mc)
     # Print out what we have added to the user.
     for u in University.objects.all():
-        for p in Professor.objects.filter(fk_university=u):
+        for p in Professor.objects.filter(university=u):
             print "- {0} - {1}".format(str(u), str(p))
 
 
@@ -85,22 +85,22 @@ def add_university(name, url):
 
 def add_professor(title, first_name, last_name, university):
     p = Professor.objects.get_or_create(title=title, first_name=first_name, last_name=last_name,
-                                        fk_university=university)[0]
+                                        university=university)[0]
     return p
 
 
 def add_rating(professor, comment):
-    r = Rating.objects.get_or_create(fk_professor=professor, comment=comment)[0]
+    r = Rating.objects.get_or_create(professor=professor, comment=comment)[0]
     return r
 
 
 def add_department(name, university):
-    d = Department.objects.get_or_create(department_name=name, fk_university=university)[0]
+    d = Department.objects.get_or_create(department_name=name, university=university)[0]
     return d
 
 
 def add_course(course_name, university, department, start_date):
-    c = Course.objects.get_or_create(course_name=course_name, fk_university=university, fk_department=department,
+    c = Course.objects.get_or_create(course_name=course_name, university=university, department=department,
                                      start_date=start_date)[0]
     return c
 # a new comment
