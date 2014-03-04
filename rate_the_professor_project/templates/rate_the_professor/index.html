@@ -44,8 +44,11 @@
 			    	<table class="table">
 		                {% for rating in recent_ratings %}
 			    		<tr>
-			                <td>{{ rating }}</td>
-			    			<td>Logo</td><td>Lecturer's Name</td><td>Rating</td>
+			                <td>{{ rating.comment }}</td>
+                            <!-- Work out how to use PIL to resize an image here -->
+			    			<td>Logo</td>
+                            <td>{{ rating.professor.full_name }}</td>
+                            <td>{{ rating.rating }}</td>
 			    		</tr>
 		                {% endfor %}
 			    	</table>
@@ -60,9 +63,11 @@
 		        {% if top_professors %}
 			    	<table class="table">
 		                {% for professor in top_professors %}
+                         <!-- Mark them GREEN -->
 		                <tr>
                             <!-- turned into a link to see if isauthenticated logic kicks in when visitng a professors page-->
-		                	<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor }}</a></td>
+		                	<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a></td>
+                            <td>{{ professor.overall_rating }}</td>
 		                </tr>
 		                {% endfor %}
 		            </table>
@@ -78,7 +83,9 @@
 			    	<table class="table">
 		                {% for professor in bottom_professors %}
 			            <tr>
-			                <td>{{ professor }}</td>
+                            <!-- Mark them RED -->
+			                <td>{{ professor.full_name }}</td>
+                            <td>{{ professor.overall_rating }}</td>
 			            </tr>
 		                {% endfor %}
 		            </table>

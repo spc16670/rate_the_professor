@@ -65,6 +65,10 @@ class Professor(models.Model):
     courses_taught = models.ManyToManyField(Course)
     website_url = models.URLField()
 
+    def _full_name(self):
+        return u'%s %s %s ' % (self.title, self.first_name, self.last_name)
+    full_name = property(_full_name)
+
     def __unicode__(self):
         return u'%s %s - %s - ratings: %d overall: %.2f' % (self.first_name, self.last_name, self.university,
                                                             self.no_of_ratings, self.overall_rating)

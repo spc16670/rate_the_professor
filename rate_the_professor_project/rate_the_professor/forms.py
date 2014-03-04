@@ -2,13 +2,6 @@ from django import forms
 from rate_the_professor.models import Rating, Professor, UserProfile, Course
 from django.contrib.auth.models import User
 
-TITLE_CHOICES = (
-    ('MR', 'Mr.'),
-    ('MRS', 'Mrs.'),
-    ('MS', 'Ms.'),
-)
-
-
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -24,14 +17,13 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RatingForm(forms.ModelForm):
-    communication = forms.DecimalField(initial=2.5)
-    knowledge = forms.DecimalField(initial=2.5)
-    approachability = forms.DecimalField(initial=2.5)
-    enthusiasm = forms.DecimalField(initial=2.5)
-    clarity = forms.DecimalField(initial=2.5)
-    awesomeness = forms.DecimalField(max_digits=2, decimal_places=1,initial=2.5)
-    comment = forms.CharField(widget=forms.TextInput(), max_length=1024, help_text="Please enter the comment here.")
-
+    communication = forms.DecimalField(initial=2.5, help_text="Communication")
+    knowledge = forms.DecimalField(initial=2.5, help_text="Knowledge")
+    approachability = forms.DecimalField(initial=2.5, help_text="Approachability")
+    enthusiasm = forms.DecimalField(initial=2.5, help_text="Enthusiasm")
+    clarity = forms.DecimalField(initial=2.5, help_text="Clarity")
+    awesomeness = forms.DecimalField(max_digits=2, decimal_places=1, initial=2.5, help_text="Awesomeness")
+    comment = forms.CharField(widget=forms.TextInput(), max_length=1024, help_text="Comment")
     # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model
