@@ -24,11 +24,11 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RatingForm(forms.ModelForm):
-    communication = forms.DecimalField(widget=forms.NumberInput, initial=2.5)
-    knowledge = forms.DecimalField(widget=forms.NumberInput, initial=2.5)
-    approachability = forms.DecimalField(widget=forms.NumberInput, initial=2.5)
-    enthusiasm = forms.DecimalField(widget=forms.NumberInput, initial=2.5)
-    clarity = forms.DecimalField(widget=forms.NumberInput, initial=2.5)
+    communication = forms.DecimalField(initial=2.5)
+    knowledge = forms.DecimalField(initial=2.5)
+    approachability = forms.DecimalField(initial=2.5)
+    enthusiasm = forms.DecimalField(initial=2.5)
+    clarity = forms.DecimalField(initial=2.5)
     awesomeness = forms.DecimalField(max_digits=2, decimal_places=1,initial=2.5)
     comment = forms.CharField(widget=forms.TextInput(), max_length=1024, help_text="Please enter the comment here.")
 
