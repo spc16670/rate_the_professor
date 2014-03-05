@@ -1,48 +1,78 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rate the Professor</title>
-    </head>
+{% extends 'rate_the_professor/base.html' %}
+{% load static %}
 
-    <body>
-        <h1>{{ professor }}</h1>
-        {% if professor %}
+{% block body_block %}
+    {% if professor %}
+
+        <!-- PROFESSOR DETAILS -->
+        <div class="span5 offset1 well">
+
+            <!-- PROFESSOR PICTURE -->
+            <div class="profpic">
+                <img src="{% static 'img/profpic.png' %}">
+            </div>
+
+            <!-- PROFESSOR DETAILS -->
+            <div class="profinfo">
+                <table>
+                    <tr><td>{{ professor.first_name }} {{ professor.last_name }}</td></tr>
+                    <tr><td>{{ professor.university }}</td></tr>
+                    <tr><td><!-- Courses taught in here!! --></td></tr>
+                    <tr><td>Rating: {{ professor.overall_rating }}</td></tr>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- PROFESSOR RATINGS DETAILS -->
+        <div class="span3 well">
+            <h4>Professor Ratings!</h4>
+            <table>
+                <tr><td>Communication: {{ ratings.communication }}</td></tr>
+                <tr><td>Knowledge: {{ ratings.knowledge }}</td></tr>
+                <tr><td>Approachability: {{ ratings.approachability }}</td></tr>
+                <tr><td>Enthusiasm: {{ ratings.enthusiasm }}</td></tr>
+                <tr><td>Clarity: {{ ratings.clarity }}</td></tr>
+                <tr><td>Awesomeness: {{ ratings.awesomeness }}</td></tr>
+            </table>
+
+            <!-- FURTHER COMMENTS -->
+            {% if user.is_authenticated %}
+                 <strong>Leave a comment</strong>
+                 <form id="rating_form" method="post" action="/rate_the_professor/professor/{{ professor.id }}/">
+                    {% csrf_token %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    {% for field in form.visible_fields %}
+                        {{ field.errors }}
+                        {{ field.help_text}}
+                        {{ field }}
+                    {% endfor %}
+                    <input type="submit" name="submit" value="Create Rating" />
+                </form>
+            {% else %}
+                 <strong>Log In to leave comments</strong>
+            {% endif %}
+        </div>
+        
+        <!-- RECENT RATINGS -->
+        <div class="span5 offset1 well">
+            <h4>Recent Ratings</h4>
             {% if ratings %}
-            <ul>
-
-                {% for rating in ratings %}
-                <li>{{ rating.comment }}</li>
-                {% endfor %}
-            </ul>
+                <ul>
+                    {% for rating in ratings %}
+                    <li>{{ rating.comment }}</li>
+                    {% endfor %}
+                </ul>
             {% else %}
                 <strong>No ratings currently for professor</strong>
             {% endif %}
-        {% else %}
-            The specified professor {{ professor }} does not exist!
-        {% endif %}
+        </div>
 
+    {% else %}
+        The specified professor {{ professor }} does not exist!
+    {% endif %}
 
-        {% if user.is_authenticated %}
-
-             <strong>Leave a comment</strong>
-             <form id="rating_form" method="post" action="/rate_the_professor/professor/{{ professor.id }}/">
-
-                {% csrf_token %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
-
-                {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text}}
-                    {{ field }}
-                {% endfor %}
-
-                <input type="submit" name="submit" value="Create Rating" />
-            </form>
-
-        {% else %}
-             <strong>Log In to leave comments</strong>
-        {% endif %}
-    </body>
-</html>
+{% endblock %}
