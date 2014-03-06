@@ -24,6 +24,7 @@ class RatingForm(forms.ModelForm):
     clarity = forms.DecimalField(initial=2.5, help_text="Clarity")
     awesomeness = forms.DecimalField(max_digits=2, decimal_places=1, initial=2.5, help_text="Awesomeness")
     comment = forms.CharField(widget=forms.TextInput(), max_length=1024, help_text="Comment")
+
     # An inline class to provide additional information on the form.
     class Meta:
         # Provide an association between the ModelForm and a model

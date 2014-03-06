@@ -7,7 +7,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from rate_the_professor.models import Rating, Professor, UserProfile
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
 
+
 def index(request):
+
     context = RequestContext(request)
     # RECENT RATINGS
     recent_ratings = Rating.objects.order_by('-id')[:12]
@@ -22,6 +24,33 @@ def index(request):
 
 def professor(request, professor_id):
     context = RequestContext(request)
+
+    # A HTTP POST?
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        # Have we been provided with a valid form?
+        if form.is_valid():
+            # an object that hasnt yet been saved to the database
+            rating = form.save(commit=False)
+            rating.user = request.user
+            rating.professor = Professor(id=professor_id)
+            # save!
+            form.save()
+
+            professor = Professor.objects.get(id=professor_id)
+            sum_of_ratings = professor.sum_of_ratings
+            no_of_ratings = professor.no_of_ratings
+            new_ratings = no_of_ratings + 1
+            Professor.objects.filter(pk=professor_id).update(no_of_ratings=new_ratings)
+            new_sum = sum_of_ratings + rating.rating
+            Professor.objects.filter(pk=professor_id).update(sum_of_ratings=new_sum)
+            new_overall = new_sum / new_ratings
+            Professor.objects.filter(pk=professor_id).update(overall_rating=new_overall)
+        else:
+            pass
+    else:
+        form = RatingForm()
+
     context_dict = {'professor_id': professor_id}
     try:
         professor = Professor.objects.get(id=professor_id)
@@ -30,20 +59,6 @@ def professor(request, professor_id):
         context_dict['professor'] = professor
     except Professor.DoesNotExist:
         pass
-    # A HTTP POST?
-    if request.method == 'POST':
-        form = RatingForm(request.POST)
-        # Have we been provided with a valid form?
-        if form.is_valid():
-            # Save the new category to the database.
-            rating = form.save(commit=False)
-            rating.user = request.user
-            rating.professor = Professor(id=professor_id)
-            form.save()
-        else:
-            pass
-    else:
-        form = RatingForm()
     context_dict['form'] = form
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
@@ -83,6 +98,7 @@ def register(request):
         # They'll also be shown to the user.
         else:
             print user_form.errors, profile_form.errors
+
     # Not a HTTP POST, so we render our form using two ModelForm instances.
     # These forms will be blank, ready for user input.
     else:
@@ -120,7 +136,7 @@ def user_login(request):
         else:
             # Bad login details were provided. So we can't log the user in.
             print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
+            return HttpResponse("<font color='whist'>Invalid login details supplied.</font>")
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
