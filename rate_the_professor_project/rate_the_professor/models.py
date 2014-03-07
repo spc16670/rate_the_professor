@@ -58,8 +58,9 @@ class Professor(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
-    overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+    sum_of_ratings = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
     no_of_ratings = models.IntegerField(default=1)
+    overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     picture = models.ImageField(upload_to='professors', blank=True)
     university = models.ForeignKey(University)
     courses_taught = models.ManyToManyField(Course)
@@ -84,7 +85,7 @@ class Rating(models.Model):
     enthusiasm = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     clarity = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
     awesomeness = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
-    comment = models.CharField(max_length=1024, null=True)
+    comment = models.CharField(max_length=1024, null=False)
     # DateField.auto_now
     # Automatically set the field to now every time the object is saved. Useful for last-modified timestamps.
     # Note that the current date is always used its not just a default value that you can override.
