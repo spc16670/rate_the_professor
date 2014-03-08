@@ -96,8 +96,8 @@ class Rating(models.Model):
 
     # Rating will have a calculated property
     def _calculate_rating(self):
-        return (self.communication + self.knowledge + self.approachability
-                + self.enthusiasm + self.clarity + self.awesomeness) / 6
+        return u'%.2f' % ((self.communication + self.knowledge + self.approachability
+                + self.enthusiasm + self.clarity + self.awesomeness) / 6)
     rating = property(_calculate_rating)
 
     def __unicode__(self):

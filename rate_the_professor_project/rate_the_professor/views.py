@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from rate_the_professor.models import Rating, Professor, UserProfile
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
 
@@ -127,16 +127,18 @@ def user_login(request):
             # Is the account active? It could have been disabled.
             if user.is_active:
                 # If the account is valid and active, we can log the user in.
-                # We'll send the user back to the homepage.
+                # js will send the user back to the homepage.
                 login(request, user)
-                return HttpResponseRedirect('/rate_the_professor/')
+                return HttpResponse('/')
+                #return HttpResponseRedirect('/rate_the_professor/')
             else:
                 # An inactive account was used - no logging in!
                 return HttpResponse("Your Rate the Professor account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
             print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("<font color='whist'>Invalid login details supplied.</font>")
+            #return HttpResponse("<font color='whist'>Invalid login details supplied.</font>")
+            return HttpResponseForbidden()
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:

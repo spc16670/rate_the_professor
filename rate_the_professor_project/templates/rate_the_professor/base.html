@@ -54,6 +54,7 @@
 				<a href="/rate_the_professor/"><img src="{% static 'img/logo.png' %}" class="logo"></a>			
 			</div>
 
+
 			{% if user.is_authenticated %}
 			<!-- LOGOUT BUTTON -->
 			<div class="pull-right">
@@ -112,10 +113,11 @@
             url: "/rate_the_professor/login/",
             data: frm.serialize(),
             success: function (data) {
-                $('#login_result_div').html(data);
+                alert(data);
+                window.location = data;
             },
             error: function(data) {
-                $('#login_result_div').html("Something went wrong!");
+                $('#login_result_div').html("<font color='red'>Invalid login details supplied.</font>");
             }
         });
         return false;
