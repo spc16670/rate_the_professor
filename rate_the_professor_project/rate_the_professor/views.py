@@ -147,6 +147,31 @@ def user_login(request):
         return render_to_response('rate_the_professor/login.html', {}, context)
 
 
+def get_professors_list(max_results=0, starts_with=''):
+        prof_list = []
+        if starts_with:
+                prof_list = Professor.objects.filter(last_name__istartswith=starts_with)
+        else:
+                prof_list = Professor.objects.all()
+
+        if max_results > 0:
+                if len(prof_list) > max_results:
+                        prof_list = prof_list[:max_results]
+
+        return prof_list
+
+
+def suggest_professor(request):
+        context = RequestContext(request)
+        prof_list = []
+        starts_with = ''
+        if request.method == 'GET':
+                starts_with = request.GET['suggestion']
+
+        prof_list = get_professors_list(8, starts_with)
+
+        return render_to_response('rate_the_professor/professor_suggestions.html', {'prof_list': prof_list }, context)
+
  # Use the login_required() decorator to ensure only those logged in can access the view.
 @login_required
 def user_logout(request):

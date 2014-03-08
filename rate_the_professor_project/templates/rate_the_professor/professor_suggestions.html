@@ -1,0 +1,8 @@
+
+{% if prof_list %}
+<ul>
+    {% for prof in prof_list %}
+        <li><a href="/rate_the_professor/professor/{{ prof.id }}/">{{ prof.last_name }}, {{ prof.first_name }} {{ prof.university }}</a></li>
+    {% endfor %}
+ </ul>
+{% endif %}
