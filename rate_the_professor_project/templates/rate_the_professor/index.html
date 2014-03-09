@@ -24,9 +24,12 @@
 		<table class="table">
 			{% for rating in recent_ratings %}
 			<tr>
-				<!-- Work out how to use PIL to resize an image here -->
+				<!-- Images are resized according to css attributes -->
 				<td class="comment-prof">
-	                <img class="comment-pic" src="{% static 'img/profpic.png' %}">
+	               <!-- <img class="comment-pic" src="{% static 'img/profpic.png' %}"> -->
+                    <a href="/rate_the_professor/professor/{{ rating.professor.id }}/">
+                    <img class="comment-pic" src="/media/professors/{{ rating.professor.picture }}">
+                    </a>
 					<br>{{ rating.professor.full_name }}
 				</td>
 				<td>{{ rating.comment }}</td>
