@@ -81,12 +81,20 @@
 			<!-- TOP RIGHT LOGIN/LOGOUT AREA -->
 			<div class="login-area">
 				{% if user.is_authenticated %}
+
+                <!-- USER THUMBNAIL -->
+				<div class="pull-right">
+                    <a href="/rate_the_professor/user/"><p>HELLO: {{ user.username }}</p></a>
+				</div>
+
 				<!-- LOGOUT BUTTON -->
 				<div class="pull-right">
 					<form action="/rate_the_professor/logout/">
 					    <button type="submit" value="Logout" class="btn btn-primary">Logout</button>
 					</form>
 				</div>
+
+
 				{% else %}
 				<!-- REGISTER BUTTON -->
 				<div class="pull-right">

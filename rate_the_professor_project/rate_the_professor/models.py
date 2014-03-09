@@ -48,9 +48,12 @@ class Course(models.Model):
     department = models.ForeignKey(Department)
     start_date = models.DateField()
 
-    #TODO: format start_date to sth like MM-yy
+    def _course_date(self):
+        return self.start_date.strftime("'%Y")
+    course_date = property(_course_date)
+
     def __unicode__(self):
-        return self.course_name
+        return u'%s %s' % (self.course_name, self.course_date)
 
 
 # Every professor will receive many ratings, may teach many modules but works for one university
@@ -58,9 +61,42 @@ class Professor(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
+
+    # communication
+    sum_of_communication = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
+    no_of_communication = models.IntegerField(default=1)
+    overall_communication = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
+    #knowledge
+    sum_of_knowledge = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
+    no_of_knowledge = models.IntegerField(default=1)
+    overall_knowledge = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
+    #approachability
+    sum_of_approachability = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
+    no_of_approachability = models.IntegerField(default=1)
+    overall_approachability = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
+    #enthusiasm
+    sum_of_enthusiasm = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
+    no_of_enthusiasm = models.IntegerField(default=1)
+    overall_enthusiasm = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
+    #clarity
+    sum_of_clarity = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
+    no_of_clarity = models.IntegerField(default=1)
+    overall_clarity = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
+    #awesomeness
+    sum_of_awesomeness = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
+    no_of_awesomeness = models.IntegerField(default=1)
+    overall_awesomeness = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
+    #overall
     sum_of_ratings = models.DecimalField(max_digits=10, decimal_places=1, default=2.5)
     no_of_ratings = models.IntegerField(default=1)
     overall_rating = models.DecimalField(max_digits=2, decimal_places=1, default=2.5)
+
     picture = models.ImageField(upload_to='professors', blank=True)
     university = models.ForeignKey(University)
     courses_taught = models.ManyToManyField(Course)

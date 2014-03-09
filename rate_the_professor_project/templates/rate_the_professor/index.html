@@ -64,16 +64,15 @@
 		{% endif %}
 	</div>
 
-	<!-- BOTTOM 5 LECTURERS -->
+	<!-- BEST COMMUNICATORS -->
 	<div class="span3 well">
-		<h4>Bottom 5 Professors</h4>
-		{% if bottom_professors %}
+		<h4>Best communicators</h4>
+		{% if best_communicators %}
 		<table class="table">
-			{% for professor in bottom_professors %}
+			{% for professor in best_communicators %}
 			<tr>
-				<!-- Mark them RED -->
 				<td>{{ professor.full_name }}</td>
-				<td>{{ professor.overall_rating }}</td>
+				<td>{{ professor.overall_communication }}</td>
 			</tr>
 			{% endfor %}
 		</table>
@@ -81,4 +80,22 @@
 		<strong>There are no professors present.</strong>
 		{% endif %}
 	</div>
+
+    <!-- EASILY APPROACHABLE -->
+	<div class="span3 well">
+		<h4>Easily approachable</h4>
+		{% if best_communicators %}
+		<table class="table">
+			{% for professor in easily_approachable %}
+			<tr>
+				<td>{{ professor.full_name }}</td>
+				<td>{{ professor.overall_approachability }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% else %}
+		<strong>There are no professors present.</strong>
+		{% endif %}
+	</div>
+
 {% endblock %}

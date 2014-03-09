@@ -4,57 +4,73 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
-from rate_the_professor.models import Rating, Professor, UserProfile, Course
+from rate_the_professor.models import Rating, Professor, UserProfile, Course, User
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
 from decimal import Decimal
 
 
 def index(request):
-
     context = RequestContext(request)
     # RECENT RATINGS
     recent_ratings = Rating.objects.order_by('-id')[:12]
     # TOP 5
     top_professors = Professor.objects.order_by('-overall_rating')[:5]
-     # BOTTOM 5
-    bottom_professors = Professor.objects.order_by('overall_rating')[:5]
-    context_dict = {'recent_ratings': recent_ratings, 'top_professors': top_professors,
-                    'bottom_professors': bottom_professors}
+    # BEST COMMUNICATORS
+    best_communicators = Professor.objects.order_by('-overall_communication')[:5]
+     # EASILY APPROACHABLE
+    easily_approachable = Professor.objects.order_by('-overall_approachability')[:5]
+
+    context_dict = {'recent_ratings': recent_ratings
+        , 'top_professors': top_professors
+        , 'best_communicators': best_communicators
+        , 'easily_approachable': easily_approachable
+    }
     return render_to_response('rate_the_professor/index.html', context_dict, context)
+
+
+def user(request):
+    context = RequestContext(request)
+    user_id = request.user.id
+    context_dict = {'user_id': user_id}
+    try:
+        user = User.objects.get(id=user_id)
+        context_dict['user'] = user
+        #user_profile = User.user_profile
+
+        context_dict['user_profile'] = UserProfile.objects.get(user=user)
+        ratings = Rating.objects.filter(user=user_id)
+        context_dict['ratings'] = ratings
+    except User.DoesNotExist:
+        pass
+    return render_to_response('rate_the_professor/user.html', context_dict, context)
 
 
 def professor(request, professor_id):
     context = RequestContext(request)
-
+    context_dict = {'professor_id': professor_id}
     # A HTTP POST?
     if request.method == 'POST':
         form = RatingForm(request.POST)
         # Have we been provided with a valid form?
         if form.is_valid():
-            # an object that hasnt yet been saved to the database
+
+            # Save Rating object
             rating = form.save(commit=False)
             rating.user = request.user
             rating.professor = Professor(id=professor_id)
             # save!
             form.save()
 
+            # Update Professor object
             professor = Professor.objects.get(id=professor_id)
-            sum_of_ratings = professor.sum_of_ratings
-            no_of_ratings = professor.no_of_ratings
-            new_ratings = no_of_ratings + 1
-            Professor.objects.filter(pk=professor_id).update(no_of_ratings=new_ratings)
-            print rating.rating
-            new_sum = sum_of_ratings + Decimal(rating.rating)
-            Professor.objects.filter(pk=professor_id).update(sum_of_ratings=new_sum)
-            new_overall = new_sum / new_ratings
-            Professor.objects.filter(pk=professor_id).update(overall_rating=new_overall)
+            update_professor_scores(professor, rating)
+
+            #Professor.objects.filter(pk=professor_id).update(overall_rating=new_overall)
             form = RatingForm()
         else:
             pass
     else:
         form = RatingForm()
-
-    context_dict = {'professor_id': professor_id}
     try:
         professor = Professor.objects.get(id=professor_id)
         ratings = Rating.objects.filter(professor=professor_id)
@@ -67,6 +83,74 @@ def professor(request, professor_id):
     context_dict['form'] = form
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
+
+def update_professor_scores(professor, rating):
+    #communication
+    no_of_communication = professor.no_of_communication + 1
+    sum_of_communication = professor.sum_of_communication + rating.communication
+    overall_communication = sum_of_communication / no_of_communication
+
+    #knowledge
+    no_of_knowledge = professor.no_of_knowledge + 1
+    sum_of_knowledge = professor.sum_of_knowledge + rating.knowledge
+    overall_knowledge = sum_of_knowledge / no_of_knowledge
+
+    #approachability
+    no_of_approachability = professor.no_of_approachability + 1
+    sum_of_approachability = professor.sum_of_approachability + rating.approachability
+    overall_approachability = sum_of_approachability / no_of_approachability
+
+    #enthusiasm
+    no_of_enthusiasm = professor.no_of_enthusiasm + 1
+    sum_of_enthusiasm = professor.sum_of_enthusiasm + rating.enthusiasm
+    overall_enthusiasm = sum_of_enthusiasm / no_of_enthusiasm
+
+    #clarity
+    no_of_clarity = professor.no_of_clarity + 1
+    sum_of_clarity = professor.sum_of_clarity + rating.clarity
+    overall_clarity = sum_of_clarity / no_of_clarity
+
+    #awesomeness
+    no_of_awesomeness = professor.no_of_awesomeness + 1
+    sum_of_awesomeness = professor.sum_of_awesomeness + rating.awesomeness
+    overall_awesomeness = sum_of_awesomeness / no_of_awesomeness
+
+    #overall
+    no_of_ratings = professor.no_of_ratings + 1
+    sum_of_ratings = professor.sum_of_ratings + Decimal(rating.rating)
+    overall_rating = sum_of_ratings / no_of_ratings
+
+    professor_id = professor.id
+    Professor.objects.filter(pk=professor_id).update(
+
+        no_of_communication=no_of_communication
+        , sum_of_communication=sum_of_communication
+        , overall_communication=overall_communication
+
+        , no_of_knowledge=no_of_knowledge
+        , sum_of_knowledge=sum_of_knowledge
+        , overall_knowledge=overall_knowledge
+
+        , no_of_approachability=no_of_approachability
+        , sum_of_approachability=sum_of_approachability
+        , overall_approachability=overall_approachability
+
+        , no_of_enthusiasm=no_of_enthusiasm
+        , sum_of_enthusiasm=sum_of_enthusiasm
+        , overall_enthusiasm=overall_enthusiasm
+
+        , no_of_clarity=no_of_clarity
+        , sum_of_clarity=sum_of_clarity
+        , overall_clarity=overall_clarity
+
+        , no_of_awesomeness=no_of_awesomeness
+        , sum_of_awesomeness=sum_of_awesomeness
+        , overall_awesomeness=overall_awesomeness
+
+        , no_of_ratings=no_of_ratings
+        , sum_of_ratings=sum_of_ratings
+        , overall_rating=overall_rating
+    )
 
 def register(request):
     context = RequestContext(request)
@@ -110,8 +194,10 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
     # Render the template depending on the context.
-    return render_to_response('rate_the_professor/register.html', {'user_form': user_form, 'profile_form': profile_form,
-                                                                   'registered': registered}, context)
+    return render_to_response('rate_the_professor/register.html', {
+        'user_form': user_form
+        , 'profile_form': profile_form
+        , 'registered': registered}, context)
 
 
 def user_login(request):
@@ -173,7 +259,7 @@ def suggest_professor(request):
                 starts_with = request.GET['suggestion']
                 max_results = int(request.GET['max_results'])
         prof_list = get_professors_list(max_results, starts_with)
-        return render_to_response('rate_the_professor/professor_suggestions.html', {'prof_list': prof_list }, context)
+        return render_to_response('rate_the_professor/professor_suggestions.html', {'prof_list': prof_list}, context)
 
  # Use the login_required() decorator to ensure only those logged in can access the view.
 @login_required

@@ -1,0 +1,44 @@
+{% extends 'rate_the_professor/base.html' %}
+{% load static %}
+
+{% block body_block %}
+    <!-- Check for user profile too! -->
+    {% if user %}
+
+        <!-- USER DETAILS -->
+        <div class="span5 offset1 well">
+
+            <!-- USER PICTURE -->
+            <div class="profpic">
+                <img src="/media/{{ user_profile.picture }}">
+            </div>
+
+            <!-- USER DETAILS -->
+            <div class="userinfo">
+                <table>
+                    <tr><td>Username: {{ user.username }} </td></tr>
+                    <tr><td>University: {{ user_profile.university }}</td></tr>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- RECENT RATINGS -->
+        <div class="span5 offset1 well">
+            <h4>Ratings</h4>
+            {% if ratings %}
+                <ul>
+                    {% for rating in ratings %}
+                    <li>{{ rating.comment }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <strong>User left no ratings</strong>
+            {% endif %}
+        </div>
+
+    {% else %}
+        The specified user {{ user }} does not exist!
+    {% endif %}
+
+{% endblock %}
