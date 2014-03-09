@@ -1,4 +1,5 @@
 {% extends 'rate_the_professor/base.html' %}
+{% load static %}
 
 {% block body_block %}
 
@@ -17,17 +18,22 @@
     <div id="suggested_professors"></div>
 
 	<!-- MOST RECENT RATINGS -->
-	<div class="span5 offset1 well" id="ratings">
+	<div class="span5 offset1 well" id="ratings-main">
 		<h3>Recent Ratings</h3>
 		{% if recent_ratings %}
 		<table class="table">
 			{% for rating in recent_ratings %}
 			<tr>
-				<td>{{ rating.comment }}</td>
 				<!-- Work out how to use PIL to resize an image here -->
-				<td>Logo</td>
-				<td>{{ rating.professor.full_name }}</td>
-				<td>{{ rating.rating }}</td>
+				<td class="comment-prof">
+	                <img class="comment-pic" src="{% static 'img/profpic.png' %}">
+					<br>{{ rating.professor.full_name }}
+				</td>
+				<td>{{ rating.comment }}</td>
+			</tr>
+			<tr>
+				<td class="rating">{{ rating.rating }}</td>
+				<td>{{ rating.datetime }}</td>
 			</tr>
 			{% endfor %}
 		</table>
