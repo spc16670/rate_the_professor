@@ -71,7 +71,7 @@
 		<table class="table">
 			{% for professor in best_communicators %}
 			<tr>
-				<td>{{ professor.full_name }}</td>
+				<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a></td>
 				<td>{{ professor.overall_communication }}</td>
 			</tr>
 			{% endfor %}
@@ -88,7 +88,7 @@
 		<table class="table">
 			{% for professor in easily_approachable %}
 			<tr>
-				<td>{{ professor.full_name }}</td>
+				<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a></td>
 				<td>{{ professor.overall_approachability }}</td>
 			</tr>
 			{% endfor %}
