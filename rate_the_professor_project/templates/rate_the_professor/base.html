@@ -133,6 +133,20 @@
 	<!-- JAVASCRIPT -->
 	<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="http://code.jquery.com/color/jquery.color-2.1.0.min.js"></script>
+	
+	
+	<script type="text/javascript">                                         
+    	$(function() {
+        	$('a').hover(
+            		function() {
+                		$(this).animate({ color: '#00ff00' }, 'fast');
+            		},function() {
+                		$(this).animate({ color: '#0088cc' }, 'fast');
+        	});
+    	});
+	
+	</script> 
 	<script type="text/javascript">
 		// -------- LOGIN AJAX ---------------//
 	    var frm = $('#login_form');
