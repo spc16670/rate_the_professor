@@ -139,10 +139,11 @@
 	<script type="text/javascript">                                         
     	$(function() {
         	$('a').hover(
+        		var c = $('a').css('color');
             		function() {
                 		$(this).animate({ color: '#00ff00' }, 'fast');
             		},function() {
-                		$(this).animate({ color: '#0088cc' }, 'fast');
+                		$(this).animate({ color: c }, 'fast');
         	});
     	});
 	
