@@ -38,8 +38,32 @@
 		text-align: left;
 		width: 150px;
 	}
+	.login-area {
+		padding: 10px;
+	}
 	footer {
 		margin-top: 50px;
+	}
+	div #login_result {
+		color: #FF4040;
+	}
+	.comment-pic {
+		width: 50px;
+	}
+	.comment-prof {
+		font-size: 8pt;
+	}
+	.rating-block {
+		width: 80px;
+	}
+	.prof-rating-form input {
+		display: none;
+	}
+	.rating-form {
+		//margin-left: 20px;
+	}
+	#id_comment {
+		display: block;
 	}
 	</style>
 </head>
@@ -54,33 +78,34 @@
 				<a href="/rate_the_professor/"><img src="{% static 'img/logo.png' %}" class="logo"></a>			
 			</div>
 
-
-			{% if user.is_authenticated %}
-			<!-- LOGOUT BUTTON -->
-			<div class="pull-right">
-				<form action="/rate_the_professor/logout/">
-				    <button type="submit" value="Logout" class="btn btn-primary">Logout</button>
-				</form>
+			<!-- TOP RIGHT LOGIN/LOGOUT AREA -->
+			<div class="login-area">
+				{% if user.is_authenticated %}
+				<!-- LOGOUT BUTTON -->
+				<div class="pull-right">
+					<form action="/rate_the_professor/logout/">
+					    <button type="submit" value="Logout" class="btn btn-primary">Logout</button>
+					</form>
+				</div>
+				{% else %}
+				<!-- REGISTER BUTTON -->
+				<div class="pull-right">
+					<form action="/rate_the_professor/register/">
+						<button type="submit" class="btn btn-primary">Register</button>
+					</form>
+				</div>
+				<!-- USERNAME/PASSWORD INPUT FIELDS -->
+				<div class="pull-right">
+					<form class="form-inline" id="login_form" method="post" action="/rate_the_professor/login/">
+						{% csrf_token %}
+						<input class="input-small" input size="50" value="" id="id_username" name="username" placeholder="Username" type="text"/>
+						<input class="input-small" size="50" value="" id="id_password" name="password" placeholder="Password" type="password" />
+						<button type="submit" class="btn btn-primary">Sign in</button>
+	                    <div id="login_result"></div>
+					</form>
+				</div>
+				{% endif %}
 			</div>
-			{% else %}
-			<!-- REGISTER BUTTON -->
-			<div class="pull-right">
-				<form action="/rate_the_professor/register/">
-					<button type="submit" class="btn btn-primary">Register</button>
-				</form>
-			</div>
-			<!-- USERNAME/PASSWORD INPUT FIELDS -->
-			<div class="pull-right">
-				<form class="form-inline" id="login_form" method="post" action="/rate_the_professor/login/">
-					{% csrf_token %}
-					<input class="input-small" input size="50" value="" id="id_username" name="username" placeholder="Username" type="text"/>
-					<input class="input-small" size="50" value="" id="id_password" name="password" placeholder="Password" type="password" />
-					<button type="submit" class="btn btn-primary">Sign in</button>
-                    <div id="login_result_div"></div>
-				</form>
-			</div>
-
-			{% endif %}
 		</div>
 
 
@@ -97,62 +122,142 @@
 		</div>
 	</footer>
 
+	<!-- JAVASCRIPT -->
 	<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript">
-    $(document).ready(function(){
-        //$("#id_username").attr('placeholder', 'Username');
-        //$("#id_email").attr('placeholder', 'Email');
-        //$("#id_password").attr('placeholder', 'Password');
-    });
-	</script>
+		// -------- LOGIN AJAX ---------------//
+	    var frm = $('#login_form');
+	    frm.submit(function () {
+	        $.ajax({
+	            type: "POST",
+	            url: "/rate_the_professor/login/",
+	            data: frm.serialize(),
+	            success: function (data) {
+	                window.location = data;
+	            },
+	            error: function(data) {
+	                $('#login_result').html("Invalid login details supplied.");
+	            }
+	        });
+	        return false;
+	    });
 
-   <script type="text/javascript">
-    var frm = $('#login_form');
-    frm.submit(function () {
-        $.ajax({
-            type: "POST",
-            url: "/rate_the_professor/login/",
-            data: frm.serialize(),
-            success: function (data) {
-                window.location = data;
-            },
-            error: function(data) {
-                $('#login_result_div').html("<font color='red'>Invalid login details supplied.</font>");
-            }
-        });
-        return false;
-    });
-    </script>
+	    // ------------ DYNAMIC PROFESSOR SEARCH FORM -------------------- //
+	    $('#query').keyup(function(){
+	        var query;
+	        query = $('#query').val();
+	        if (query !== "") {
+	        $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
+	            $('#suggested_professors').html(data);
+	        });
+	        } else {
+	            $('#suggested_professors').html("");
+	        }
+	    });
 
-    <script type='text/javascript'>
-    $('#query').keyup(function(){
-        var query;
-        query = $('#query').val();
-        if (query !== "") {
-        $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
-            $('#suggested_professors').html(data);
-        });
-        } else {
-            $('#suggested_professors').html("");
-        }
-    });
-    </script>
+	    // ---------------- search form stuff -----------------//
+	    $("#search_form").submit(function(event) {
+			event.preventDefault();
+			var $form = $( this ),
+			url = $form.attr( 'action' );
+			var posting = $.get( url, { suggestion: $('#query').val(), max_results: 0 } );
+			posting.done(function( data ) {
+				if (data !== "") {
+					$('#ratings-main').html(data);
+					$('#query').val("");
+					$('#suggested_professors').html("");
+				}
+			});
+	    });
 
-    <script type='text/javascript'>
-    $("#search_form").submit(function(event) {
-      event.preventDefault();
-      var $form = $( this ),
-          url = $form.attr( 'action' );
-      var posting = $.get( url, { suggestion: $('#query').val(), max_results: 0 } );
-      posting.done(function( data ) {
-      if (data !== "") {
-        $('#ratings').html(data);
-        $('#query').val("");
-        $('#suggested_professors').html("");
-      }
-      });
-    });
+	    // -------------- CHANGE RECENT COMMENT RATINGS TO STARS ------------ //
+		function ratingToStars() {
+			var recentRatings = $('.rating');
+			recentRatings.each(function(i){
+				var rating = Math.round($(this).html());
+				var html = "<div class='rating-block'>";
+				
+				// var halfStars = rating % 2;
+				for (var i = 0; i < 5; i++)
+				{
+					if (i <= rating)
+						html += "<img src='{% static 'img/star_y_small.png' %}'>";
+					else
+						html += "<img src='{% static 'img/star_g_small.png' %}'>";
+				}
+				html += "</div>"
+				$(this).html(html);
+			});
+		}
+
+		// ---------- DISPLAY DYNAMIC STARS ON PROFESSOR'S PAGE ----------- //
+		var MAX_RATING = 5;
+		var ratings;
+
+		function initialiseProfessorRatingsForm() {
+			
+			var ratingFormElems = $('.prof-rating-form').find("input");
+			ratingFormElems.each(function(i){
+				if (i < 6)
+					$(this).after("<span class='rating-form' id='rating" + i + "'><input id='star1' type='radio' name='rating' value='1'><img class='stars' src={% static 'img/star_g.png' %}><input id='star2' type='radio' name='rating' value='2'><img class='stars' src={% static 'img/star_g.png' %}><input id='star3' type='radio' name='rating' value='3'><img class='stars' src={% static 'img/star_g.png' %}><input id='star4' type='radio' name='rating' value='4'><img class='stars' src={% static 'img/star_g.png' %}><input id='star5' type='radio' name='rating' value='5'><img class='stars' src={% static 'img/star_g.png' %}>");
+			});
+
+			$(".stars").hover(
+				function() {
+					$(this).prevAll("img").prop("src", "{% static 'img/star_r.png' %}");
+					$(this).prop("src", "{% static 'img/star_r.png' %}");
+				}, function() {
+					var ratingId = $(this).parent().attr("id");
+					refreshRating(ratingId);
+				}
+			);
+			
+			$(".stars").click(function() {
+				var ratingId = $(this).parent().attr("id");
+				var ratingValue = $(this).prev().attr("value");
+				var ratingIdNumber = ratingId.substr(6, ratingId.length - 6);
+				//$(this).parent().prev().prop("value", "1");
+				//alert($(this).parent().prev().attr("value"));
+				ratings[ratingIdNumber] = ratingValue;
+				refreshRating(ratingId);
+			})
+
+			var ratingExists = true;
+			var ratingIds = 0;
+			
+			while (ratingExists) {
+				if ($('#rating' + ratingIds).length > 0)
+					ratingIds++;
+				else
+					ratingExists = false;
+			}
+			
+			ratings = new Array(ratingIds);
+			
+			for (var i = 0; i < ratings.length; i++)
+				ratings[i] = 0;
+		}
+		
+		function getSelectedRating(ratingId) {
+			var ratingIdNumber = ratingId.substr(6, ratingId.length - 6);
+			return ratings[ratingIdNumber];
+		}
+
+		function refreshRating(ratingId) {
+			var starRating = getSelectedRating(ratingId);
+			for (var i = 1; i <= MAX_RATING; i++) {
+				if (i <= starRating)
+					$("#" + ratingId).children("#star" + i).next().prop("src", "{% static 'img/star_y.png' %}");
+				else
+					$("#" + ratingId).children("#star" + i).next().prop("src", "{% static 'img/star_g.png' %}");
+			}
+		}
+
+		$(document).ready(function() {
+			ratingToStars();
+			initialiseProfessorRatingsForm();
+		});
     </script>
 </body>
 </html>
