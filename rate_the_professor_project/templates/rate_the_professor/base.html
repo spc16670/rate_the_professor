@@ -83,18 +83,7 @@
 			{% endif %}
 		</div>
 
-        <div class="container-fluid">
-            <p>Search for a professor</p>
-            <form class="span8 form-search" id="search_form" method="post" action="/rate_the_professor/professor/{{ professor_name }}/">
-                 {% csrf_token %}
-                <input type="text" class="input-long search-query"  name="query" value="{{ professor_name }}" id="query" />
-                <button type="submit" class="btn btn-success" name="submit" value="Search">Search</button>
-             </form>
-        </div>
 
-        <div id="suggested_professors">
-
-        </div>
 		<!-- CONTENT OF PAGE -->
         <div>
             {% block body_block %}{% endblock %}
@@ -134,19 +123,34 @@
         });
         return false;
     });
-
-
-    $('#search_form').keyup(function(){
+    </script>
+    
+    <script type='text/javascript'>
+    $('#query').keyup(function(){
         var query;
         query = $('#query').val();
         if (query !== "") {
-        $.get('/rate_the_professor/suggest_professor/', {suggestion: query}, function(data){
+        $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
             $('#suggested_professors').html(data);
         });
         } else {
             $('#suggested_professors').html("");
         }
-});
-</script>
+    });
+    </script>
+
+    <script type='text/javascript'>
+    $("#search_form").submit(function(event) {
+      event.preventDefault();
+      var $form = $( this ),
+          url = $form.attr( 'action' );
+      var posting = $.get( url, { suggestion: $('#query').val(), max_results: 0 } );
+      posting.done(function( data ) {
+      if (data !== "") {
+        $('#suggested_professors').html(data);
+      }
+      });
+    });
+    </script>
 </body>
 </html>

@@ -1,6 +1,21 @@
 {% extends 'rate_the_professor/base.html' %}
 
 {% block body_block %}
+
+    <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
+    the clicking of the button all  -->
+    <div class="container-fluid">
+       <p>Search for a professor</p>
+       <form class="span8 form-search" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
+          {% csrf_token %}
+          <input type="text" class="input-long search-query"  name="query" value="" id="query" />
+          <button type="submit" class="btn btn-success" name="submit" value="Search">Search</button>
+        </form>
+     </div>
+
+    <!-- AJAX call updates this div  -->
+    <div id="suggested_professors"></div>
+
 	<!-- MOST RECENT RATINGS -->
 	<div class="span5 offset1 well">
 		<h3>Recent Ratings</h3>

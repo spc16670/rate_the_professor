@@ -5,4 +5,8 @@
         <li><a href="/rate_the_professor/professor/{{ prof.id }}/">{{ prof.last_name }}, {{ prof.first_name }} {{ prof.university }}</a></li>
     {% endfor %}
     </ul>
+{% else %}
+    <ul>
+        <li>No results</li>
+    </ul>
 {% endif %}
