@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from rate_the_professor.models import Rating, Professor, UserProfile
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
+from decimal import Decimal
 
 
 def index(request):
@@ -42,10 +43,12 @@ def professor(request, professor_id):
             no_of_ratings = professor.no_of_ratings
             new_ratings = no_of_ratings + 1
             Professor.objects.filter(pk=professor_id).update(no_of_ratings=new_ratings)
-            new_sum = sum_of_ratings + rating.rating
+            print rating.rating
+            new_sum = sum_of_ratings + Decimal(rating.rating)
             Professor.objects.filter(pk=professor_id).update(sum_of_ratings=new_sum)
             new_overall = new_sum / new_ratings
             Professor.objects.filter(pk=professor_id).update(overall_rating=new_overall)
+            form = RatingForm()
         else:
             pass
     else:

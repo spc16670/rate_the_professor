@@ -17,12 +17,12 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RatingForm(forms.ModelForm):
-    communication = forms.DecimalField(initial=2.5, help_text="Communication")
-    knowledge = forms.DecimalField(initial=2.5, help_text="Knowledge")
-    approachability = forms.DecimalField(initial=2.5, help_text="Approachability")
-    enthusiasm = forms.DecimalField(initial=2.5, help_text="Enthusiasm")
-    clarity = forms.DecimalField(initial=2.5, help_text="Clarity")
-    awesomeness = forms.DecimalField(max_digits=2, decimal_places=1, initial=2.5, help_text="Awesomeness")
+    communication = forms.DecimalField(initial=0, help_text="Communication")
+    knowledge = forms.DecimalField(initial=0, help_text="Knowledge")
+    approachability = forms.DecimalField(initial=0, help_text="Approachability")
+    enthusiasm = forms.DecimalField(initial=0, help_text="Enthusiasm")
+    clarity = forms.DecimalField(initial=0, help_text="Clarity")
+    awesomeness = forms.DecimalField(max_digits=2, decimal_places=1, initial=0, help_text="Awesomeness")
     comment = forms.CharField(widget=forms.TextInput(), max_length=1024, help_text="Comment")
 
     # An inline class to provide additional information on the form.

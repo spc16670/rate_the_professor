@@ -200,7 +200,7 @@
 			var ratingFormElems = $('.prof-rating-form').find("input");
 			ratingFormElems.each(function(i){
 				if (i < 6)
-					$(this).after("<span class='rating-form' id='rating" + i + "'><input id='star1' type='radio' name='rating' value='1'><img class='stars' src={% static 'img/star_g.png' %}><input id='star2' type='radio' name='rating' value='2'><img class='stars' src={% static 'img/star_g.png' %}><input id='star3' type='radio' name='rating' value='3'><img class='stars' src={% static 'img/star_g.png' %}><input id='star4' type='radio' name='rating' value='4'><img class='stars' src={% static 'img/star_g.png' %}><input id='star5' type='radio' name='rating' value='5'><img class='stars' src={% static 'img/star_g.png' %}>");
+					$(this).after("<span class='rating-form' id='rating" + i + "'><input id='star1' type='radio' name='rating' value='1.0'><img class='stars' src={% static 'img/star_g.png' %}><input id='star2' type='radio' name='rating' value='2.0'><img class='stars' src={% static 'img/star_g.png' %}><input id='star3' type='radio' name='rating' value='3.0'><img class='stars' src={% static 'img/star_g.png' %}><input id='star4' type='radio' name='rating' value='4.0'><img class='stars' src={% static 'img/star_g.png' %}><input id='star5' type='radio' name='rating' value='5.0'><img class='stars' src={% static 'img/star_g.png' %}>");
 			});
 
 			$(".stars").hover(
@@ -220,6 +220,24 @@
 				//$(this).parent().prev().prop("value", "1");
 				//alert($(this).parent().prev().attr("value"));
 				ratings[ratingIdNumber] = ratingValue;
+				if (ratingId === "rating0") {
+				    $('#id_communication').val(ratingValue);
+				}
+				if (ratingId === "rating1") {
+				    $('#id_knowledge').val(ratingValue);
+				}
+                if (ratingId === "rating2") {
+				    $('#id_approachability').val(ratingValue);
+				}
+				if (ratingId === "rating3") {
+				    $('#id_enthusiasm').val(ratingValue);
+				}
+				if (ratingId === "rating4") {
+				    $('#id_clarity').val(ratingValue);
+				}
+				if (ratingId === "rating5") {
+				    $('#id_awesomeness').val(ratingValue);
+				}
 				refreshRating(ratingId);
 			})
 
@@ -253,6 +271,7 @@
 					$("#" + ratingId).children("#star" + i).next().prop("src", "{% static 'img/star_g.png' %}");
 			}
 		}
+
 
 		$(document).ready(function() {
 			ratingToStars();
