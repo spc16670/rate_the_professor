@@ -43,7 +43,7 @@ def populate():
     professor_julie = add_professor('Dr.', 'Julie', 'Williamson','j_williamson.jpg', 'http://www.juliericowilliamson.com/', university_gla)
     professor_simon = add_professor('Dr.', 'Simon', 'Gay', 's_gay.jpg', 'http://www.dcs.gla.ac.uk/~simon/', university_gla)
     professor_inah = add_professor('Dr.', 'Inah', 'Omoronyia','o_omoronyia.gif', 'http://www.dcs.gla.ac.uk/~inah/', university_gla)
-    professor_davidw = add_professor('Dr.', 'David', 'Watt', 'leif-azzopardi.jpg', 'www.dcs.gla.ac.uk/~leif/', university_gla)
+    professor_davidw = add_professor('Dr.', 'David', 'Watt', 'd_watt.jpg', 'http://www.dcs.gla.ac.uk/~daw/', university_gla)
 
     #Adding professors from the mathematics department
     professor_tara = add_professor('Dr.', 'Tara', 'Brendle', 't_brendle.jpg', 'www.maths.gla.ac.uk/~tbrendle/', university_gla)
