@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
-from rate_the_professor.models import Rating, Professor, UserProfile
+from rate_the_professor.models import Rating, Professor, UserProfile, Course
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
 from decimal import Decimal
 
@@ -60,6 +60,8 @@ def professor(request, professor_id):
         ratings = Rating.objects.filter(professor=professor_id)
         context_dict['ratings'] = ratings
         context_dict['professor'] = professor
+        courses_taught = Course.objects.filter(professor__id=professor_id)
+        context_dict['courses_taught'] = courses_taught
     except Professor.DoesNotExist:
         pass
     context_dict['form'] = form

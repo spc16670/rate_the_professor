@@ -19,6 +19,12 @@
                     <tr><td>{{ professor.university }}</td></tr>
                     <tr><td><!-- Courses taught in here!! --></td></tr>
                     <tr><td>Rating: {{ professor.overall_rating }}</td></tr>
+                    {% if courses_taught %}
+                        <tr><td>Courses taught:</td></tr>
+                        {% for course in courses_taught %}
+                            <tr><td>{{ course }}</td></tr>
+                        {% endfor %}
+                    {% endif %}
                 </table>
             </div>
 
