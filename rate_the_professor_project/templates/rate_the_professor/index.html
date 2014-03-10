@@ -1,3 +1,5 @@
+
+
 {% extends 'rate_the_professor/base.html' %}
 {% load static %}
 
@@ -5,20 +7,20 @@
 
     <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
     the clicking of the button all  -->
-    <div class="container-fluid">
-       <p>Search for a professor</p>
-       <form class="span8 form-search" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
-          {% csrf_token %}
-          <input type="text" class="input-long search-query"  name="query" value="" id="query" />
-          <button type="submit" class="btn btn-success" name="submit" value="Search">Search</button>
-        </form>
-     </div>
+        <div class="well-sm">
+			<form class="navbar-form "id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
+             {% csrf_token %}
+                <input  type="text" class="form-control"   name="query" value="" id="query" placeholder="Search for a Professor"/>
+                <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
 
-    <!-- AJAX call updates this div  -->
-    <div id="suggested_professors"></div>
+					</form>
+
+                    <!-- AJAX call updates this div  -->
+                    <div id="suggested_professors"></div>
+         </div>
 
 	<!-- MOST RECENT RATINGS -->
-	<div class="span5 offset1 well" id="ratings-main">
+	<div class="well well-lg" position="left" width=50% id="ratings-main">
 		<h3>Recent Ratings</h3>
 		{% if recent_ratings %}
 		<table class="table">
@@ -46,7 +48,7 @@
 	</div>
 
 	<!-- TOP 5 LECTURERS -->
-	<div class="span3 well">
+	<div class="well well-sm">
 		<h4>Top Professors</h4>
 		{% if top_professors %}
 		<table class="table">
@@ -65,7 +67,7 @@
 	</div>
 
 	<!-- BEST COMMUNICATORS -->
-	<div class="span3 well">
+	<div class="well well-sm">
 		<h4>Best communicators</h4>
 		{% if best_communicators %}
 		<table class="table">
@@ -82,8 +84,8 @@
 	</div>
 
     <!-- EASILY APPROACHABLE -->
-	<div class="span3 well">
-		<h4>Easily approachable</h4>
+	<div class="well well-sm">
+		<h4>Most approachable</h4>
 		{% if best_communicators %}
 		<table class="table">
 			{% for professor in easily_approachable %}

@@ -4,20 +4,41 @@
 {% block body_block %}
     {% if professor %}
 
-        <!-- PROFESSOR DETAILS -->
-        <div class="span5 offset1 well">
+<style type="text/css">
 
-            <!-- PROFESSOR PICTURE -->
-            <div class="profpic">
-                <img src="/media/professors/{{ professor.picture }}">
-            </div>
+ .well-sm {width:70%;
+    float:right;}
+
+ .panel-default{float:left;
+    size:25%;}
+
+
+
+
+</style>
+
+
+                <!-- PROFESSOR PICTURE -->
+
+
+
 
             <!-- PROFESSOR DETAILS -->
-            <div class="profinfo">
-                <table>
-                    <tr><td>{{ professor.first_name }} {{ professor.last_name }}</td></tr>
+
+          <div class="panel panel-default">
+              <div class="panel-heading"><h3>{{ professor.first_name }} {{ professor.last_name }}</h3></div>
+              <div class="panel-body" >
+                 <table>
+                    <tr><td><div class="profpic">
+                <img src="/media/professors/{{ professor.picture }}" width="200px">
+              </div>
+                    </td></tr>
+
+                    <tr><td> <br> </td></tr>
+                    <tr><td>  <br></td></tr>
+
                     <tr><td>{{ professor.university }}</td></tr>
-                    <tr><td><!-- Courses taught in here!! --></td></tr>
+
                     <tr><td>Rating: {{ professor.overall_rating }}</td></tr>
                     {% if courses_taught %}
                         <tr><td>Courses taught:</td></tr>
@@ -26,12 +47,15 @@
                         {% endfor %}
                     {% endif %}
                 </table>
-            </div>
+  </div>
+</div>
 
-        </div>
+
+
+
 
         <!-- PROFESSOR RATINGS DETAILS -->
-        <div class="span3 well">
+        <div class="well well-sm" width=80%>
             <h4>Professor Ratings!</h4>
             <table>
                 <tr><td>Communication: {{ professor.overall_communication }}</td></tr>
@@ -41,7 +65,9 @@
                 <tr><td>Clarity: {{ professor.overall_clarity }}</td></tr>
                 <tr><td>Awesomeness: {{ professor.overall_awesomeness }}</td></tr>
             </table>
+        </div>
 
+        <div class="well well-sm">
             <!-- FURTHER COMMENTS -->
             {% if user.is_authenticated %}
                  <strong>Submit Your Rating!</strong>
@@ -66,7 +92,7 @@
         </div>
         
         <!-- RECENT RATINGS -->
-        <div class="span5 offset1 well">
+        <div class="well well-sm">
             <h4>Recent Ratings</h4>
             {% if ratings %}
                 <ul>
