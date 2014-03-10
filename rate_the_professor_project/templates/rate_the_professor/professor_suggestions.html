@@ -1,15 +1,3 @@
-<script type="text/javascript">                                         
-	$(function() {
-		var c = $('a').css('color');
-    	$('a').hover(
-        		function() {
-            		$(this).animate({ color: '#00ff00' }, 'fast');
-        		},function() {
-            		$(this).animate({ color: c }, 'fast');
-    	});
-	});
-	
-</script> 
 {% if prof_list %}
     <ul>
     {% for prof in prof_list %}
