@@ -247,15 +247,23 @@
 	    });
 
 	    // ------------ DYNAMIC PROFESSOR SEARCH FORM -------------------- //
+	    var data1
 	    $('#query').keyup(function(){
 	        var query;
 	        query = $('#query').val();
 	        if (query !== "") {
 	        $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
-	            $('#suggested_professors').html(data);
+		    if (data !== data1)
+		    	$('#suggested_professors').hide('fast');
+			$('#suggested_professors').html(data);
+		    $('#suggested_professors').show('fast');
+		    data1 = data; 
+		    
 	        });
 	        } else {
 	            $('#suggested_professors').html("");
+		    $('#suggested_professors').hide('fast');
+		    
 	        }
 	    });
 
@@ -269,6 +277,7 @@
 				if (data !== "") {
 					$('#ratings-main').html(data);
 					$('#query').val("");
+					$('#suggested_professors').hide('fast');
 					$('#suggested_professors').html("");
 				}
 			});
