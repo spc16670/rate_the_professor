@@ -102,8 +102,36 @@
 	.rating-form {
 		//margin-left: 20px;
 	}
+	.prof-rating-form input {
+		display: none;
+	}
 	#id_comment {
 		display: block;
+	}
+	.prof-rating {
+		width: 120px;
+	}
+	.prof-rating-type-small {
+		width: 100px;
+		font-size: 12px;
+	}
+	.prof-rating-recent {
+		margin-top: 10px;
+		border-top: 1px solid #DDDDDD;
+	}
+	.prof-rating-recent > td {
+		padding: 5px;
+	}
+	.prof-rating-comment {
+		//width: 50%;
+		vertical-align: top;
+	}
+	.date {
+		color: #AAAAAA;
+		font-size: 10px;
+	}
+	.small-rating {
+		width: 220px;
 	}
 	</style>
 </head>
@@ -247,31 +275,54 @@
 	    });
 
 	    // -------------- CHANGE RECENT COMMENT RATINGS TO STARS ------------ //
+		var MAX_RATING = 5;
+		var SMALL_RATING = 0;
+		var BIG_RATING = 1;
+
 		function ratingToStars() {
-			var recentRatings = $('.rating');
-			recentRatings.each(function(i){
-				var rating = Math.round($(this).html());
-				var html = "<div class='rating-block'>";
+			processRatingToStars($('.small-rating'), SMALL_RATING);
+			processRatingToStars($('.big-rating'), BIG_RATING);
+		}
+
+		function processRatingToStars(elem, RATING_TYPE) {
+			elem.each(function(i){
+				var rating = Math.round($(this).html() * 2);
+				var html = "<div class='comment-rating-block'>";
 				
-				// var halfStars = rating % 2;
-				for (var i = 0; i < 5; i++)
+				var fullStars = Math.floor(rating / 2);
+				var halfStars = rating % 2;
+
+				for (var i = 0; i < fullStars; i++)
 				{
-					if (i <= rating)
+					if (RATING_TYPE == SMALL_RATING)
 						html += "<img src='{% static 'img/star_y_small.png' %}'>";
-					else
-						html += "<img src='{% static 'img/star_g_small.png' %}'>";
+					else 
+						html += "<img src='{% static 'img/star_y.png' %}'>";
 				}
+				for (var i = 0; i < halfStars; i++)
+				{
+					if (RATING_TYPE == SMALL_RATING)
+						html += "<img src='{% static 'img/star_h_small.png' %}'>";
+					else 
+						html += "<img src='{% static 'img/star_h.png' %}'>";
+				}
+				for (var i = 0; i < (MAX_RATING - fullStars - halfStars); i++)
+				{
+					if (RATING_TYPE == SMALL_RATING)
+						html += "<img src='{% static 'img/star_g_small.png' %}'>";
+					else 
+						html += "<img src='{% static 'img/star_g.png' %}'>";
+				}
+
 				html += "</div>"
 				$(this).html(html);
 			});
 		}
 
 		// ---------- DISPLAY DYNAMIC STARS ON PROFESSOR'S PAGE ----------- //
-		var MAX_RATING = 5;
 		var ratings;
 
-		function initialiseProfessorRatingsForm() {
-			
+		function initialiseProfessorRatingsForm() {			
 			var ratingFormElems = $('.prof-rating-form').find("input");
 			ratingFormElems.each(function(i){
 				if (i < 6)
@@ -292,27 +343,9 @@
 				var ratingId = $(this).parent().attr("id");
 				var ratingValue = $(this).prev().attr("value");
 				var ratingIdNumber = ratingId.substr(6, ratingId.length - 6);
-				//$(this).parent().prev().prop("value", "1");
-				//alert($(this).parent().prev().attr("value"));
+				
 				ratings[ratingIdNumber] = ratingValue;
-				if (ratingId === "rating0") {
-				    $('#id_communication').val(ratingValue);
-				}
-				if (ratingId === "rating1") {
-				    $('#id_knowledge').val(ratingValue);
-				}
-                if (ratingId === "rating2") {
-				    $('#id_approachability').val(ratingValue);
-				}
-				if (ratingId === "rating3") {
-				    $('#id_enthusiasm').val(ratingValue);
-				}
-				if (ratingId === "rating4") {
-				    $('#id_clarity').val(ratingValue);
-				}
-				if (ratingId === "rating5") {
-				    $('#id_awesomeness').val(ratingValue);
-				}
+				$('#' + ratingId).prev().val(ratingValue);
 				refreshRating(ratingId);
 			})
 

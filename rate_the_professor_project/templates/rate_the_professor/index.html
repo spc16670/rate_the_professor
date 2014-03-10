@@ -7,17 +7,16 @@
 
     <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
     the clicking of the button all  -->
-        <div class="well-sm">
-			<form class="navbar-form "id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
-             {% csrf_token %}
-                <input  type="text" class="form-control"   name="query" value="" id="query" placeholder="Search for a Professor"/>
-                <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
+    <div class="well-sm">
+		<form class="navbar-form "id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
+         {% csrf_token %}
+            <input  type="text" class="form-control"   name="query" value="" id="query" placeholder="Search for a Professor"/>
+            <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
+		</form>
 
-					</form>
-
-                    <!-- AJAX call updates this div  -->
-                    <div id="suggested_professors"></div>
-         </div>
+        <!-- AJAX call updates this div  -->
+        <div id="suggested_professors"></div>
+    </div>
 
 	<!-- MOST RECENT RATINGS -->
 	<div class="well well-lg" position="left" width=50% id="ratings-main">
@@ -32,13 +31,12 @@
                     <a href="/rate_the_professor/professor/{{ rating.professor.id }}/">
                     <img class="comment-pic" src="/media/professors/{{ rating.professor.picture }}">
                     </a>
-					<br>{{ rating.professor.full_name }}
+					<br><strong>{{ rating.professor.full_name }}</strong>
+					<br>{{ rating.professor.university.uni_name }}
+					<span class="small-rating">{{ rating.rating }}</span>
+					<span class="date">{{ rating.datetime }}</span>
 				</td>
 				<td>{{ rating.comment }}</td>
-			</tr>
-			<tr>
-				<td class="rating">{{ rating.rating }}</td>
-				<td>{{ rating.datetime }}</td>
 			</tr>
 			{% endfor %}
 		</table>

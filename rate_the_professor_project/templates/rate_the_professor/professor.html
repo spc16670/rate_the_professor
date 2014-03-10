@@ -15,55 +15,48 @@
 
 
 
-</style>
+    </style>
+    <!-- PROFESSOR DETAILS -->
 
-
-                <!-- PROFESSOR PICTURE -->
-
-
-
-
-            <!-- PROFESSOR DETAILS -->
-
-          <div class="panel panel-default">
-              <div class="panel-heading"><h3>{{ professor.first_name }} {{ professor.last_name }}</h3></div>
-              <div class="panel-body" >
-                 <table>
-                    <tr><td><div class="profpic">
+<div class="panel panel-default">
+    <div class="panel-heading"><h3>{{ professor.first_name }} {{ professor.last_name }}</h3></div>
+    <div class="panel-body" >
+        <table>
+            <tr><td>
+                <div class="profpic">
                 <img src="/media/professors/{{ professor.picture }}" width="200px">
-              </div>
-                    </td></tr>
+                </div>
+            </td></tr>
 
-                    <tr><td> <br> </td></tr>
-                    <tr><td>  <br></td></tr>
+            <tr><td> <br> </td></tr>
+            <tr><td>  <br></td></tr>
 
-                    <tr><td>{{ professor.university }}</td></tr>
+            <tr><td><strong>{{ professor.university }}</strong></td></tr>
 
-                    <tr><td>Rating: {{ professor.overall_rating }}</td></tr>
-                    {% if courses_taught %}
-                        <tr><td>Courses taught:</td></tr>
-                        {% for course in courses_taught %}
-                            <tr><td>{{ course }}</td></tr>
-                        {% endfor %}
-                    {% endif %}
-                </table>
-  </div>
+            <tr><td>Rating: {{ professor.overall_rating }}</td></tr>
+            <tr><td class="big-rating">{{ professor.overall_rating }}</td></tr>
+            {% if courses_taught %}
+            <tr><td>&nbsp;</td></tr>
+            <tr><td>Courses taught:</td></tr>
+            {% for course in courses_taught %}
+            <tr><td>{{ course }}</td></tr>
+            {% endfor %}
+            {% endif %}
+        </table>
+    </div>
 </div>
-
-
-
 
 
         <!-- PROFESSOR RATINGS DETAILS -->
         <div class="well well-sm" width=80%>
             <h4>Professor Ratings!</h4>
             <table>
-                <tr><td>Communication: {{ professor.overall_communication }}</td></tr>
-                <tr><td>Knowledge: {{ professor.overall_knowledge }}</td></tr>
-                <tr><td>Approachability: {{ professor.overall_approachability }}</td></tr>
-                <tr><td>Enthusiasm: {{ professor.overall_enthusiasm }}</td></tr>
-                <tr><td>Clarity: {{ professor.overall_clarity }}</td></tr>
-                <tr><td>Awesomeness: {{ professor.overall_awesomeness }}</td></tr>
+                <tr><td class="prof-rating">Communication: </td><td class="big-rating">{{ professor.overall_communication }}</td></tr>
+                <tr><td class="prof-rating">Knowledge: </td><td class="big-rating">{{ professor.overall_knowledge }}</td></tr>
+                <tr><td class="prof-rating">Approachability: </td><td class="big-rating">{{ professor.overall_approachability }}</td></tr>
+                <tr><td class="prof-rating">Enthusiasm: </td><td class="big-rating">{{ professor.overall_enthusiasm }}</td></tr>
+                <tr><td class="prof-rating">Clarity: </td><td class="big-rating">{{ professor.overall_clarity }}</td></tr>
+                <tr><td class="prof-rating">Awesomeness: </td><td class="big-rating">{{ professor.overall_awesomeness }}</td></tr>
             </table>
         </div>
 
@@ -78,11 +71,15 @@
                     {% endfor %}
 
                     <div class="prof-rating-form">
+                        <table>
                         {% for field in form.visible_fields %}
-                            {{ field.errors }}
-                            {{ field.help_text}}
-                            {{ field }}
+                        <tr>
+                            <td class="prof-rating">{{ field.help_text}}</td>
+                            <td>{{ field }} </td>
+                            <td>{{ field.errors }}</td>
+                        </tr>
                         {% endfor %}
+                        </table>
                     </div>
                     <input type="submit" name="submit" value="Create Rating" />
                 </form>
@@ -95,11 +92,32 @@
         <div class="well well-sm">
             <h4>Recent Ratings</h4>
             {% if ratings %}
-                <ul>
+                <table>
                     {% for rating in ratings %}
-                    <li>{{ rating.comment }}</li>
+                    <tr class="prof-rating-recent">
+                        <!-- RATING COMMENT -->
+                        <td class="prof-rating-comment">
+                            <div>{{ rating.comment }}</div>
+                            <div><span class="small-rating">{{ rating.rating }}</span> <span class="date">{{ rating.datetime }}</span></div>
+                        </td>
+                        <!-- RATING STARS -->
+                        <td>
+                            <table>
+                                <tr><td class="prof-rating-type-small">Communication: </td><td class="small-rating">{{ rating.communication }}</td></tr>
+                                <tr><td class="prof-rating-type-small">Knowledge: </td><td class="small-rating">{{ rating.knowledge }}</td></tr>
+                                <tr><td class="prof-rating-type-small">Approachability: </td><td class="small-rating">{{ rating.approachability }}</td></tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tr><td class="prof-rating-type-small">Enthusiasm: </td><td class="small-rating">{{ rating.enthusiasm }}</td></tr>
+                                <tr><td class="prof-rating-type-small">Clarity: </td><td class="small-rating">{{ rating.clarity }}</td></tr>
+                                <tr><td class="prof-rating-type-small">Awesomeness: </td><td class="small-rating">{{ rating.awesomeness }}</td></tr>
+                            </table>
+                        </td>
+                    </tr>
                     {% endfor %}
-                </ul>
+                </table>
             {% else %}
                 <strong>No ratings currently for professor</strong>
             {% endif %}
