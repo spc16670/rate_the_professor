@@ -93,7 +93,7 @@ def populate():
     course_graphic = add_course('Graphic Design', university_edi, edi_department_art, datetime.now())
 
     professor_liz = add_professor('Ms.', 'Liz', 'Adamson','l_adamson.jpg','http://www.eca.ed.ac.uk/school-of-art/liz-adamson', university_edi)
-    professor_sub = add_professor('Mr.', 'Subramanian ', ' Ramamoorthy', 's_ramamoorthy.jpg', 'http://homepages.inf.ed.ac.uk/sramamoo/index.html', university_edi)
+    professor_sub = add_professor('Mr.', 'Subramanian ', 'Ramamoorthy', 's_ramamoorthy.jpg', 'http://homepages.inf.ed.ac.uk/sramamoo/index.html', university_edi)
 
     rating_liz = add_rating(professor_liz, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(), 'That woman changed my life and showed me what true graphic design was all about. '                                                                                                                        'I could have never become a master adobe jedi without her.')
     rating_liz = add_rating(professor_liz, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(), 'Meh, it was ok. She has weird hair and it was really distracting.')

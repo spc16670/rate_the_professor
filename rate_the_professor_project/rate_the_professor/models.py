@@ -7,6 +7,9 @@ class University(models.Model):
     uni_name = models.CharField(max_length=256, unique=True)
     website_url = models.URLField()
 
+    class Meta:
+        verbose_name_plural = "Universities"
+
     def __unicode__(self):
         return self.uni_name
 
@@ -157,6 +160,7 @@ class Rating(models.Model):
     def _calculate_rating(self):
         return u'%.2f' % ((self.communication + self.knowledge + self.approachability
                 + self.enthusiasm + self.clarity + self.awesomeness) / 6)
+
     rating = property(_calculate_rating)
 
     def __unicode__(self):
