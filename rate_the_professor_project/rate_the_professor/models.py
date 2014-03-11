@@ -111,6 +111,29 @@ class Professor(models.Model):
                                                             self.no_of_ratings, self.overall_rating)
 
 
+#Every user can make many suggestions which could be reviewed by the admin
+
+class Suggestion(models.Model):
+    title = models.CharField(max_length=64)
+    first_name = models.CharField(max_length=256)
+    last_name = models.CharField(max_length=256)
+
+    #University and courses taught are charfields and not foreign keys as we assume that both might not exist in the
+    #corresponding tables
+    university = models.CharField(max_length=512)
+    courses_taught = models.CharField(max_length=512)
+    website_url = models.URLField()
+
+    #Date when the suggestion was added
+    datetime = models.DateTimeField(auto_now_add=True)
+
+    def _full_name(self):
+        return u'%s %s %s ' % (self.title, self.first_name, self.last_name)
+    full_name = property(_full_name)
+
+    def __unicode__(self):
+        return u'%s %s %s %s %s %s ' % (self.title, self.first_name, self.last_name, self.university, self.courses_taught, self.website_url)
+
 # Rating table will store all ratings submitted by a user and received by a professor
 class Rating(models.Model):
     user = models.ForeignKey(User, null=True)

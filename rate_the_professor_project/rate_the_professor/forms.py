@@ -1,5 +1,5 @@
 from django import forms
-from rate_the_professor.models import Rating, Professor, UserProfile, Course
+from rate_the_professor.models import Rating, Professor, UserProfile, Course, Suggestion
 from django.contrib.auth.models import User
 
 class UserForm(forms.ModelForm):
@@ -46,3 +46,19 @@ class ProfessorForm(forms.ModelForm):
     class Meta:
         model = Professor
         fields = ('title', 'first_name', 'last_name', 'website_url', 'university', 'picture', 'university')
+
+class SuggestionForm(forms.ModelForm):
+    #title = forms.CharField(max_length=64, help_text="Title")
+    #first_name = forms.CharField(max_length=256, help_text="First Name")
+    #last_name = forms.CharField(max_length=256, help_text="Last Name")
+
+    #University and courses taught are charfields and not foreign keys as we assume that both might not exist in the
+    #corresponding tables
+    #university = forms.CharField(max_length=512, help_text='Please enter in which university does the professor teach')
+    #courses_taught = forms.CharField(max_length=512, help_text ='Please enter the courses which the professor teaches')
+    #website_url = forms.URLField(max_length=200, help_text='Please enter the personal website of the professor')
+
+
+    class Meta:
+        model = Suggestion
+        fields = ('title', 'first_name','last_name', 'university','courses_taught', 'website_url')

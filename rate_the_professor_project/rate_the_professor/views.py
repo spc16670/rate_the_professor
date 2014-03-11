@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from rate_the_professor.models import Rating, Professor, UserProfile, Course, User
-from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm
+from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm, SuggestionForm
 from decimal import Decimal
 
 
@@ -236,6 +236,32 @@ def user_login(request):
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
         return render_to_response('rate_the_professor/login.html', {}, context)
+
+
+    #defines a view which will handle the suggest a professor form
+def suggestion (request):
+    context = RequestContext(request)
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        suggestion_form = SuggestionForm(data=request.POST)
+        # If the form is valid
+        if suggestion_form.is_valid():
+            # Save the suggestion form data to the database.
+            suggestion_form.save(commit=True)
+
+            return index(request)
+        else:
+            print suggestion_form.errors
+
+    # Not a HTTP POST, so we render our form using two ModelForm instances.
+    # These forms will be blank, ready for user input.
+    else:
+        suggestion_form = SuggestionForm()
+    # Render the template depending on the context.
+    return render_to_response('rate_the_professor/suggestion.html', {'suggestion_form':suggestion_form
+        }, context)
+
 
 
 def get_professors_list(max_results=0, starts_with=''):
