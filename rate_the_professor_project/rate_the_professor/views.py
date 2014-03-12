@@ -264,10 +264,25 @@ def suggestion (request):
 
 
 
-def get_professors_list(max_results=0, starts_with=''):
-        prof_list = []
-        if starts_with:
-            prof_list = Professor.objects.filter(last_name__istartswith=starts_with)
+def get_professors_list(max_results=0, starts_with=['','']):
+    prof_list = []
+	uni_list1 = []
+	prof_list1 = []
+	prof_list2 = []
+	prof_list3 = []
+	
+        if len(starts_with) > 0:
+		prof_list1 = Professor.objects.filter(last_name__istartswith=starts_with[0])
+		uni_list1 = University.objects.filter(uni_name__icontains=starts_with[0])
+		prof_list2 = Professor.objects.filter(university__in=uni_list1)
+		prof_list3 = Professor.objects.filter(first_name__istartswith=starts_with[0])
+		prof_list = prof_list1 | prof_list2 | prof_list3
+		for str in starts_with:
+			prof_list1 = Professor.objects.filter(last_name__istartswith=str)
+			uni_list1 = University.objects.filter(uni_name__icontains=str)
+			prof_list2 = Professor.objects.filter(university__in=uni_list1)
+			prof_list3 = Professor.objects.filter(first_name__istartswith=str)
+			prof_list = prof_list & (prof_list1 | prof_list2 | prof_list3)		
         else:
             prof_list = Professor.objects.all()
         if max_results > 0:
@@ -282,7 +297,7 @@ def suggest_professor(request):
         prof_list = []
         starts_with = ''
         if request.method == 'GET':
-                starts_with = request.GET['suggestion']
+                starts_with = request.GET['suggestion'].split()
                 max_results = int(request.GET['max_results'])
         prof_list = get_professors_list(max_results, starts_with)
         return render_to_response('rate_the_professor/professor_suggestions.html', {'prof_list': prof_list}, context)
