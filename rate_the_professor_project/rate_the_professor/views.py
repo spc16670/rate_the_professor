@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
-from rate_the_professor.models import Rating, Professor, UserProfile, Course, User
+from rate_the_professor.models import Rating, Professor, University, UserProfile, Course, User
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm, SuggestionForm
 from decimal import Decimal
 
