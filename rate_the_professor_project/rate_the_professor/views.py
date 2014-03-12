@@ -265,7 +265,7 @@ def suggestion (request):
 
 
 def get_professors_list(max_results=0, starts_with=['','']):
-    prof_list = []
+    	prof_list = []
 	uni_list1 = []
 	prof_list1 = []
 	prof_list2 = []
