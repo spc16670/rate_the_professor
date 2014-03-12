@@ -1,0 +1,23 @@
+{% extends 'rate_the_professor/base.html' %}
+
+{% block body_block %}
+<div class="span8">
+    <h3>Suggest a professor to be added</h3>
+
+    <form id="suggestion_form" method="post" action="/rate_the_professor/suggestion/"
+            enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <!-- Display each form. The as_p method wraps each element in a paragraph
+             (<p>) element. This ensures each element appears on a new line,
+             making everything look neater. -->
+        <table class="formtable">
+            {{ suggestion_form }}
+        </table>
+
+        <!-- Provide a button to click to submit the form. -->
+        <br><input type="submit" name="submit" value="Suggest Professor" />
+    </form>
+</div>
+{% endblock %}
