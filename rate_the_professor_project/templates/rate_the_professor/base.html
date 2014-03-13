@@ -20,55 +20,23 @@
         height: 130px;
         width:100%;
 		margin-bottom: 50px;
-        margin-left:0px;
-        margin-right: 0px;
-
 	}
-
-
-     .label-default
-        {font-size:x-large;
+     .label-default {
+        font-size:x-large;
         background-color:transparent;
         color:black;
-        }
-
+    }
     .navbar-brand {
         height:120px;
-        }
-
-     .form-group
-        {
-        width:30%;
-        float:right;
-        }
-
-
-
-    .btn-default
-        {background-color: transparent;
-
-        }
-
-
-
-	.logo {
-		width: 200px;
+    }
+    .btn-default {
+    	background-color: transparent;
 	}
-	.profpic {
-		float: left;
+	.logo {
+		height: 130px;
 	}
 	.profpic img {
-		border: 3px solid;
-	}
-	.profinfo {
-		margin-left: 120px;
-	}
-	.errorlist {
-		float: right;
-	}
-	table.formtable th {
-		text-align: left;
-		width: 150px;
+		width: 200px;
 	}
 	.login-area {
 		padding: 10px;
@@ -84,12 +52,6 @@
 	}
 	.rating-block {
 		width: 80px;
-	}
-	.prof-rating-form input {
-		display: none;
-	}
-	.rating-form {
-		//margin-left: 20px;
 	}
 	.prof-rating-form input {
 		display: none;
@@ -144,49 +106,34 @@
 			<!-- TOP RIGHT LOGIN/LOGOUT AREA -->
 			<div class="login-area">
 				{% if user.is_authenticated %}
+	                <div class="navbar-right">
+	                    <form action="/rate_the_professor/user/">
+						    <button class="btn btn-default">Welcome back,  {{ user.username }}</button>
+						</form>
 
-
-                <div class="navbar-right">
-                    <form action="/rate_the_professor/user/">
-					    <button class="btn btn-default">Welcome back,  {{ user.username }}</button>
-					</form>
-
-					<form action="/rate_the_professor/logout/">
-					    <button type="submit" value="Logout" class="btn btn-default">Logout</button>
-					</form>
-
-
-
-
-
-				</div>
-
-
-
+						<form action="/rate_the_professor/logout/">
+						    <button type="submit" value="Logout" class="btn btn-default">Logout</button>
+						</form>
+					</div>
 				{% else %}
-                          <!-- REGISTER BUTTON -->
-				<div class="navbar-form navbar-right">
+	                <!-- REGISTER BUTTON -->
+					<div class="navbar-form navbar-right">
                         <form action="/rate_the_professor/register/">
-						<button type="submit" class="btn btn-default" background="clear">Register</button>
-					</form>
-				</div>
+							<button type="submit" class="btn btn-default" background="clear">Register</button>
+						</form>
+					</div>
 
-				<!-- USERNAME/PASSWORD INPUT FIELDS -->
-				<div class="navbar-right">
+					<!-- USERNAME/PASSWORD INPUT FIELDS -->
+					<div class="navbar-right">
 						<form class="navbar-form "id="login_form" method="post" action="/rate_the_professor/login/">
                             {% csrf_token %}
+                            <input type="text" class="form-control " id = "id_username" name = "username" placeholder="Username">
+                            <input type = "password" class="form-control " id = "id_password" name = "password" placeholder="Password" />
+                            <button type="submit" class="btn btn-default">Sign in</button>
 
-                              <input type="text" class="form-control " id = "id_username" name = "username" placeholder="Username">
-                              <input type = "password" class="form-control " id = "id_password" name = "password" placeholder="Password" />
-                              <button type="submit" class="btn btn-default">Sign in</button>
-
-	                               <div id="login_result"></div>
-
-
-					</form>
-
-
-				</div>
+                            <div id="login_result"></div>
+						</form>
+					</div>
 				{% endif %}
 			</div>
 		</div>
@@ -205,21 +152,7 @@
 	<!-- JAVASCRIPT -->
 	<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	<script src="http://code.jquery.com/color/jquery.color-2.1.0.min.js"></script>
 	
-	
-	<script type="text/javascript">                                         
-    	$(function() {
-    		var c = $('a').css('color');
-        	$('a').hover(
-            		function() {
-                		$(this).animate({ color: '#00ff00' }, 'fast');
-            		},function() {
-                		$(this).animate({ color: c }, 'fast');
-        	});
-    	});
-	
-	</script> 
 	<script type="text/javascript">
 		// -------- LOGIN AJAX ---------------//
 	    var frm = $('#login_form');
@@ -253,10 +186,8 @@
 		    
 	        });
 	        } else {
-		    $('#suggested_professors').hide('fast');
+			    $('#suggested_professors').hide('fast');
 	            $('#suggested_professors').html("");
-
-		    
 	        }
 	    });
 

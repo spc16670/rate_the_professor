@@ -2,56 +2,59 @@
 {% load static %}
 
 {% block body_block %}
-
-
-<style type="text/css">
-
- .well-sm {width:70%;
-    float:right;}
-
- .panel-default{float:left;
-    size:25%;}
-
-
-
-
-</style>
-
-    <!-- Check for user profile too! -->
+<div class="row">
     {% if user %}
+        <!-- USER DETAILS -->
+        <div class="col-md-3 panel panel-default">
+            <div class="panel-heading"><h3>Your Profile</h3></div>
+            
+            <div class="panel-body">
+                <div class="profpic">
+                    {% if user_profile.picture %}
+                        <img src="/media/{{ user_profile.picture }}">
+                    {% else %}
+                        <img src="{% static 'img/profpic.png' %}">
+                    {% endif %}
+                </div>
+                <br>
+                <div>Username: {{ user.username }}</div>
+                <div>University: {{ user_profile.university }}</div>
+            </div>
+        </div>
 
-            <!-- PROFESSOR DETAILS -->
-   <div class="panel panel-default">
-     <div class="panel-heading"><h3>Your Profile</h3></div>
-              <div class="panel-body" >
-          <table>
-                    <tr><td><div class="profpic">
-                <img src="/media/{{ user_profile.picture }}" width="200px">
-                   </div></td></tr>
-                    <tr><td>Username: {{ user.username }} </td></tr>
-                    <tr><td>University: {{ user_profile.university }}</td></tr>
-                </table>
-       </div>
-  </div>
-
-
-
-        <!-- RECENT RATINGS -->
-   <div class="well well-sm">
-            <h4>Ratings</h4>
+        <!-- USER RECENT RATINGS -->
+        <div class="col-md-8 col-md-offset-1 well">
+            <h3>Ratings</h3>
             {% if ratings %}
-                <ul>
-                    {% for rating in ratings %}
-                    <li>{{ rating.comment }}</li>
-                    {% endfor %}
-                </ul>
+                {% for rating in ratings %}
+                    <!-- RATING COMMENT -->
+                    <div class="col-md-6">
+                        <div>{{ rating.comment }}</div>
+                        <div class="small-rating">{{ rating.rating }}</div> <div class="date">{{ rating.datetime }}</div>
+                    </div>
+                    <!-- RATING STARS -->
+                    <div class="col-md-3">
+                        <table>
+                            <tr><td class="prof-rating-type-small">Communication: </td><td><div class="small-rating">{{ rating.communication }}</div></td></tr>
+                            <tr><td class="prof-rating-type-small">Knowledge: </td><td><div class="small-rating">{{ rating.knowledge }}</div></td></tr>
+                            <tr><td class="prof-rating-type-small">Approachability: </td><td><div class="small-rating">{{ rating.approachability }}</div></td></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        <table>
+                            <tr><td class="prof-rating-type-small">Enthusiasm: </td><td><div class="small-rating">{{ rating.enthusiasm }}</div></td></tr>
+                            <tr><td class="prof-rating-type-small">Clarity: </td><td><div class="small-rating">{{ rating.clarity }}</div></td></tr>
+                            <tr><td class="prof-rating-type-small">Awesomeness: </td><td><div class="small-rating">{{ rating.awesomeness }}</div></td></tr>
+                        </table>
+                    </div>
+                {% endfor %}
             {% else %}
                 <strong>You haven't left any ratings yet.</strong>
             {% endif %}
         </div>
 
     {% else %}
-        The specified user {{ user }} does not exist!
+        <h2>The specified user {{ user }} does not exist!</h2>
     {% endif %}
-
+</div>
 {% endblock %}

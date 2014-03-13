@@ -11,10 +11,10 @@
             <h4 class="big-text">{{ professor.university }}</h4>
         </div>
 
-        <div class="panel-body" >
+        <div class="panel-body">
             <div class="row">
                 <div class="col-md-12 profpic">
-                    <img src="/media/professors/{{ professor.picture }}" width="200px">
+                    <img src="/media/professors/{{ professor.picture }}">
                 </div>
             </div>
             
@@ -48,7 +48,7 @@
             <div class="col-md-12 well">
                 <!-- SUBMIT RATING -->
                 {% if user.is_authenticated %}
-                     <strong>Submit Your Rating!</strong>
+                     <h3>Submit Your Rating!</h3>
                      <form id="rating_form" method="post" action="/rate_the_professor/professor/{{ professor.id }}/">
                         {% csrf_token %}
                         {% for hidden in form.hidden_fields %}
@@ -81,7 +81,7 @@
                 <!-- RECENT RATINGS HEADER ROW -->
                 <div class="row">
                     <div class="col-md-12">
-                        <h4>Recent Ratings</h4>
+                        <h3>Recent Ratings</h3>
                     </div>
                 </div>
 
@@ -111,9 +111,7 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                        <div class="col-md-12">
-                            <strong>No ratings currently for professor</strong>
-                        </div>
+                        <strong>No ratings currently for professor</strong>
                     {% endif %}
                 </div>
             </div>

@@ -1,104 +1,105 @@
-
-
 {% extends 'rate_the_professor/base.html' %}
 {% load static %}
 
 {% block body_block %}
+<div class="row">
 
-    <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
-    the clicking of the button all  -->
-    <div class="well-sm">
-		<form class="navbar-form "id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
-         {% csrf_token %}
-            <input  type="text" class="form-control"   name="query" value="" id="query" placeholder="Search for a Professor"/>
-            <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
-		</form>
+	<div class="col-md-8">
+		<!-- MOST RECENT RATINGS -->
+		<div class="well" id="ratings-main">
+			<h3>Recent Ratings</h3>
+			{% if recent_ratings %}
+				{% for rating in recent_ratings %}
+					<div class="row">
+						<!-- Images are resized according to css attributes -->
+						<div class="col-md-3">
+			               <!-- <img class="comment-pic" src="{% static 'img/profpic.png' %}"> -->
+		                    <a href="/rate_the_professor/professor/{{ rating.professor.id }}/">
+		                    <img class="comment-pic" src="/media/professors/{{ rating.professor.picture }}">
+		                    </a>
+							<div><strong class="big-text">{{ rating.professor.full_name }}</strong></div>
+							<div>{{ rating.professor.university.uni_name }}</div>
+							<div><span class="date">{{ rating.datetime }}</span></div>
+						</div>
 
-        <!-- AJAX call updates this div  -->
-        <div id="suggested_professors"></div>
-    </div>
-
-	<!-- MOST RECENT RATINGS -->
-	<div class="well well-lg" position="left" width=50% id="ratings-main">
-		<h3>Recent Ratings</h3>
-		{% if recent_ratings %}
-		<table class="table">
-			{% for rating in recent_ratings %}
-			<tr>
-				<!-- Images are resized according to css attributes -->
-				<td class="comment-prof">
-	               <!-- <img class="comment-pic" src="{% static 'img/profpic.png' %}"> -->
-                    <a href="/rate_the_professor/professor/{{ rating.professor.id }}/">
-                    <img class="comment-pic" src="/media/professors/{{ rating.professor.picture }}">
-                    </a>
-					<div><strong class="big-text">{{ rating.professor.full_name }}</strong></div>
-					<div>{{ rating.professor.university.uni_name }}</div>
-					<div><span class="date">{{ rating.datetime }}</span></div>
-				</td>
-				<td>{{ rating.comment }}</td>
-				<td class="small-rating-width">
-					<h2>{{ rating.rating }}</h2>
-					<span class="small-rating">{{ rating.rating }}</span>
-				</td>
-			</tr>
-			{% endfor %}
-		</table>
-		{% else %}
-		<strong>There are no ratings present.</strong>
-		{% endif %}
+						<div class="col-md-6">{{ rating.comment }}</div>
+						
+						<div class="col-md-3">
+							<h2>{{ rating.rating }}</h2>
+							<span class="big-rating">{{ rating.rating }}</span>
+						</div>
+					</div>
+				{% endfor %}
+			{% else %}
+			<strong>There are no ratings present.</strong>
+			{% endif %}
+		</div>
 	</div>
 
-	<!-- TOP 5 LECTURERS -->
-	<div class="well well-sm">
-		<h4>Top Professors</h4>
-		{% if top_professors %}
-		<table class="table">
-			{% for professor in top_professors %}
-			<!-- Mark them GREEN -->
-			<tr>
-				<!-- turned into a link to see if isauthenticated logic kicks in when visitng a professors page-->
-				<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a></td>
-				<td class="big-rating">{{ professor.overall_rating }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-		{% else %}
-		<strong>There are no professors present.</strong>
-		{% endif %}
-	</div>
+	<div class="col-md-4">
+	    <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
+	    the clicking of the button all  -->
+		    <div class="well-sm">
+				<form class="form-inline" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
+			        {% csrf_token %}
+		            <input type="text" class="form-control" name="query" value="" id="query" placeholder="Search for a Professor"/>
+		            <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
+				</form>
 
-	<!-- BEST COMMUNICATORS -->
-	<div class="well well-sm">
-		<h4>Best communicators</h4>
-		{% if best_communicators %}
-		<table class="table">
-			{% for professor in best_communicators %}
-			<tr>
-				<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a></td>
-				<td class="big-rating">{{ professor.overall_communication }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-		{% else %}
-		<strong>There are no professors present.</strong>
-		{% endif %}
-	</div>
+		        <!-- AJAX call updates this div  -->
+		        <div id="suggested_professors"></div>
+		    </div>
 
-    <!-- EASILY APPROACHABLE -->
-	<div class="well well-sm">
-		<h4>Most approachable</h4>
-		{% if best_communicators %}
-		<table class="table">
-			{% for professor in easily_approachable %}
-			<tr>
-				<td><a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a></td>
-				<td class="big-rating">{{ professor.overall_approachability }}</td>
-			</tr>
-			{% endfor %}
-		</table>
-		{% else %}
-		<strong>There are no professors present.</strong>
-		{% endif %}
-	</div>
+		<!-- TOP 5 LECTURERS -->
+		<div class="well">
+			<h4>Top Professors</h4>
+			{% if top_professors %}
+				{% for professor in top_professors %}
+					<div class="row">
+						<div class="col-md-6">
+							<a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
+						</div>
+						<div class="col-md-6 big-rating">{{ professor.overall_rating }}</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<strong>There are no professors present.</strong>
+			{% endif %}
+		</div>
 
+		<!-- BEST COMMUNICATORS -->
+		<div class="well">
+			<h4>Best communicators</h4>
+			{% if best_communicators %}
+				{% for professor in best_communicators %}
+					<div class="row">
+						<div class="col-md-6">
+							<a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
+						</div>
+						<div class="col-md-6 big-rating">{{ professor.overall_communication }}</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<strong>There are no professors present.</strong>
+			{% endif %}
+		</div>
+
+	    <!-- EASILY APPROACHABLE -->
+		<div class="well">
+			<h4>Most approachable</h4>
+			{% if best_communicators %}
+				{% for professor in easily_approachable %}
+					<div class="row">
+						<div class="col-md-6">
+							<a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
+						</div>
+						<div class="col-md-6 big-rating">{{ professor.overall_approachability }}</div>
+					</div>
+				{% endfor %}
+			{% else %}
+				<strong>There are no professors present.</strong>
+			{% endif %}
+		</div>
+	</div>
+</div>
 {% endblock %}
