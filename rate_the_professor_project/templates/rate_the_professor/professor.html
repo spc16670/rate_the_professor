@@ -2,55 +2,27 @@
 {% load static %}
 
 {% block body_block %}
+<div class="row">
     {% if professor %}
+    <!-- PROFESSOR PANEL -->
+    <div class="col-md-3 panel panel-default">
+        <div class="panel-heading">
+            <h3>{{ professor.first_name }} {{ professor.last_name }}</h3>
+            <h4 class="big-text">{{ professor.university }}</h4>
+        </div>
 
-<style type="text/css">
-
- .well-sm {width:70%;
-    float:right;}
-
- .panel-default{float:left;
-    size:25%;}
-
-
-
-
-    </style>
-    <!-- PROFESSOR DETAILS -->
-
-<div class="panel panel-default">
-    <div class="panel-heading"><h3>{{ professor.first_name }} {{ professor.last_name }}</h3></div>
-    <div class="panel-body" >
-        <table>
-            <tr><td>
-                <div class="profpic">
-                <img src="/media/professors/{{ professor.picture }}" width="200px">
+        <div class="panel-body" >
+            <div class="row">
+                <div class="col-md-12 profpic">
+                    <img src="/media/professors/{{ professor.picture }}" width="200px">
                 </div>
-            </td></tr>
-
-            <tr><td> <br> </td></tr>
-            <tr><td>  <br></td></tr>
-
-            <tr><td><strong>{{ professor.university }}</strong></td></tr>
-
-            <tr><td>Rating: {{ professor.overall_rating }}</td></tr>
-            <tr><td class="big-rating">{{ professor.overall_rating }}</td></tr>
-            {% if courses_taught %}
-            <tr><td>&nbsp;</td></tr>
-            <tr><td>Courses taught:</td></tr>
-            {% for course in courses_taught %}
-            <tr><td>{{ course }}</td></tr>
-            {% endfor %}
-            {% endif %}
-        </table>
-    </div>
-</div>
-
-
-        <!-- PROFESSOR RATINGS DETAILS -->
-        <div class="well well-sm" width=80%>
-            <h4>Professor Ratings!</h4>
+            </div>
+            
             <table>
+                <tr>
+                    <td class="big-rating">{{ professor.overall_rating }}</td>
+                    <td><h1 class="centered-text">{{ professor.overall_rating }}<h1></td>
+                </tr>
                 <tr><td class="prof-rating">Communication: </td><td class="big-rating">{{ professor.overall_communication }}</td></tr>
                 <tr><td class="prof-rating">Knowledge: </td><td class="big-rating">{{ professor.overall_knowledge }}</td></tr>
                 <tr><td class="prof-rating">Approachability: </td><td class="big-rating">{{ professor.overall_approachability }}</td></tr>
@@ -58,73 +30,101 @@
                 <tr><td class="prof-rating">Clarity: </td><td class="big-rating">{{ professor.overall_clarity }}</td></tr>
                 <tr><td class="prof-rating">Awesomeness: </td><td class="big-rating">{{ professor.overall_awesomeness }}</td></tr>
             </table>
+
+            <div>
+            {% if courses_taught %}
+                <br>Courses taught:
+                {% for course in courses_taught %}
+                    <br>{{ course }}
+                {% endfor %}
+            {% endif %}
+            </div>
         </div>
+    </div>
 
-        <div class="well well-sm">
-            <!-- FURTHER COMMENTS -->
-            {% if user.is_authenticated %}
-                 <strong>Submit Your Rating!</strong>
-                 <form id="rating_form" method="post" action="/rate_the_professor/professor/{{ professor.id }}/">
-                    {% csrf_token %}
-                    {% for hidden in form.hidden_fields %}
-                        {{ hidden }}
-                    {% endfor %}
-
-                    <div class="prof-rating-form">
-                        <table>
-                        {% for field in form.visible_fields %}
-                        <tr>
-                            <td class="prof-rating">{{ field.help_text}}</td>
-                            <td>{{ field }} </td>
-                            <td>{{ field.errors }}</td>
-                        </tr>
+    <div class="col-md-8 col-md-offset-1">
+        <!-- PROFESSOR DETAILS -->
+        <div class="row">
+            <div class="col-md-12 well">
+                <!-- SUBMIT RATING -->
+                {% if user.is_authenticated %}
+                     <strong>Submit Your Rating!</strong>
+                     <form id="rating_form" method="post" action="/rate_the_professor/professor/{{ professor.id }}/">
+                        {% csrf_token %}
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
                         {% endfor %}
-                        </table>
-                    </div>
-                    <input type="submit" name="submit" value="Create Rating" />
-                </form>
-            {% else %}
-                 <strong>Log In to leave comments</strong>
-            {% endif %}
+
+                        <div class="prof-rating-form">
+                            <table>
+                            {% for field in form.visible_fields %}
+                            <tr>
+                                <td class="prof-rating">{{ field.help_text}}</td>
+                                <td>{{ field }} </td>
+                                <td>{{ field.errors }}</td>
+                            </tr>
+                            {% endfor %}
+                            </table>
+                        </div>
+                        <input type="submit" name="submit" value="Create Rating" />
+                    </form>
+                {% else %}
+                     <strong>Log In to leave comments</strong>
+                {% endif %}
+            </div>
         </div>
-        
+    
         <!-- RECENT RATINGS -->
-        <div class="well well-sm">
-            <h4>Recent Ratings</h4>
-            {% if ratings %}
-                <table>
-                    {% for rating in ratings %}
-                    <tr class="prof-rating-recent">
-                        <!-- RATING COMMENT -->
-                        <td class="prof-rating-comment">
-                            <div>{{ rating.comment }}</div>
-                            <div><span class="small-rating">{{ rating.rating }}</span> <span class="date">{{ rating.datetime }}</span></div>
-                        </td>
-                        <!-- RATING STARS -->
-                        <td>
-                            <table>
-                                <tr><td class="prof-rating-type-small">Communication: </td><td class="small-rating">{{ rating.communication }}</td></tr>
-                                <tr><td class="prof-rating-type-small">Knowledge: </td><td class="small-rating">{{ rating.knowledge }}</td></tr>
-                                <tr><td class="prof-rating-type-small">Approachability: </td><td class="small-rating">{{ rating.approachability }}</td></tr>
-                            </table>
-                        </td>
-                        <td>
-                            <table>
-                                <tr><td class="prof-rating-type-small">Enthusiasm: </td><td class="small-rating">{{ rating.enthusiasm }}</td></tr>
-                                <tr><td class="prof-rating-type-small">Clarity: </td><td class="small-rating">{{ rating.clarity }}</td></tr>
-                                <tr><td class="prof-rating-type-small">Awesomeness: </td><td class="small-rating">{{ rating.awesomeness }}</td></tr>
-                            </table>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                <strong>No ratings currently for professor</strong>
-            {% endif %}
+        <div class="row">
+            <div class="col-md-12 well">
+
+                <!-- RECENT RATINGS HEADER ROW -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Recent Ratings</h4>
+                    </div>
+                </div>
+
+                <!-- RATING COMMENTS ROWS -->
+                <div class="row">
+                    {% if ratings %}
+                        {% for rating in ratings %}
+                            <!-- RATING COMMENT -->
+                            <div class="col-md-6">
+                                <div>{{ rating.comment }}</div>
+                                <div class="small-rating">{{ rating.rating }}</div> <div class="date">{{ rating.datetime }}</div>
+                            </div>
+                            <!-- RATING STARS -->
+                            <div class="col-md-3">
+                                <table>
+                                    <tr><td class="prof-rating-type-small">Communication: </td><td><div class="small-rating">{{ rating.communication }}</div></td></tr>
+                                    <tr><td class="prof-rating-type-small">Knowledge: </td><td><div class="small-rating">{{ rating.knowledge }}</div></td></tr>
+                                    <tr><td class="prof-rating-type-small">Approachability: </td><td><div class="small-rating">{{ rating.approachability }}</div></td></tr>
+                                </table>
+                            </div>
+                            <div class="col-md-3">
+                                <table>
+                                    <tr><td class="prof-rating-type-small">Enthusiasm: </td><td><div class="small-rating">{{ rating.enthusiasm }}</div></td></tr>
+                                    <tr><td class="prof-rating-type-small">Clarity: </td><td><div class="small-rating">{{ rating.clarity }}</div></td></tr>
+                                    <tr><td class="prof-rating-type-small">Awesomeness: </td><td><div class="small-rating">{{ rating.awesomeness }}</div></td></tr>
+                                </table>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-md-12">
+                            <strong>No ratings currently for professor</strong>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
+    </div>
 
     {% else %}
-        The specified professor {{ professor }} does not exist!
+        <div class="col-md-12">
+            <h1>The specified professor {{ professor }} does not exist!</h1>
+        </div>
     {% endif %}
 
+</div>
 {% endblock %}
