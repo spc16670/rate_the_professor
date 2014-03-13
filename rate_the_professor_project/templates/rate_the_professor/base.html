@@ -7,39 +7,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Bootstrap -->
 	<!--link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet"-->
-    <link href="{% static 'js/jquery-2.1.0.min.js' %}" type="text/javascript">
 	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
 
-	<link rel="shortcut icon" href="{% static '/img/favicon.ico' %}">
+	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 
 	<!-- CSS is written here for convenience; will move to a separate .css file when complete -->
 	<style type="text/css">
 	.navbar {
 		background: url({% static 'img/banner.jpg' %});
-        height: 130px;
-        width:100%;
-		margin-bottom: 50px;
 	}
-     .label-default {
-        font-size:x-large;
-        background-color:transparent;
-        color:black;
+    .label-default {
+        font-size: x-large;
+        background-color: transparent;
+        color: black;
     }
     .navbar-brand {
-        height:120px;
+        height: 200px;
     }
     .btn-default {
     	background-color: transparent;
 	}
-	.logo {
-		height: 130px;
-	}
 	.profpic img {
 		width: 200px;
-	}
-	.login-area {
-		padding: 10px;
 	}
 	footer {
 		margin-top: 50px;
@@ -97,35 +87,29 @@
 	<div class="container">
 
 		<!-- NAVIGATION BAR -->
-		<div class="navbar navbar-default";>
-			<!-- RATE THE PROFESSOR LOGO -->
-			<div class="navbar-header">
-				<a href="/rate_the_professor/"><img src="{% static 'img/logo.png' %}" class="navbar-brand"></a>
-			</div>
+		<div class="navbar navbar-default">
+			<div class="container">
+				<!-- RATE THE PROFESSOR LOGO -->
+				<div class="navbar-header">
+					<a href="/rate_the_professor/"><img src="{% static 'img/logo.png' %}" class="navbar-brand"></a>
+				</div>
 
-			<!-- TOP RIGHT LOGIN/LOGOUT AREA -->
-			<div class="login-area">
-				{% if user.is_authenticated %}
-	                <div class="navbar-right">
-	                    <form action="/rate_the_professor/user/">
-						    <button class="btn btn-default">Welcome back,  {{ user.username }}</button>
-						</form>
+				<!-- TOP RIGHT LOGIN/LOGOUT AREA -->
+					{% if user.is_authenticated %}
+		                <div class="navbar-right">
+		                    <form action="/rate_the_professor/user/">
+							    <button class="btn btn-default">Welcome back, {{ user.username }}</button>
+							</form>
 
-						<form action="/rate_the_professor/logout/">
-						    <button type="submit" value="Logout" class="btn btn-default">Logout</button>
-						</form>
-					</div>
-				{% else %}
-	                <!-- REGISTER BUTTON -->
-					<div class="navbar-form navbar-right">
-                        <form action="/rate_the_professor/register/">
-							<button type="submit" class="btn btn-default" background="clear">Register</button>
-						</form>
-					</div>
+							<form action="/rate_the_professor/logout/">
+							    <button type="submit" value="Logout" class="btn btn-default">Logout</button>
+							</form>
+						</div>
+					{% else %}
 
-					<!-- USERNAME/PASSWORD INPUT FIELDS -->
-					<div class="navbar-right">
-						<form class="navbar-form "id="login_form" method="post" action="/rate_the_professor/login/">
+		            <div class="navbar-form navbar-right">
+						<!-- USERNAME/PASSWORD INPUT FIELDS -->
+						<form class="" id="login_form" method="post" action="/rate_the_professor/login/">
                             {% csrf_token %}
                             <input type="text" class="form-control " id = "id_username" name = "username" placeholder="Username">
                             <input type = "password" class="form-control " id = "id_password" name = "password" placeholder="Password" />
@@ -133,8 +117,16 @@
 
                             <div id="login_result"></div>
 						</form>
-					</div>
-				{% endif %}
+
+		                <!-- REGISTER BUTTON -->
+						<div class="pull-right">
+	                        <form action="/rate_the_professor/register/">
+								<button type="submit" class="btn btn-default" background="clear">Register</button>
+							</form>
+						</div>
+		            </div>
+
+					{% endif %}
 			</div>
 		</div>
 

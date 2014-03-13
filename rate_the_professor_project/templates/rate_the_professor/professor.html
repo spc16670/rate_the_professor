@@ -14,7 +14,11 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12 profpic">
-                    <img src="/media/professors/{{ professor.picture }}">
+                    {% if professor.picture %}
+                        <img src="/media/professors/{{ professor.picture }}">
+                    {% else %}
+                        <img src="{% static 'img/profpic.png' %}">
+                    {% endif %}
                 </div>
             </div>
             
@@ -86,9 +90,10 @@
                 </div>
 
                 <!-- RATING COMMENTS ROWS -->
-                <div class="row">
-                    {% if ratings %}
-                        {% for rating in ratings %}
+                {% if ratings %}
+                    {% for rating in ratings %}
+                        <hr>
+                        <div class="row">
                             <!-- RATING COMMENT -->
                             <div class="col-md-6">
                                 <div>{{ rating.comment }}</div>
@@ -109,18 +114,19 @@
                                     <tr><td class="prof-rating-type-small">Awesomeness: </td><td><div class="small-rating">{{ rating.awesomeness }}</div></td></tr>
                                 </table>
                             </div>
-                        {% endfor %}
-                    {% else %}
-                        <strong>No ratings currently for professor</strong>
-                    {% endif %}
-                </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <strong>No ratings currently for professor</strong>
+                {% endif %}
             </div>
         </div>
     </div>
 
     {% else %}
         <div class="col-md-12">
-            <h1>The specified professor {{ professor }} does not exist!</h1>
+            <h2>The specified professor {{ professor }} does not exist!</h2>
+        <h3><a href="/rate_the_professor/suggestion/">Suggest a professor</a></h3>
         </div>
     {% endif %}
 
