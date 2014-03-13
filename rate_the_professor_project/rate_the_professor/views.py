@@ -285,11 +285,11 @@ def get_professors_list(max_results=0, starts_with=['','']):
             prof_list = prof_list & (prof_list1 | prof_list2 | prof_list3)
     else:
         prof_list = Professor.objects.all()
-        if max_results > 0:
-            if len(prof_list) > max_results:
-                prof_list = prof_list[:max_results]
+    if max_results > 0:
+        if len(prof_list) > max_results:
+            prof_list = prof_list[:max_results]
 
-        return prof_list
+    return prof_list
 
 
 def suggest_professor(request):
