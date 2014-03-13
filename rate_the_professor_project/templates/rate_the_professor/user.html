@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div class="profpic">
                     {% if user_profile.picture %}
-                        <img src="/media/{{ user_profile.picture }}">
+                        <img src="/media/user/{{ user_profile.picture }}">
                     {% else %}
                         <img src="{% static 'img/profpic.png' %}">
                     {% endif %}
@@ -28,25 +28,28 @@
             <h3>Ratings</h3>
             {% if ratings %}
                 {% for rating in ratings %}
-                    <!-- RATING COMMENT -->
-                    <div class="col-md-6">
-                        <div>{{ rating.comment }}</div>
-                        <div class="small-rating">{{ rating.rating }}</div> <div class="date">{{ rating.datetime }}</div>
-                    </div>
-                    <!-- RATING STARS -->
-                    <div class="col-md-3">
-                        <table>
-                            <tr><td class="prof-rating-type-small">Communication: </td><td><div class="small-rating">{{ rating.communication }}</div></td></tr>
-                            <tr><td class="prof-rating-type-small">Knowledge: </td><td><div class="small-rating">{{ rating.knowledge }}</div></td></tr>
-                            <tr><td class="prof-rating-type-small">Approachability: </td><td><div class="small-rating">{{ rating.approachability }}</div></td></tr>
-                        </table>
-                    </div>
-                    <div class="col-md-3">
-                        <table>
-                            <tr><td class="prof-rating-type-small">Enthusiasm: </td><td><div class="small-rating">{{ rating.enthusiasm }}</div></td></tr>
-                            <tr><td class="prof-rating-type-small">Clarity: </td><td><div class="small-rating">{{ rating.clarity }}</div></td></tr>
-                            <tr><td class="prof-rating-type-small">Awesomeness: </td><td><div class="small-rating">{{ rating.awesomeness }}</div></td></tr>
-                        </table>
+                    <hr>
+                    <div class="row">
+                        <!-- RATING COMMENT -->
+                        <div class="col-md-6">
+                            <div>{{ rating.comment }}</div>
+                            <div class="small-rating">{{ rating.rating }}</div> <div class="date">{{ rating.datetime }}</div>
+                        </div>
+                        <!-- RATING STARS -->
+                        <div class="col-md-3">
+                            <table>
+                                <tr><td class="prof-rating-type-small">Communication: </td><td><div class="small-rating">{{ rating.communication }}</div></td></tr>
+                                <tr><td class="prof-rating-type-small">Knowledge: </td><td><div class="small-rating">{{ rating.knowledge }}</div></td></tr>
+                                <tr><td class="prof-rating-type-small">Approachability: </td><td><div class="small-rating">{{ rating.approachability }}</div></td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            <table>
+                                <tr><td class="prof-rating-type-small">Enthusiasm: </td><td><div class="small-rating">{{ rating.enthusiasm }}</div></td></tr>
+                                <tr><td class="prof-rating-type-small">Clarity: </td><td><div class="small-rating">{{ rating.clarity }}</div></td></tr>
+                                <tr><td class="prof-rating-type-small">Awesomeness: </td><td><div class="small-rating">{{ rating.awesomeness }}</div></td></tr>
+                            </table>
+                        </div>
                     </div>
                 {% endfor %}
             {% else %}
@@ -55,7 +58,9 @@
         </div>
 
     {% else %}
-        <h2>The specified user {{ user }} does not exist!</h2>
+        <div class="col-md-12">
+            <h2>The specified user {{ user }} does not exist!</h2>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

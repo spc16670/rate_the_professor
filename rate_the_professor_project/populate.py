@@ -38,7 +38,7 @@ def populate():
     #Adding prrofessors from the computing science department
     professor_leif = add_professor('Dr.', 'Leif', 'Azzopardi','l_azzopardi.jpg','www.dcs.gla.ac.uk/~leif/', university_gla)
     professor_ron = add_professor('Dr.', 'Ron', 'Poet', 'r_poet.jpg', 'http://www.dcs.gla.ac.uk/~ron/', university_gla)
-    professor_david = add_professor('Dr.', 'David', 'Manlove','d_manlove', 'http://www.dcs.gla.ac.uk/~davidm/', university_gla)
+    professor_david = add_professor('Dr.', 'David', 'Manlove','d_manlove.jpg', 'http://www.dcs.gla.ac.uk/~davidm/', university_gla)
     professor_alessandro = add_professor('Dr.', 'Alessandro', 'Vinciarelli','a_vinciarelli.jpg', 'http://www.dcs.gla.ac.uk/vincia/', university_gla)
     professor_julie = add_professor('Dr.', 'Julie', 'Williamson','j_williamson.jpg', 'http://www.juliericowilliamson.com/', university_gla)
     professor_simon = add_professor('Dr.', 'Simon', 'Gay', 's_gay.jpg', 'http://www.dcs.gla.ac.uk/~simon/', university_gla)
