@@ -115,7 +115,6 @@ class Professor(models.Model):
 
 
 #Every user can make many suggestions which could be reviewed by the admin
-
 class Suggestion(models.Model):
     title = models.CharField(max_length=64)
     first_name = models.CharField(max_length=256)
@@ -136,6 +135,7 @@ class Suggestion(models.Model):
 
     def __unicode__(self):
         return u'%s %s %s %s %s %s ' % (self.title, self.first_name, self.last_name, self.university, self.courses_taught, self.website_url)
+
 
 # Rating table will store all ratings submitted by a user and received by a professor
 class Rating(models.Model):
@@ -164,6 +164,6 @@ class Rating(models.Model):
     rating = property(_calculate_rating)
 
     def __unicode__(self):
-        return u'%s - %s %s Rating: %.2f - %s' % (self.comment, self.professor.first_name,
+        return u'%s - %s %s Rating: %.s - %s' % (self.comment, self.professor.first_name,
                                                   self.professor.last_name, self.rating,
                                                   self.professor.university)

@@ -1,8 +1,13 @@
 {% extends 'rate_the_professor/base.html' %}
 
 {% block body_block %}
-<div class="span8">
+<div class="span8" id="suggest_a_professor">
     <h3>Suggest a professor to be added</h3>
+
+    {% if suggested %}
+        <strong>Thank you for your suggestion! Please check on the website later.</strong>
+        <br><a href="/rate_the_professor/">Return to the homepage.</a><br />
+    {% else %}
 
     <form id="suggestion_form" method="post" action="/rate_the_professor/suggestion/"
             enctype="multipart/form-data">
@@ -19,5 +24,9 @@
         <!-- Provide a button to click to submit the form. -->
         <br><input type="submit" name="submit" value="Suggest Professor" />
     </form>
+
+    {% endif %}
+
 </div>
+
 {% endblock %}

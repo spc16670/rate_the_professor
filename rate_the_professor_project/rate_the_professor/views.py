@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidde
 from rate_the_professor.models import Rating, Professor, University, UserProfile, Course, User
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm, SuggestionForm
 from decimal import Decimal
+from datetime import datetime
 
 
 def index(request):
@@ -48,32 +49,52 @@ def user(request):
 def professor(request, professor_id):
     context = RequestContext(request)
     context_dict = {'professor_id': professor_id}
-    # A HTTP POST?
+
+    # Does the user have a rating for that professor already?
+    try:
+        professor = Professor.objects.get(id=professor_id)
+        user_id = request.user.id
+        if user_id is not None:
+            user = User.objects.get(id=user_id)
+            old_rating = Rating.objects.get(user=user, professor=professor.id)
+        else:
+            old_rating = None
+    except Rating.DoesNotExist:
+        old_rating = None
+
+    # Are we posting some data?
     if request.method == 'POST':
         form = RatingForm(request.POST)
         # Have we been provided with a valid form?
         if form.is_valid():
-
+            professor = Professor.objects.get(id=professor_id)
             # Save Rating object
-            rating = form.save(commit=False)
-            rating.user = request.user
-            rating.professor = Professor(id=professor_id)
+            new_rating = form.save(commit=False)
+            new_rating.user = request.user
+            new_rating.professor = Professor(id=professor_id)
             # save!
             form.save()
 
-            # Update Professor object
-            professor = Professor.objects.get(id=professor_id)
-            update_professor_scores(professor, rating)
+            if old_rating is not None:
+                update_professor_scores(professor, old_rating, new_rating)
+                old_rating.delete()
+                old_rating = new_rating
+            else:
+                # Update Professor object
+                update_professor_scores(professor, None, new_rating)
+                old_rating = new_rating
 
-            #Professor.objects.filter(pk=professor_id).update(overall_rating=new_overall)
             form = RatingForm()
         else:
             pass
     else:
         form = RatingForm()
+
+    context_dict['old_rating'] = old_rating
+    # Display professor info
     try:
         professor = Professor.objects.get(id=professor_id)
-        ratings = Rating.objects.filter(professor=professor_id)
+        ratings = Rating.objects.filter(professor=professor_id).order_by('-datetime')[:10]
         context_dict['ratings'] = ratings
         context_dict['professor'] = professor
         courses_taught = Course.objects.filter(professor__id=professor_id)
@@ -84,40 +105,66 @@ def professor(request, professor_id):
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
 
-def update_professor_scores(professor, rating):
+def update_professor_scores(professor, old_rating, new_rating):
+    if old_rating is not None:
+        increment = 0
+    else:
+        increment = 1
+
     #communication
-    no_of_communication = professor.no_of_communication + 1
-    sum_of_communication = professor.sum_of_communication + rating.communication
+    no_of_communication = professor.no_of_communication + increment
+    if old_rating is None:
+        sum_of_communication = professor.sum_of_communication + new_rating.communication
+    else:
+        sum_of_communication = (professor.sum_of_communication - old_rating.communication) + new_rating.communication
     overall_communication = sum_of_communication / no_of_communication
 
     #knowledge
-    no_of_knowledge = professor.no_of_knowledge + 1
-    sum_of_knowledge = professor.sum_of_knowledge + rating.knowledge
+    no_of_knowledge = professor.no_of_knowledge + increment
+    if old_rating is None:
+        sum_of_knowledge = professor.sum_of_knowledge + new_rating.knowledge
+    else:
+        sum_of_knowledge = (professor.sum_of_knowledge - old_rating.knowledge) + new_rating.knowledge
     overall_knowledge = sum_of_knowledge / no_of_knowledge
 
     #approachability
-    no_of_approachability = professor.no_of_approachability + 1
-    sum_of_approachability = professor.sum_of_approachability + rating.approachability
+    no_of_approachability = professor.no_of_approachability + increment
+    if old_rating is None:
+        sum_of_approachability = professor.sum_of_approachability + new_rating.approachability
+    else:
+        sum_of_approachability = (professor.sum_of_approachability - old_rating.approachability) + new_rating.approachability
     overall_approachability = sum_of_approachability / no_of_approachability
 
     #enthusiasm
-    no_of_enthusiasm = professor.no_of_enthusiasm + 1
-    sum_of_enthusiasm = professor.sum_of_enthusiasm + rating.enthusiasm
+    no_of_enthusiasm = professor.no_of_enthusiasm + increment
+    if old_rating is None:
+        sum_of_enthusiasm = professor.sum_of_enthusiasm + new_rating.enthusiasm
+    else:
+        sum_of_enthusiasm = (professor.sum_of_enthusiasm - old_rating.enthusiasm) + new_rating.enthusiasm
     overall_enthusiasm = sum_of_enthusiasm / no_of_enthusiasm
 
     #clarity
-    no_of_clarity = professor.no_of_clarity + 1
-    sum_of_clarity = professor.sum_of_clarity + rating.clarity
+    no_of_clarity = professor.no_of_clarity + increment
+    if old_rating is None:
+        sum_of_clarity = professor.sum_of_clarity + new_rating.clarity
+    else:
+        sum_of_clarity = (professor.sum_of_clarity - old_rating.clarity) + new_rating.clarity
     overall_clarity = sum_of_clarity / no_of_clarity
 
     #awesomeness
-    no_of_awesomeness = professor.no_of_awesomeness + 1
-    sum_of_awesomeness = professor.sum_of_awesomeness + rating.awesomeness
+    no_of_awesomeness = professor.no_of_awesomeness + increment
+    if old_rating is None:
+        sum_of_awesomeness = professor.sum_of_awesomeness + new_rating.awesomeness
+    else:
+        sum_of_awesomeness = (professor.sum_of_awesomeness - old_rating.awesomeness) + new_rating.awesomeness
     overall_awesomeness = sum_of_awesomeness / no_of_awesomeness
 
     #overall
-    no_of_ratings = professor.no_of_ratings + 1
-    sum_of_ratings = professor.sum_of_ratings + Decimal(rating.rating)
+    no_of_ratings = professor.no_of_ratings + increment
+    if old_rating is None:
+        sum_of_ratings = professor.sum_of_ratings + Decimal(new_rating.rating)
+    else:
+        sum_of_ratings = (professor.sum_of_ratings - Decimal(old_rating.rating)) + Decimal(new_rating.rating)
     overall_rating = sum_of_ratings / no_of_ratings
 
     professor_id = professor.id
@@ -151,6 +198,12 @@ def update_professor_scores(professor, rating):
         , sum_of_ratings=sum_of_ratings
         , overall_rating=overall_rating
     )
+
+
+
+
+
+
 
 def register(request):
     context = RequestContext(request)
@@ -242,6 +295,7 @@ def user_login(request):
     #defines a view which will handle the suggest a professor form
 def suggestion (request):
     context = RequestContext(request)
+    suggested = False
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
         # Attempt to grab information from the raw form information.
@@ -251,7 +305,7 @@ def suggestion (request):
             # Save the suggestion form data to the database.
             suggestion_form.save(commit=True)
 
-            return index(request)
+            suggested = True
         else:
             print suggestion_form.errors
 
@@ -260,8 +314,8 @@ def suggestion (request):
     else:
         suggestion_form = SuggestionForm()
     # Render the template depending on the context.
-    return render_to_response('rate_the_professor/suggestion.html', {'suggestion_form':suggestion_form
-        }, context)
+    return render_to_response('rate_the_professor/suggestion.html', {'suggestion_form': suggestion_form,
+                                                                     'suggested': suggested}, context)
 
 
 def get_professors_list(max_results=0, starts_with=['','']):

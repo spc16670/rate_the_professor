@@ -152,8 +152,14 @@
 	<!-- JAVASCRIPT -->
 	<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	
+
 	<script type="text/javascript">
+
+        // -------- TOGGLE RATING FORM VISIBILITY ---------------//
+        $( "#edit_rating_btn" ).click(function() {
+            $( "#rating_form_div" ).slideToggle( "slow" );
+        });
+
 		// -------- LOGIN AJAX ---------------//
 	    var frm = $('#login_form');
 	    frm.submit(function () {
@@ -177,7 +183,7 @@
 	        var query;
 	        query = $('#query').val();
 	        if (query !== "") {
-	        $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
+	            $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
 		    if (data !== data1)
 		    	$('#suggested_professors').hide('fast');
 			$('#suggested_professors').html(data);
@@ -206,6 +212,7 @@
 				}
 			});
 	    });
+
 
 	    // -------------- CHANGE RECENT COMMENT RATINGS TO STARS ------------ //
 		var MAX_RATING = 5;

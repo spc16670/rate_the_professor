@@ -1,0 +1,23 @@
+
+<div id="rating_form_div" style="display: {{ visible }};">
+<h3>Submit Your Rating!</h3>
+     <form id="rating_form" method="post" action="/rate_the_professor/professor/{{ professor.id }}/">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+
+        <div class="prof-rating-form">
+            <table>
+                {% for field in form.visible_fields %}
+                    <tr>
+                        <td class="prof-rating">{{ field.help_text}}</td>
+                        <td>{{ field }} </td>
+                        <td>{{ field.errors }}</td>
+                        </tr>
+                {% endfor %}
+            </table>
+        </div>
+    <input type="submit" name="submit" value="Create Rating" />
+</form>
+</div>
