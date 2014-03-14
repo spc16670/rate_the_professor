@@ -5,7 +5,7 @@
 <div class="row">
     {% if user %}
         <!-- USER DETAILS -->
-        <div class="col-md-3 panel panel-default">
+        <div class="col-md-3 panel panel-default panel-footer">
             <div class="panel-heading"><h3>Your Profile</h3></div>
             
             <div class="panel-body">
@@ -21,6 +21,13 @@
                 <div>University: {{ user_profile.university }}</div>
                 <div>Email: {{ user.email }}</div>
             </div>
+
+            <div class="panel-body">
+                <form action="/rate_the_professor/suggestion/">
+                <button type="submit" class="btn btn-primary" name="suggest a professor" value="Suggest a Profesor">Suggest A Professor</button>
+                </form>
+            </div>
+
         </div>
 
         <!-- USER RECENT RATINGS -->
