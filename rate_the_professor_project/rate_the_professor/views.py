@@ -200,11 +200,6 @@ def update_professor_scores(professor, old_rating, new_rating):
     )
 
 
-
-
-
-
-
 def register(request):
     context = RequestContext(request)
     registered = False
