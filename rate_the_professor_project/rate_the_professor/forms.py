@@ -52,4 +52,4 @@ class ProfessorForm(forms.ModelForm):
 class SuggestionForm(forms.ModelForm):
     class Meta:
         model = Suggestion
-        fields = ('title', 'first_name','last_name', 'university','courses_taught', 'website_url')
+        fields = ('title', 'first_name','last_name', 'university','courses_taught')
