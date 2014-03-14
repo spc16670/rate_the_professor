@@ -14,6 +14,8 @@ def populate():
     university_edi = add_university('University of Edinburgh', 'http://www.ed.ac.uk/')
     university_aber = add_university('University of Aberdeen', 'www.abdn.ac.uk/')
     university_dun = add_university('University of Dundee', 'http://www.dundee.ac.uk/')
+    university_ox = add_university('University of Oxford', 'http://www.ox.ac.uk/')
+    university_man = add_university('University of Manchester', 'http://www.manchester.ac.uk/')
 
 #Adding all the data for the University of Glasgow
 
@@ -65,7 +67,7 @@ def populate():
     rating_inah = add_rating(professor_inah, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(),'Confusing')
     rating_inah2 = add_rating(professor_inah, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(),'I dont know what to write')
     rating_davidw = add_rating(professor_davidw, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(),'Everything fine')
-    
+
     # Update courses taught by a professor
     professor_leif.courses_taught.add(course_internet_technology)
     professor_ron.courses_taught.add(course_databases)
@@ -121,7 +123,7 @@ def populate():
     professor_ian.courses_taught.add(course_biz_dev)
     professor_cath.courses_taught.add(course_mar_bio)
 
-#Add all the date for the University of Dundee
+#Add all the data for the University of Dundee
 
     dun_department_human = add_department('School of Humanities', university_dun)
     dun_department_dent = add_department('School of Dentistry', university_dun)
@@ -138,12 +140,88 @@ def populate():
     professor_jen.courses_taught.add(course_film)
     professor_fel.courses_taught.add(course_ortho)
 
+#Add all the data for the University of Oxford
+
+    ox_department_theo = add_department('Faculty of Theology and Religion', university_ox)
+    ox_department_music = add_department ('Faculty of Music', university_ox)
+
+    course_new_test = add_course ('Interpretation of The New Testament', university_ox, ox_department_theo, datetime.now())
+    course_20th_music = add_course('Music of The 20th Century', university_ox, ox_department_music, datetime.now())
+
+    professor_christopher = add_professor('Dr.', 'Christopher', 'Rowland', 'c_rowland.jpg','http://www.theology.ox.ac.uk/people/staff-list/prof.-christoper-rowland.html', university_ox)
+    professor_georgina = add_professor('Prof.', 'Georgina', 'Born', 'g_born.jpg', 'http://www.music.ox.ac.uk/about/people/academic-staff/university-lecturers-and-college-fellows/georgina-born/', university_ox)
+
+    rating_christopher = add_rating(professor_christopher, get_random(), get_random(), get_random(), get_random(), get_random(), get_random(), 'His lecture on the life and times of John The Baptist made me change my mind about what was his role in the Bible.')
+    rating_georgina = add_rating(professor_georgina, get_random(), get_random(), get_random(), get_random(), get_random(), get_random(),'She is a big fan of Guns n Roses which made her my favourite professor.')
+
+    professor_christopher.courses_taught.add(course_new_test)
+    professor_georgina.courses_taught.add(course_20th_music)
+
+#Add all the data for University of Manchester
+
+    man_department_env = add_department('School of Earth, Atmospheric and Environmental Sciences', university_man)
+    man_department_mat = add_department('School of Materials', university_man)
+
+    course_mat = add_course('Materials and Surface Design', university_man, man_department_mat, datetime.now())
+    course_met = add_course('Meteorology', university_man, man_department_env, datetime.now())
+
+    professor_davids = add_professor('Dr.', 'David', 'Schultz', 'd_schultz.jpeg', 'http://eloquentscience.com/', university_man)
+    professor_sonja = add_professor('Ms.', 'Sonja', 'Andrew', 's_andrew.jpg', 'http://www.materials.manchester.ac.uk/people/staff-spotlights/sonja-andrew/', university_man)
+
+    rating_davids = add_rating(professor_davids, get_random(), get_random(), get_random(), get_random(), get_random(), get_random(),'He is so great I just coulndt help but buy his book as well, checkout his blog too!' )
+    rating_sonja = add_rating(professor_sonja, get_random(), get_random(), get_random(), get_random(), get_random(), get_random(),'I was really happy with the lectures. Well Structured and it felt like she really cared about us as well')
+
+    professor_davids.courses_taught.add(course_met)
+    professor_sonja.courses_taught.add(course_mat)
+
+
+#A method to calculate and update all the ratings for the professors
+
+    for p in Professor.objects.all():
+        for r in Rating.objects.filter(professor=p):
+
+            #communication
+            p.sum_of_communication += r.communication
+            p.no_of_communication += 1
+            p.overall_communication = p.sum_of_communication / p.no_of_communication
+
+            #knowledge
+            p.sum_of_knowledge += r.knowledge
+            p.no_of_knowledge += 1
+            p.overall_knowledge = p.sum_of_knowledge / p.no_of_knowledge
+
+            #approachability
+            p.sum_of_approachability += r.approachability
+            p.no_of_approachability += 1
+            p.overall_approachability = p.sum_of_approachability / p.no_of_approachability
+
+            #enthusiasm
+            p.sum_of_enthusiasm += r.enthusiasm
+            p.no_of_enthusiasm += 1
+            p.overall_enthusiasm = p.sum_of_enthusiasm / p.no_of_enthusiasm
+
+            #clarity
+            p.sum_of_clarity += r.clarity
+            p.no_of_clarity += 1
+            p.overall_clarity = p.sum_of_clarity / p.no_of_clarity
+
+            #awesomeness
+            p.sum_of_awesomeness += r.awesomeness
+            p.no_of_awesomeness += 1
+            overall_awesomeness = p.sum_of_awesomeness / p.no_of_awesomeness
+
+            #overall
+            p.sum_of_ratings += (r.communication + r.knowledge + r.approachability
+                + r.enthusiasm + r.clarity + r.awesomeness) / 6
+            p.no_of_ratings += 1
+            p.overall_rating = p.sum_of_ratings / p.no_of_ratings
+
+            p.save()
 
     # Print out what we have added to the user.
     for u in University.objects.all():
         for p in Professor.objects.filter(university=u):
             print "- {0} - {1}".format(str(u), str(p))
-
 
 # ------------------------------------- FUNCTIONS ------------------------------------------------
 def add_university(name, url):
@@ -177,7 +255,7 @@ def add_course(course_name, university, department, start_date):
 
 # A function which returns a random number between 1 and 5 in order to give values for the ratings
 def get_random():
-    return random.randrange(1,6)
+    return random.randrange(2,6)
 
 # a new comment
 # Start execution here!
