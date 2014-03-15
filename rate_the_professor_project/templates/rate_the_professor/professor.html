@@ -86,15 +86,16 @@
                 </div>
 
                 <!-- RATING COMMENTS ROWS -->
-                <div class="row">
-                    {% if ratings %}
-                        {% for rating in ratings %}
+                {% if ratings %}
+                    {% for rating in ratings %}
+                        <hr>
+                        <div class="row">
                             {% include "rate_the_professor/rating.html" with rating=rating %}
-                        {% endfor %}
-                    {% else %}
-                        <strong>No ratings currently for professor</strong>
-                    {% endif %}
-                </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <strong>No ratings currently for professor</strong>
+                {% endif %}
             </div>
         </div>
     </div>
