@@ -40,6 +40,17 @@
                 {% endfor %}
             {% endif %}
             </div>
+
+            <div>
+            {% if book_suggestions %}
+                <br>Book suggestions:<br>
+                <ul>
+                {% for book_suggestion in book_suggestions %}
+                    <li><a href="{{ book_suggestion.url }}">{{ book_suggestion.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            </div>
         </div>
     </div>
 

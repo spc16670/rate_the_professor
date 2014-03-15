@@ -7,8 +7,12 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidde
 from rate_the_professor.models import Rating, Professor, University, UserProfile, Course, User
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm, SuggestionForm
 from decimal import Decimal
-from datetime import datetime
-
+from xml.dom.minidom import parseString
+from time import gmtime, strftime
+import httplib
+import hashlib
+import hmac
+import base64
 
 def index(request):
     context = RequestContext(request)
@@ -99,6 +103,8 @@ def professor(request, professor_id):
         context_dict['professor'] = professor
         courses_taught = Course.objects.filter(professor__id=professor_id)
         context_dict['courses_taught'] = courses_taught
+        book_suggestions = get_amazon_suggestions(professor.first_name + " " + professor.last_name)
+        context_dict['book_suggestions'] = book_suggestions[:7]
     except Professor.DoesNotExist:
         pass
     context_dict['form'] = form
@@ -198,11 +204,6 @@ def update_professor_scores(professor, old_rating, new_rating):
         , sum_of_ratings=sum_of_ratings
         , overall_rating=overall_rating
     )
-
-
-
-
-
 
 
 def register(request):
@@ -364,3 +365,83 @@ def user_logout(request):
 
     # Take the user back to the homepage.
     return HttpResponseRedirect('/rate_the_professor/')
+
+
+def get_amazon_suggestions(keyword):
+    amazon_access_key = "AKIAJLEWU2SSPY43LYTQ"
+    amazon_secret_key = "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"
+
+    host = "ecs.amazonaws.com:80"
+    service = "/onca/xml?"
+
+    datetime_utc = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime())
+    datetime_utc_enc = datetime_utc.replace(":", "%3A")
+    keyword_f = keyword.replace(" ", "%20")
+    sign_head = "GET\necs.amazonaws.com\n/onca/xml\n"
+
+    params = "AWSAccessKeyId=" + amazon_access_key + "&" \
+        "AssociateTag=PutYourAssociateTagHere&" \
+        "Keywords=" + keyword_f + "&" \
+        "Operation=ItemSearch&" \
+        "SearchIndex=Books&" \
+        "Service=AWSECommerceService&" \
+        "Timestamp=" + datetime_utc_enc + "&" \
+        "Version=2011-08-01"
+
+    string_to_sign = sign_head + params
+
+    dig = hmac.new(b'mERr4dAusZ9Tk1cwHXW4lpdY4C6w6LFNuzWe6gl8', msg=string_to_sign, digestmod=hashlib.sha256).digest()
+    signature = base64.b64encode(dig).decode()
+
+    request = service + params + "&Signature=" + signature
+
+    connection = httplib.HTTPConnection(host)
+    connection.request('GET', request)
+
+    response = connection.getresponse().read()
+
+    dom = parseString(response)
+
+    class BookSuggestion(object):
+        author = ""
+        title = ""
+        url = ""
+
+        def __init__(self, author, title, url):
+            self.author = author
+            self.title = title
+            self.url = url
+
+    books = []
+
+    items = dom.getElementsByTagName('Item')
+    for item in items:
+        itemLink = item.getElementsByTagName('ItemLink')[0]
+        urlnode = itemLink.getElementsByTagName('URL')[0]
+        url = urlnode.childNodes[0].nodeValue
+
+        item_atts = dom.getElementsByTagName('ItemAttributes')
+        for item_att in item_atts:
+            authorlist = item_att.getElementsByTagName('Author')
+            for a in authorlist:
+                author = a.childNodes[0].nodeValue
+
+            titlelist = item_att.getElementsByTagName('Title')
+            for a in titlelist:
+                title = a.childNodes[0].nodeValue
+
+            book_suggestion = BookSuggestion(author, title, url)
+            books.append(book_suggestion)
+
+    return books
+
+
+    #root = ElementTree.fromstring(response)
+    #items = root.findall("./Items")
+
+
+
+
+
+
+
