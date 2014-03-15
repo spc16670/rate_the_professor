@@ -443,9 +443,6 @@ def get_amazon_suggestions(keyword):
     return books
 
 
-    #root = ElementTree.fromstring(response)
-    #items = root.findall("./Items")
-
 
 
 
