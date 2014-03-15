@@ -43,7 +43,7 @@
 
             <div>
             {% if book_suggestions %}
-                <br>Book suggestions:<br>
+                <br>Amazon book suggestions:<br>
                 <ul>
                 {% for book_suggestion in book_suggestions %}
                     <li><a href="{{ book_suggestion.url }}">{{ book_suggestion.title }}</a></li>
@@ -74,7 +74,6 @@
         </div>
 
 
-    
         <!-- RECENT RATINGS -->
         <div class="row">
             <div class="col-md-12 well">

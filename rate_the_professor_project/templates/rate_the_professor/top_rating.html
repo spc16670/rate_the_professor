@@ -2,9 +2,10 @@
 {% if professors %}
     {% for professor in professors %}
         <div class="row">
-        <div class="col-md-6">
-            <a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
-        </div>
+            <div class="col-md-6">
+                <a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
+                <br><small>{{ professor.university }}</small>
+            </div>
             <div class="col-md-6 big-rating">{{ professor.overall_rating }}</div>
          </div>
     {% endfor %}
