@@ -440,8 +440,8 @@ def get_amazon_suggestions(keyword):
 
                 book_suggestion = BookSuggestion(author, title, url)
                 books.append(book_suggestion)
-    finally:
-        pass
+    except httplib.HTTPException, error:
+        print error
 
     return books
 
