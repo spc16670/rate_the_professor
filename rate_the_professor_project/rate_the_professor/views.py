@@ -6,13 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from rate_the_professor.models import Rating, Professor, University, UserProfile, Course, User
 from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm, SuggestionForm
+from rate_the_professor.rest import get_amazon_suggestions
 from decimal import Decimal
-from xml.dom.minidom import parseString
-from time import gmtime, strftime
-import httplib
-import hashlib
-import hmac
-import base64
+
 
 def index(request):
     context = RequestContext(request)
@@ -20,17 +16,32 @@ def index(request):
     recent_ratings = Rating.objects.order_by('-id')[:12]
     # TOP 5
     top_professors = Professor.objects.order_by('-overall_rating')[:5]
+    context_dict = {'recent_ratings': recent_ratings, 'top_professors': top_professors}
+    return render_to_response('rate_the_professor/index.html', context_dict, context)
+
+
+def ranking(request):
+    context = RequestContext(request)
     # BEST COMMUNICATORS
     best_communicators = Professor.objects.order_by('-overall_communication')[:5]
      # EASILY APPROACHABLE
     easily_approachable = Professor.objects.order_by('-overall_approachability')[:5]
-
-    context_dict = {'recent_ratings': recent_ratings
-        , 'top_professors': top_professors
-        , 'best_communicators': best_communicators
+    #WISE OWLS
+    wise_owls = Professor.objects.order_by('-overall_knowledge')[:5]
+    #MOST ENTHUSIASTIC
+    most_enthusiastic = Professor.objects.order_by('-overall_enthusiasm')[:5]
+    #BEST CLARITY
+    best_clarity = Professor.objects.order_by('-overall_clarity')[:5]
+    #TOTALLY AWESOME
+    totally_awesome =Professor.objects.order_by('-overall_awesomeness')[:5]
+    context_dict = {'best_communicators': best_communicators
         , 'easily_approachable': easily_approachable
+        , 'wise_owls': wise_owls
+        , 'most_enthusiastic': most_enthusiastic
+        , 'best_clarity': best_clarity
+        , 'totally_awesome': totally_awesome
     }
-    return render_to_response('rate_the_professor/index.html', context_dict, context)
+    return render_to_response('rate_the_professor/ranking.html', context_dict, context)
 
 
 def user(request):
@@ -373,79 +384,6 @@ def user_logout(request):
     # Take the user back to the homepage.
     return HttpResponseRedirect('/rate_the_professor/')
 
-
-def get_amazon_suggestions(keyword):
-    amazon_access_key = "AKIAJLEWU2SSPY43LYTQ"
-
-    host = "ecs.amazonaws.com:80"
-    service = "/onca/xml?"
-
-    datetime_utc = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime())
-    datetime_utc_enc = datetime_utc.replace(":", "%3A")
-    keyword_f = keyword.replace(" ", "%20")
-    sign_head = "GET\necs.amazonaws.com\n/onca/xml\n"
-
-    params = "AWSAccessKeyId=" + amazon_access_key + "&" \
-        "AssociateTag=PutYourAssociateTagHere&" \
-        "Keywords=" + keyword_f + "&" \
-        "Operation=ItemSearch&" \
-        "SearchIndex=Books&" \
-        "Service=AWSECommerceService&" \
-        "Timestamp=" + datetime_utc_enc + "&" \
-        "Version=2011-08-01"
-
-    string_to_sign = sign_head + params
-
-    dig = hmac.new(b'mERr4dAusZ9Tk1cwHXW4lpdY4C6w6LFNuzWe6gl8', msg=string_to_sign, digestmod=hashlib.sha256).digest()
-    signature = base64.b64encode(dig).decode()
-
-    request = service + params + "&Signature=" + signature
-
-    books = []
-
-    try:
-        connection = httplib.HTTPConnection(host)
-        connection.request('GET', request)
-
-        response = connection.getresponse().read()
-
-        dom = parseString(response)
-
-        class BookSuggestion(object):
-            author = ""
-            title = ""
-            url = ""
-
-            def __init__(self, author, title, url):
-                self.author = author
-                self.title = title
-                self.url = url
-
-        items = dom.getElementsByTagName('Item')
-        for item in items:
-            itemLink = item.getElementsByTagName('ItemLink')[0]
-            urlnode = itemLink.getElementsByTagName('URL')[0]
-            url = urlnode.childNodes[0].nodeValue
-
-            item_atts = dom.getElementsByTagName('ItemAttributes')
-            for item_att in item_atts:
-                authorlist = item_att.getElementsByTagName('Author')
-                for a in authorlist:
-                    author = a.childNodes[0].nodeValue
-
-                titlelist = item_att.getElementsByTagName('Title')
-                for a in titlelist:
-                    title = a.childNodes[0].nodeValue
-
-                book_suggestion = BookSuggestion(author, title, url)
-                books.append(book_suggestion)
-    except httplib.HTTPException, error:
-        print error
-    # Not specifying exception is really bad, I know
-    except:
-        pass
-
-    return books
 
 
 

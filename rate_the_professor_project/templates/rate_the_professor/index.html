@@ -40,6 +40,7 @@
 	<div class="col-md-4">
 	    <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
 	    the clicking of the button all  -->
+
 		    <div class="well-sm">
 				<form class="form-inline" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
 			        {% csrf_token %}
@@ -53,54 +54,14 @@
 
 		<!-- TOP 5 LECTURERS -->
 		<div class="well">
-			<h4>Top Professors</h4>
-			{% if top_professors %}
-				{% for professor in top_professors %}
-					<div class="row">
-						<div class="col-md-6">
-							<a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
-						</div>
-						<div class="col-md-6 big-rating">{{ professor.overall_rating }}</div>
-					</div>
-				{% endfor %}
-			{% else %}
-				<strong>There are no professors present.</strong>
-			{% endif %}
+            {% include "rate_the_professor/top_rating.html" with professors=top_professors title="Top Professors"%}
 		</div>
 
-		<!-- BEST COMMUNICATORS -->
-		<div class="well">
-			<h4>Best communicators</h4>
-			{% if best_communicators %}
-				{% for professor in best_communicators %}
-					<div class="row">
-						<div class="col-md-6">
-							<a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
-						</div>
-						<div class="col-md-6 big-rating">{{ professor.overall_communication }}</div>
-					</div>
-				{% endfor %}
-			{% else %}
-				<strong>There are no professors present.</strong>
-			{% endif %}
+        <div class="well">
+            <a href="/rate_the_professor/ranking/" class="btn btn-primary">Ranking</a>
 		</div>
 
-	    <!-- EASILY APPROACHABLE -->
-		<div class="well">
-			<h4>Most approachable</h4>
-			{% if best_communicators %}
-				{% for professor in easily_approachable %}
-					<div class="row">
-						<div class="col-md-6">
-							<a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
-						</div>
-						<div class="col-md-6 big-rating">{{ professor.overall_approachability }}</div>
-					</div>
-				{% endfor %}
-			{% else %}
-				<strong>There are no professors present.</strong>
-			{% endif %}
-		</div>
+
 	</div>
 </div>
 {% endblock %}

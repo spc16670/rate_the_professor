@@ -1,0 +1,13 @@
+<h4>{{ title }}</h4>
+{% if professors %}
+    {% for professor in professors %}
+        <div class="row">
+        <div class="col-md-6">
+            <a href="/rate_the_professor/professor/{{ professor.id }}/">{{ professor.full_name }}</a>
+        </div>
+            <div class="col-md-6 big-rating">{{ professor.overall_rating }}</div>
+         </div>
+    {% endfor %}
+    {% else %}
+    <strong>There are no professors present.</strong>
+{% endif %}
