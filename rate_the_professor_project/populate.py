@@ -38,7 +38,7 @@ def populate():
     course_mc = add_course('Multivariable Calculus', university_gla, gla_department_math, datetime.now())
 
     #Adding prrofessors from the computing science department
-    professor_leif = add_professor('Dr.', 'Leif', 'Azzopardi','l_azzopardi.jpg','www.dcs.gla.ac.uk/~leif/', university_gla)
+    professor_leif = add_professor('Dr.', 'Leif', 'Azzopardi','l_azzopardi.jpg','http://www.dcs.gla.ac.uk/~leif/', university_gla)
     professor_ron = add_professor('Dr.', 'Ron', 'Poet', 'r_poet.jpg', 'http://www.dcs.gla.ac.uk/~ron/', university_gla)
     professor_david = add_professor('Dr.', 'David', 'Manlove','d_manlove.jpg', 'http://www.dcs.gla.ac.uk/~davidm/', university_gla)
     professor_alessandro = add_professor('Dr.', 'Alessandro', 'Vinciarelli','a_vinciarelli.jpg', 'http://www.dcs.gla.ac.uk/vincia/', university_gla)
@@ -48,7 +48,7 @@ def populate():
     professor_davidw = add_professor('Dr.', 'David', 'Watt', 'd_watt.jpg', 'http://www.dcs.gla.ac.uk/~daw/', university_gla)
 
     #Adding professors from the mathematics department
-    professor_tara = add_professor('Dr.', 'Tara', 'Brendle', 't_brendle.jpg', 'www.maths.gla.ac.uk/~tbrendle/', university_gla)
+    professor_tara = add_professor('Dr.', 'Tara', 'Brendle', 't_brendle.jpg', 'http://www.maths.gla.ac.uk/~tbrendle/', university_gla)
     professor_andrewbaggaley = add_professor('Dr.', 'Andrew', 'Baggaley', '', 'http://www.gla.ac.uk/schools/mathematicsstatistics/staff/andrewbaggaley/', university_gla)
     professor_davidbourne = add_professor('Dr.', 'David', 'Bourne', 'd_bourne.jpg', 'http://www.maths.gla.ac.uk/~dbourne/', university_gla)
     professor_christina = add_professor('Dr.', 'Christina', 'Cobbold', 'c_cobbold.jpg', 'http://www.maths.gla.ac.uk/~cc/', university_gla)

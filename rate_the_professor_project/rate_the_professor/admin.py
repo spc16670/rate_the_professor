@@ -8,7 +8,7 @@ class PageAdmin(admin.ModelAdmin):
 
 
 class SuggestionAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'courses_taught','website_url')
+    list_display = ('full_name','university', 'courses_taught','date_added')
 
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ('university','department_name')
