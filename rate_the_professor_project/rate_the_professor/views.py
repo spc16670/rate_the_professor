@@ -231,6 +231,11 @@ def register(request):
             # Update our variable to tell the template registration was successful.
             registered = True
 
+            #Login the user after registration
+            user = authenticate(username=request.POST['username'],
+                                    password=request.POST['password'])
+            login(request, user)
+
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
@@ -242,6 +247,8 @@ def register(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
+
+
     # Render the template depending on the context.
     return render_to_response('rate_the_professor/register.html', {
         'user_form': user_form
