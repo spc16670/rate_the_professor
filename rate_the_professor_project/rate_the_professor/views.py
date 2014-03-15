@@ -402,43 +402,46 @@ def get_amazon_suggestions(keyword):
 
     request = service + params + "&Signature=" + signature
 
-    connection = httplib.HTTPConnection(host)
-    connection.request('GET', request)
-
-    response = connection.getresponse().read()
-
-    dom = parseString(response)
-
-    class BookSuggestion(object):
-        author = ""
-        title = ""
-        url = ""
-
-        def __init__(self, author, title, url):
-            self.author = author
-            self.title = title
-            self.url = url
-
     books = []
 
-    items = dom.getElementsByTagName('Item')
-    for item in items:
-        itemLink = item.getElementsByTagName('ItemLink')[0]
-        urlnode = itemLink.getElementsByTagName('URL')[0]
-        url = urlnode.childNodes[0].nodeValue
+    try:
+        connection = httplib.HTTPConnection(host)
+        connection.request('GET', request)
 
-        item_atts = dom.getElementsByTagName('ItemAttributes')
-        for item_att in item_atts:
-            authorlist = item_att.getElementsByTagName('Author')
-            for a in authorlist:
-                author = a.childNodes[0].nodeValue
+        response = connection.getresponse().read()
 
-            titlelist = item_att.getElementsByTagName('Title')
-            for a in titlelist:
-                title = a.childNodes[0].nodeValue
+        dom = parseString(response)
 
-            book_suggestion = BookSuggestion(author, title, url)
-            books.append(book_suggestion)
+        class BookSuggestion(object):
+            author = ""
+            title = ""
+            url = ""
+
+            def __init__(self, author, title, url):
+                self.author = author
+                self.title = title
+                self.url = url
+
+        items = dom.getElementsByTagName('Item')
+        for item in items:
+            itemLink = item.getElementsByTagName('ItemLink')[0]
+            urlnode = itemLink.getElementsByTagName('URL')[0]
+            url = urlnode.childNodes[0].nodeValue
+
+            item_atts = dom.getElementsByTagName('ItemAttributes')
+            for item_att in item_atts:
+                authorlist = item_att.getElementsByTagName('Author')
+                for a in authorlist:
+                    author = a.childNodes[0].nodeValue
+
+                titlelist = item_att.getElementsByTagName('Title')
+                for a in titlelist:
+                    title = a.childNodes[0].nodeValue
+
+                book_suggestion = BookSuggestion(author, title, url)
+                books.append(book_suggestion)
+    finally:
+        pass
 
     return books
 
