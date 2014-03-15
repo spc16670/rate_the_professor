@@ -328,8 +328,8 @@
 			initialiseProfessorRatingsForm();
 		});
 
-		$("a").click( function() {
-  			
+		$("a").click( function(event) {
+  			event.stopImmediatePropagation();
     			$("#b").fadeOut('slow');
 			
 			
