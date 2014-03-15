@@ -442,6 +442,9 @@ def get_amazon_suggestions(keyword):
                 books.append(book_suggestion)
     except httplib.HTTPException, error:
         print error
+    # Not specifying exception is really bad, I know
+    except:
+        pass
 
     return books
 
