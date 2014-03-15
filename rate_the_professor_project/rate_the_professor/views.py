@@ -376,7 +376,6 @@ def user_logout(request):
 
 def get_amazon_suggestions(keyword):
     amazon_access_key = "AKIAJLEWU2SSPY43LYTQ"
-    amazon_secret_key = "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"
 
     host = "ecs.amazonaws.com:80"
     service = "/onca/xml?"
