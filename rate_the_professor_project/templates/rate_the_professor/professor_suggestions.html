@@ -1,11 +1,7 @@
 {% if prof_list %}
-    <ul>
     {% for prof in prof_list %}
-        <li><a href="/rate_the_professor/professor/{{ prof.id }}/">{{ prof.last_name }}, {{ prof.first_name }} {{ prof.university }}</a></li>
+		<li role="presentation"><a role="menuitem" tabindex="-1" href="/rate_the_professor/professor/{{ prof.id }}/">{{ prof.last_name }}, {{ prof.first_name }} {{ prof.university }}</a></li>
     {% endfor %}
-    </ul>
 {% else %}
-    <ul>
-        <li>No results... Would you like to <a href="suggestion/">suggest</a> a professor?</li>
-    </ul>
+    <li role="presentation"><a href="suggestion/">No results... Would you like to suggest a professor?</a></li>
 {% endif %}

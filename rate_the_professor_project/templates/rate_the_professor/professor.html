@@ -21,15 +21,15 @@
             
             <table>
                 <tr>
-                    <td class="big-rating">{{ professor.overall_rating }}</td>
+                    <td class="big-rating" title="{{ professor.overall_rating }} stars">{{ professor.overall_rating }}</td>
                     <td><h1 class="centered-text">{{ professor.overall_rating }}<h1></td>
                 </tr>
-                <tr><td class="prof-rating">Communication: </td><td class="big-rating">{{ professor.overall_communication }}</td></tr>
-                <tr><td class="prof-rating">Knowledge: </td><td class="big-rating">{{ professor.overall_knowledge }}</td></tr>
-                <tr><td class="prof-rating">Approachability: </td><td class="big-rating">{{ professor.overall_approachability }}</td></tr>
-                <tr><td class="prof-rating">Enthusiasm: </td><td class="big-rating">{{ professor.overall_enthusiasm }}</td></tr>
-                <tr><td class="prof-rating">Clarity: </td><td class="big-rating">{{ professor.overall_clarity }}</td></tr>
-                <tr><td class="prof-rating">Awesomeness: </td><td class="big-rating">{{ professor.overall_awesomeness }}</td></tr>
+                <tr><td class="prof-rating">Communication: </td><td class="big-rating" title="{{ professor.overall_communication }} stars">{{ professor.overall_communication }}</td></tr>
+                <tr><td class="prof-rating">Knowledge: </td><td class="big-rating" title="{{ professor.overall_knowledge }} stars">{{ professor.overall_knowledge }}</td></tr>
+                <tr><td class="prof-rating">Approachability: </td><td class="big-rating" title="{{ professor.overall_approachability }} stars">{{ professor.overall_approachability }}</td></tr>
+                <tr><td class="prof-rating">Enthusiasm: </td><td class="big-rating" title="{{ professor.overall_enthusiasm }} stars">{{ professor.overall_enthusiasm }}</td></tr>
+                <tr><td class="prof-rating">Clarity: </td><td class="big-rating" title="{{ professor.overall_clarity }} stars">{{ professor.overall_clarity }}</td></tr>
+                <tr><td class="prof-rating">Awesomeness: </td><td class="big-rating" title="{{ professor.overall_awesomeness }} stars">{{ professor.overall_awesomeness }}</td></tr>
             </table>
 
             <div>
@@ -86,15 +86,16 @@
                 </div>
 
                 <!-- RATING COMMENTS ROWS -->
-                <div class="row">
-                    {% if ratings %}
-                        {% for rating in ratings %}
+                {% if ratings %}
+                    {% for rating in ratings %}
+                        <hr>
+                        <div class="row">
                             {% include "rate_the_professor/rating.html" with rating=rating %}
-                        {% endfor %}
-                    {% else %}
-                        <strong>No ratings currently for professor</strong>
-                    {% endif %}
-                </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <strong>No ratings currently for professor</strong>
+                {% endif %}
             </div>
         </div>
     </div>

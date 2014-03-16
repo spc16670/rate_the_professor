@@ -26,8 +26,8 @@
 						<div class="col-md-6">{{ rating.comment }}</div>
 						
 						<div class="col-md-3">
-							<h2>{{ rating.rating }}</h2>
-							<span class="big-rating">{{ rating.rating }}</span>
+							<h2 class="number-rating">{{ rating.rating }}</h2>
+							<span class="big-rating" title="{{ rating.rating }} stars">{{ rating.rating }}</span>
 						</div>
 					</div>
 				{% endfor %}
@@ -49,7 +49,9 @@
 				</form>
 
 		        <!-- AJAX call updates this div  -->
-		        <div id="suggested_professors"></div>
+				<div id="suggested_professors" class="dropdown">
+					<ul id="search-dropdown" class="dropdown-menu" role="menu"></ul>
+				</div>
 		    </div>
 
 		<!-- TOP 5 LECTURERS -->
