@@ -4,12 +4,13 @@ import httplib
 import hashlib
 import hmac
 import base64
+import urllib2
 
 
 def get_amazon_suggestions(keyword):
     amazon_access_key = "AKIAJLEWU2SSPY43LYTQ"
 
-    host = "ecs.amazonaws.com:80"
+    host = "http://ecs.amazonaws.com"
     service = "/onca/xml?"
 
     datetime_utc = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime())
@@ -31,15 +32,19 @@ def get_amazon_suggestions(keyword):
     dig = hmac.new(b'mERr4dAusZ9Tk1cwHXW4lpdY4C6w6LFNuzWe6gl8', msg=string_to_sign, digestmod=hashlib.sha256).digest()
     signature = base64.b64encode(dig).decode()
 
-    request = service + params + "&Signature=" + signature
+    request = host + service + params + "&Signature=" + signature
 
     books = []
 
     try:
-        connection = httplib.HTTPConnection(host)
-        connection.request('GET', request)
+        req = urllib2.Request(request)
+        #req.add_header('User-agent', 'Mozilla/5.0')
+        response = urllib2.urlopen(req)
+        response = response.read()
 
-        response = connection.getresponse().read()
+        #connection = httplib.HTTPConnection(host)
+        #connection.request('GET', request)
+        #response = connection.getresponse().read()
 
         dom = parseString(response)
 
