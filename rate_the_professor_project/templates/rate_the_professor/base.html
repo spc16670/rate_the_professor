@@ -176,8 +176,9 @@
 
 	    // ------------ DYNAMIC PROFESSOR SEARCH FORM ----------------------- //
 	    var data1;
-	    $('#query').keyup(function(){
+	    $('#query').keyup(function(event) {
 	        var query = $('#query').val();
+
 	        if (query !== "") {
 	            $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
 				    if (data !== data1)
@@ -192,31 +193,16 @@
 	        }
 	    });
 
-
-	    // ----- CHANGE NUMERICAL RATING COLOUR DEPENDING ON VALUE ---------- //
-
-	    function colourNumberRating() {
-	    	var rating = $('.number-rating');
-	    	var green = "#00FF00";
-	    	var red = "#FF0000";
-	    	var orange = "#FF9900";
-
-	    	rating.css("font-weight", "bold");
-
-	    	rating.each(function(i) {
-		    	if ($(this).html() > 3.33)
-		    		$(this).css("color", green);
-		    	else if ($(this).html() < 1.67)
-		    		$(this).css("color", red);
-		    	else
-		    		$(this).css("color", orange);
-	    	});
-
-	    }
+	    // ------- MAKE THE SEARCH DROPDOWN MENU DISAPPEAR ON FOCUSOUT ------ //
+	    $('#query').focusout(function() {
+	    	$('#search-dropdown').css("display", "none");
+	    })
 
 	    // ---------------- search form stuff -----------------//
 	    var data2 = "";		
 	    $("#search_form").submit(function(event) {
+	        event.preventDefault();
+	    	/*
 			event.preventDefault();
 			var $form = $( this ),
 			url = $form.attr( 'action' );
@@ -233,7 +219,27 @@
 					data2 = data;
 				}
 			});
+			*/
 	    });
+
+	    // ----- CHANGE NUMERICAL RATING COLOUR DEPENDING ON VALUE ---------- //
+	    function colourNumberRating() {
+	    	var rating = $('.number-rating');
+	    	var green = "#00FF00";
+	    	var red = "#FF0000";
+	    	var orange = "#FF9900";
+
+	    	rating.css("font-weight", "bold");
+
+	    	rating.each(function(i) {
+		    	if ($(this).html() > 3.33)
+		    		$(this).css("color", green);
+		    	else if ($(this).html() < 1.67)
+		    		$(this).css("color", red);
+		    	else
+		    		$(this).css("color", orange);
+	    	});
+	    }
 	
 
 	    // -------------- CHANGE RECENT COMMENT RATINGS TO STARS ------------ //
@@ -256,7 +262,7 @@
 				
 				var starColours = ["star_g", "star_o", "star_r", "star_gy"];
 				var starSizes = ["_small", ""];
-				var coloursEnum = Object.freeze({"GREEN" : 0, "ORANGE" : 1, "RED" : 2, "GREY" : 3});
+				var coloursEnum = {"GREEN" : 0, "ORANGE" : 1, "RED" : 2, "GREY" : 3};
 
 				var starColour;
 				var starSize;
