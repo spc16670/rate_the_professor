@@ -38,14 +38,8 @@ def get_amazon_suggestions(keyword):
 
     try:
         req = urllib2.Request(request)
-        #req.add_header('User-agent', 'Mozilla/5.0')
         response = urllib2.urlopen(req)
         response = response.read()
-
-        #connection = httplib.HTTPConnection(host)
-        #connection.request('GET', request)
-        #response = connection.getresponse().read()
-
         dom = parseString(response)
 
         class BookSuggestion(object):
@@ -60,31 +54,31 @@ def get_amazon_suggestions(keyword):
 
         items = dom.getElementsByTagName('Item')
         for item in items:
-            itemLink = item.getElementsByTagName('ItemLink')[0]
-            urlnode = itemLink.getElementsByTagName('URL')[0]
-            url = urlnode.childNodes[0].nodeValue
+            item_link = item.getElementsByTagName('ItemLink')[0]
+            url_node = item_link.getElementsByTagName('URL')[0]
+            url = url_node.childNodes[0].nodeValue
 
-            item_atts = dom.getElementsByTagName('ItemAttributes')
-            for item_att in item_atts:
-                authorlist = item_att.getElementsByTagName('Author')
-                for a in authorlist:
+            item_attributes = dom.getElementsByTagName('ItemAttributes')
+            for attribute in item_attributes:
+                author_list = attribute.getElementsByTagName('Author')
+                for a in author_list:
                     author = a.childNodes[0].nodeValue
 
-                titlelist = item_att.getElementsByTagName('Title')
-                for a in titlelist:
+                title_list = attribute.getElementsByTagName('Title')
+                for a in title_list:
                     title = a.childNodes[0].nodeValue
 
                 book_suggestion = BookSuggestion(author, title, url)
                 books.append(book_suggestion)
-    except httplib.HTTPException, error:
-        if error.code == 404:
-            print "Page not found!"
-        elif error.code == 403:
-            print "Access denied!"
-        else:
-            print "Something happened! Error code", error.code
-    # Not specifying exception is really bad, I know
-    except httplib.ImproperConnectionState, error:
-        print error.message
+    except urllib2.HTTPError, e:
+        print 'HTTPError = ' + str(e.code)
+    except urllib2.URLError, e:
+        print 'URLError = ' + str(e.reason)
+    except httplib.HTTPException, e:
+        print'HTTPException'
+    except Exception:
+        import traceback
+        print 'generic exception: ' + traceback.format_exc()
+
 
     return books
