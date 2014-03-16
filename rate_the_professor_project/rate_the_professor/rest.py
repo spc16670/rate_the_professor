@@ -72,9 +72,14 @@ def get_amazon_suggestions(keyword):
                 book_suggestion = BookSuggestion(author, title, url)
                 books.append(book_suggestion)
     except httplib.HTTPException, error:
-        print error
+        if error.code == 404:
+            print "Page not found!"
+        elif error.code == 403:
+            print "Access denied!"
+        else:
+            print "Something happened! Error code", error.code
     # Not specifying exception is really bad, I know
-    except:
-        pass
+    except httplib.ImproperConnectionState, error:
+        print error.message
 
     return books
