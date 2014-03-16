@@ -253,6 +253,7 @@ def register(request):
                                     password=request.POST['password'])
             login(request, user)
 
+            return HttpResponseRedirect('/rate_the_professor/')
         # Invalid form or forms - mistakes or something else?
         # Print problems to the terminal.
         # They'll also be shown to the user.
@@ -264,7 +265,6 @@ def register(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
-
 
     # Render the template depending on the context.
     return render_to_response('rate_the_professor/register.html', {
