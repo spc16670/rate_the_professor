@@ -5,96 +5,80 @@
 	<title>Rate The Professor</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Bootstrap -->
-	<!--link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet"-->
 	<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
 	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
-
+	<!--link href="{% static 'css/rate-the-professor.css' %}" rel="stylesheet"-->
 	<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 
-	<!-- CSS is written here for convenience; will move to a separate .css file when complete -->
 	<style type="text/css">
-
-    .thumbnail
-        {
-        max-width: 20px;
-        max-height: 20px;
-        }
-
-     .centered-text
-        {
-        text-align: center;
-        }
-
-	.navbar {
-		background: url({% static 'img/banner.jpg' %});
-	}
-
-    .label-default {
-        font-size: x-large;
-        background-color: transparent;
-        color: black;
-    }
-    #b { 
-     display: none;
-     }
-   
-    .navbar-brand {
-        height: 200px;
-    }
-
-	.profpic img {
-		width: 200px;
-	}
-	footer {
-		margin-top: 50px;
-	}
-	div #login_result {
-		color: #FF4040;
-	}
-	.comment-pic {
-		width: 100px;
-	}
-	.rating-block {
-		width: 80px;
-	}
-	.prof-rating-form input {
-		display: none;
-	}
-	#id_comment {
-		display: block;
-	}
-	.prof-rating {
-		width: 120px;
-	}
-	.prof-rating-type-small {
-		width: 110px;
-		font-size: 12px;
-	}
-	.prof-rating-recent {
-		margin-top: 10px;
-		border-top: 1px solid #DDDDDD;
-	}
-	.prof-rating-recent > td {
-		padding: 5px;
-	}
-	.date {
-		color: #AAAAAA;
-		font-size: 9pt;
-	}
-	.small-rating-width {
-		width: 100px;
-		text-align: center;
-	}
-	.small-rating {
-		width: 80px;
-	}
-	.big-text {
-		font-size: 14pt;
-	}
-	.centered-text {
-		text-align: center;
-	}
+		.thumbnail {
+			max-width: 20px;
+			max-height: 20px;
+		}
+		.centered-text {
+			text-align: center;
+		}
+		.navbar {
+			background: url({% static 'img/banner.jpg' %});
+		}
+		#b { 
+			display: none;
+		}
+		.navbar-brand {
+			height: 200px;
+		}
+		.profpic img {
+			width: 200px;
+		}
+		footer {
+			margin-top: 50px;
+		}
+		div #login_result {
+			color: #FF4040;
+		}
+		.comment-pic {
+			width: 100px;
+		}
+		.rating-block {
+			width: 80px;
+		}
+		.prof-rating-form input {
+			display: none;
+		}
+		#id_comment {
+			display: block;
+		}
+		.prof-rating {
+			width: 120px;
+		}
+		.prof-rating-type-small {
+			width: 110px;
+			font-size: 12px;
+		}
+		.prof-rating-recent {
+			margin-top: 10px;
+			border-top: 1px solid #DDDDDD;
+		}
+		.prof-rating-recent > td {
+			padding: 5px;
+		}
+		.date {
+			color: #AAAAAA;
+			font-size: 9pt;
+		}
+		.small-rating-width {
+			width: 100px;
+			text-align: center;
+		}
+		.small-rating {
+			width: 80px;
+		}
+		.big-text {
+			font-size: 14pt;
+		}
+		.centered-text {
+			text-align: center;
+		}
 	</style>
 </head>
 
@@ -104,150 +88,129 @@
 		<!-- NAVIGATION BAR -->
 		<div class="navbar navbar-default">
 			<div class="row">
-            <div class="col-md-3">
 				<!-- RATE THE PROFESSOR LOGO -->
-				<div class="navbar-header">
-					<a href="/rate_the_professor/"><img src="{% static 'img/logo.png' %}" class="navbar-brand"></a>
+				<div class="col-md-3">
+					<div class="navbar-header">
+						<a href="/rate_the_professor/"><img src="{% static 'img/logo.png' %}" class="navbar-brand"></a>
+					</div>
 				</div>
-            </div>
+
 				<!-- TOP RIGHT LOGIN/LOGOUT AREA -->
-					{% if user.is_authenticated %}
-
-		                <div class="col-md-3"></div>
-                        <div class="col-md-3"></div>
-
-                        <div class="col-md-3">
-
-                            <div class="btn-group">
-                              <a href="/rate_the_professor/user/" class="btn btn-lg btn-link">
-                                  <div class="thumbnail">
-                                    {% if user_profile.picture %}
-                                        <img class= "thumbnail" src="/media/user/{{ user_profile.picture }}">
-                                    {% else %}
-                                        <img class= "thumbnail"  src="{% static 'img/profpic.png' %}">
-                                    {% endif %}
-                                  </div>
-                              </a>
-                              <a href="/rate_the_professor/user/" class="btn btn-lg btn-link">Welcome back, {{ user.username }}</a>
-                              <a href="/rate_the_professor/logout/" class="btn btn-lg btn-link">Logout</a>
-                            </div>
-                        </div>
-
+				{% if user.is_authenticated %}
+					<div class="col-md-3 col-md-offset-6">
+						<div class="btn-group">
+							<a href="/rate_the_professor/user/" class="btn btn-lg btn-link">
+								<div class="thumbnail">
+									{% if user_profile.picture %}
+										<img class= "thumbnail" src="/media/user/{{ user_profile.picture }}">
+									{% else %}
+										<img class= "thumbnail" src="{% static 'img/profpic.png' %}">
+									{% endif %}
+								</div>
+							</a>
+							<a href="/rate_the_professor/user/" class="btn btn-lg btn-link">Welcome back, {{ user.username }}</a>
+							<a href="/rate_the_professor/logout/" class="btn btn-lg btn-link">Logout</a>
 						</div>
-					{% else %}
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3"></div>
-		            <div class="col-md-3">
+					</div>
+				{% else %}
+					<!-- USERNAME/PASSWORD INPUT FIELDS -->
+					<div class="col-md-3 col-md-offset-6">
+						<form class="navbar-form" id="login_form" method="post" action="/rate_the_professor/login/">
+							{% csrf_token %}
+							<div class="form-group">
+								<input type="text" class="form-control" id="id_username" name="username" placeholder="Username">
+								<input type="password" class="form-control" id="id_password" name="password" placeholder="Password" />
+								<div class="list-group-horizontal">
+									<button type="submit" for="login_form" class="btn btn-link">Sign in</button>
+									<div id="login_result"></div>
+								</div>
+							</div>
+						</form>
 
-						<!-- USERNAME/PASSWORD INPUT FIELDS -->
-
-
-				<form class="navbar-form" id="login_form" method="post" action="/rate_the_professor/login/">
-                            {% csrf_token %}
-
-
-
-
-                        <div class="form-group">
-                            <input type="text" class="form-control " id = "id_username" name = "username" placeholder="Username">
-                            <input type = "password" class="form-control " id = "id_password" name = "password" placeholder="Password" />
-
-                           <div class="list-group-horizontal">
-                            <button type="submit" for="login_form" class="btn btn-link">Sign in</button>
-                            <div id="login_result"></div>
-                            </div>
-                        </form>
-
-
-
-                        <!-- REGISTER BUTTON -->
-
-                       <form action="/rate_the_professor/register/">
-								<button type="submit" class="btn btn-link">Register</button>
-							</form>
-
-                    </div>
-        </div>
-					{% endif %}
+						<!-- REGISTER BUTTON -->
+						<form action="/rate_the_professor/register/">
+							<button type="submit" class="btn btn-link">Register</button>
+						</form>
+					</div>
+				{% endif %}
 			</div>
 		</div>
-		
+
 		<!-- CONTENT OF PAGE -->
-	<div id="b">
-        {% block body_block %}{% endblock %}
-	</div>	
+		<div id="b">
+			{% block body_block %}{% endblock %}
+		</div>
+
+		<!-- FOOTER -->
+		<footer>
+			<p>&copy; iTech4Leif 2014</p>
+		</footer>
 	</div>
 
-	<footer>
-		<div class="container">
-			<p>&copy; iTech4Leif 2014</p>
-		</div>
-	</footer>
-
 	<!-- JAVASCRIPT -->
-	<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-
+	<script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
+	<!--script src="{% static 'js/rate-the-professor.js' %}"></script-->
 	<script type="text/javascript">
 
-        // -------- TOGGLE RATING FORM VISIBILITY ---------------//
-        $( "#edit_rating_btn" ).click(function() {
-            $( "#rating_form_div" ).slideToggle( "slow" );
-        });
+		// -------- TOGGLE RATING FORM VISIBILITY ----------------------------//
+		$( "#edit_rating_btn" ).click(function() {
+			$( "#rating_form_div" ).slideToggle( "slow" );
+		});
 
-		// -------- LOGIN AJAX ---------------//
-	    var frm = $('#login_form');
-	    frm.submit(function () {
-	        $.ajax({
-	            type: "POST",
-	            url: "/rate_the_professor/login/",
-	            data: frm.serialize(),
-	            success: function (data) {
-	                window.location = data;
-	            },
-	            error: function(data) {
-	                $('#login_result').html("Invalid login details supplied.");
-	            }
-	        });
-	        return false;
-	    });
+		// ------------ LOGIN AJAX -------------------------------------------//
+		var frm = $('#login_form');
+		frm.submit(function () {
+			$.ajax({
+				type: "POST",
+				url: "/rate_the_professor/login/",
+				data: frm.serialize(),
+				success: function (data) {
+					window.location = data;
+				},
+				error: function(data) {
+					$('#login_result').html("Invalid login details supplied.");
+				}
+			});
+			return false;
+		});
 
-	    // ------------ DYNAMIC PROFESSOR SEARCH FORM ----------------------- //
-	    var data1;
-	    $('#query').keyup(function(event) {
-	        var query = $('#query').val();
+		// ------------ DYNAMIC PROFESSOR SEARCH FORM ----------------------- //
+		var data1;
+		$('#query').keyup(function(event) {
+			var query = $('#query').val();
 
-	        if (query !== "") {
-	            $.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
-				    if (data !== data1)
-				    	$('#search-dropdown').css("display", "none");
+			if (query !== "") {
+				$.get('/rate_the_professor/suggest_professor/', {suggestion: query, max_results: 4}, function(data){
+					if (data !== data1)
+						$('#search-dropdown').css("display", "none");
 					$('#search-dropdown').html(data);
-				    $('#search-dropdown').css("display", "block");
-				    data1 = data; 
-		        });
-	        } else {
-			    $('#search-dropdown').css("display", "none");
-	            $('#search-dropdown').html("");
-	        }
-	    });
+					$('#search-dropdown').css("display", "block");
+					data1 = data; 
+				});
+			} else {
+				$('#search-dropdown').css("display", "none");
+				$('#search-dropdown').html("");
+			}
+		});
 
-	    // ------- MAKE THE SEARCH DROPDOWN MENU DISAPPEAR ON FOCUSOUT ------ //
-	    $('#query').focusout(function() {
-	    	$('#search-dropdown').css("display", "none");
-	    })
+		// ------- MAKE THE SEARCH DROPDOWN MENU DISAPPEAR ON FOCUSOUT ------ //
+		$('#query').focusout(function() {
+			$('#search-dropdown').css("display", "none");
+		})
 
-	    // ---------------- search form stuff -----------------//
-	    var data2 = "";		
-	    $("#search_form").submit(function(event) {
-	        event.preventDefault();
-	    	/*
+		// ---------------- search form stuff --------------------------------//
+		var data2 = "";		
+		$("#search_form").submit(function(event) {
+			event.preventDefault();
+			/*
 			event.preventDefault();
 			var $form = $( this ),
 			url = $form.attr( 'action' );
 			var posting = $.get( url, { suggestion: $('#query').val(), max_results: 0 } );
 			posting.done(function( data ) {
 				if (data !== "") {
- 					if (data2 !== data)
+						if (data2 !== data)
 						$('#ratings-main').fadeOut('fast', function(){$('#ratings-main').html(data);});
 					
 					$('#ratings-main').fadeIn('fast');
@@ -257,30 +220,30 @@
 					data2 = data;
 				}
 			});
-			*/
-	    });
+		*/
+		});
 
-	    // ----- CHANGE NUMERICAL RATING COLOUR DEPENDING ON VALUE ---------- //
-	    function colourNumberRating() {
-	    	var rating = $('.number-rating');
-	    	var green = "#00FF00";
-	    	var red = "#FF0000";
-	    	var orange = "#FF9900";
+		// ----- CHANGE NUMERICAL RATING COLOUR DEPENDING ON VALUE ---------- //
+		function colourNumberRating() {
+			var rating = $('.number-rating');
+			var green = "#00FF00";
+			var red = "#FF0000";
+			var orange = "#FF9900";
 
-	    	rating.css("font-weight", "bold");
+			rating.css("font-weight", "bold");
 
-	    	rating.each(function(i) {
-		    	if ($(this).html() > 3.33)
-		    		$(this).css("color", green);
-		    	else if ($(this).html() < 1.67)
-		    		$(this).css("color", red);
-		    	else
-		    		$(this).css("color", orange);
-	    	});
-	    }
-	
+			rating.each(function(i) {
+				if ($(this).html() > 3.33)
+					$(this).css("color", green);
+				else if ($(this).html() < 1.67)
+					$(this).css("color", red);
+				else
+					$(this).css("color", orange);
+			});
+		}
 
-	    // -------------- CHANGE RECENT COMMENT RATINGS TO STARS ------------ //
+
+		// -------------- CHANGE RECENT COMMENT RATINGS TO STARS ------------ //
 		var MAX_RATING = 5;
 		var SMALL_RATING = 0;
 		var BIG_RATING = 1;
@@ -297,7 +260,7 @@
 				var halfStars = Math.floor(rating * 2) % 2;
 
 				var html = "<div class='comment-rating-block'>";
-				
+
 				var starColours = ["star_g", "star_o", "star_r", "star_gy"];
 				var starSizes = ["_small", ""];
 				var coloursEnum = {"GREEN" : 0, "ORANGE" : 1, "RED" : 2, "GREY" : 3};
@@ -374,7 +337,7 @@
 			for (var i = 0; i < ratings.length; i++)
 				ratings[i] = 0;
 		}
-		
+
 		function getSelectedRating(ratingId) {
 			var ratingIdNumber = ratingId.substr(6, ratingId.length - 6);
 			return ratings[ratingIdNumber];
@@ -391,7 +354,6 @@
 			}
 		}
 
-
 		$(document).ready(function() {
 			ratingToStars();
 			colourNumberRating();
@@ -400,14 +362,14 @@
 
 
 
-		$("a").click( function(event) {
-  			event.stopImmediatePropagation();
-    			$("#b").fadeOut('slow');			
+		$("a").click(function(event) {
+			event.stopImmediatePropagation();
+			$("#b").fadeOut('slow');			
 		});
 
 		$(document).ready(function() {
 			$("#b").fadeIn('slow');
 		});
-    </script>
+	</script>
 </body>
 </html>

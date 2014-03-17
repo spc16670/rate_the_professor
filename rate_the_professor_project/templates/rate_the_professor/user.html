@@ -27,7 +27,6 @@
                 <button type="submit" class="btn btn-primary" name="suggest a professor" value="Suggest a Profesor">Suggest A Professor</button>
                 </form>
             </div>
-
         </div>
 
         <!-- USER RECENT RATINGS -->
@@ -37,11 +36,10 @@
                 {% for rating in ratings %}
                     <hr>
                     <div class="row">
-
+                        <!-- RATING PROFESSOR DETAILS -->
                         <div class="col-md-3">
-                           <!-- <img class="comment-pic" src="{% static 'img/profpic.png' %}"> -->
                             <a href="/rate_the_professor/professor/{{ rating.professor.id }}/">
-                            <img class="comment-pic" src="/media/professors/{{ rating.professor.picture }}">
+                                <img class="comment-pic" src="/media/professors/{{ rating.professor.picture }}">
                             </a>
                             <div><strong class="big-text">{{ rating.professor.full_name }}</strong></div>
                             <div>{{ rating.professor.university.uni_name }}</div>
@@ -52,6 +50,7 @@
                             <div>{{ rating.comment }}</div>
                             <div class="small-rating">{{ rating.rating }}</div> <div class="date">{{ rating.datetime }}</div>
                         </div>
+
                         <!-- RATING STARS -->
                         <div class="col-md-3">
                             <table>
@@ -69,7 +68,6 @@
                 <h4 class = "centered-text text-warning">You haven't left any ratings yet.</h4>
             {% endif %}
         </div>
-
     {% else %}
         <div class="col-md-12">
             <h2>The specified user {{ user }} does not exist!</h2>

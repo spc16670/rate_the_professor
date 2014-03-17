@@ -7,8 +7,8 @@
                 <br><small>{{ professor.university }}</small>
             </div>
             <div class="col-md-6 big-rating" title="{{ professor.overall_rating }} stars">{{ professor.overall_rating }}</div>
-         </div>
+        </div>
     {% endfor %}
-    {% else %}
+{% else %}
     <strong>There are no professors present.</strong>
 {% endif %}

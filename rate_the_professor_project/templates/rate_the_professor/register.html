@@ -2,31 +2,29 @@
 
 {% block body_block %}
 <div class="row">
-    <div class="col-md-12">
-        <h3>Register with Rate the Professor</h3>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3>Register with Rate the Professor</h3></div>
+            <div class="panel-body">
+                {% if registered %}
+                    <strong>Thank you for registering!</strong>
+                    <br><a href="/rate_the_professor/">Return to the homepage.</a><br />
+                {% else %}
+                    <form id="user_form" method="post" action="/rate_the_professor/register/" enctype="multipart/form-data">
+                        {% csrf_token %}
 
-        {% if registered %}
-        <strong>Thank you for registering!</strong>
-        <br><a href="/rate_the_professor/">Return to the homepage.</a><br />
-        {% else %}
+                        <!-- Display each form. The as_p method wraps each element in a paragraph
+                        (<p>) element. This ensures each element appears on a new line, making everything look neater. -->
+                        <table class="formtable">
+                            {{ user_form }}
+                            {{ profile_form }}
+                        </table>
 
-        <form id="user_form" method="post" action="/rate_the_professor/register/"
-                enctype="multipart/form-data">
-
-            {% csrf_token %}
-
-            <!-- Display each form. The as_p method wraps each element in a paragraph
-                 (<p>) element. This ensures each element appears on a new line,
-                 making everything look neater. -->
-            <table class="formtable">
-                {{ user_form }}
-                {{ profile_form }}
-            </table>
-
-            <!-- Provide a button to click to submit the form. -->
-            <br><input type="submit" name="submit" class="btn btn-primary" value="Register" />
-        </form>
-        {% endif %}
+                        <br><input type="submit" name="submit" class="btn btn-primary" value="Register" />
+                    </form>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
