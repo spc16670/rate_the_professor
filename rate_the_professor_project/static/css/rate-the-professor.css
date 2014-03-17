@@ -1,0 +1,68 @@
+.thumbnail {
+	max-width: 20px;
+	max-height: 20px;
+}
+.centered-text {
+	text-align: center;
+}
+.navbar {
+	background: url(/static/img/banner.jpg);
+}
+#b { 
+	display: none;
+}
+.navbar-brand {
+	height: 200px;
+}
+.profpic img {
+	width: 200px;
+}
+footer {
+	margin-top: 50px;
+}
+div #login_result {
+	color: #FF4040;
+}
+.comment-pic {
+	width: 100px;
+}
+.rating-block {
+	width: 80px;
+}
+.prof-rating-form input {
+	display: none;
+}
+#id_comment {
+	display: block;
+}
+.prof-rating {
+	width: 120px;
+}
+.prof-rating-type-small {
+	width: 110px;
+	font-size: 12px;
+}
+.prof-rating-recent {
+	margin-top: 10px;
+	border-top: 1px solid #DDDDDD;
+}
+.prof-rating-recent > td {
+	padding: 5px;
+}
+.date {
+	color: #AAAAAA;
+	font-size: 9pt;
+}
+.small-rating-width {
+	width: 100px;
+	text-align: center;
+}
+.small-rating {
+	width: 80px;
+}
+.big-text {
+	font-size: 14pt;
+}
+.centered-text {
+	text-align: center;
+}
