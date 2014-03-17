@@ -210,3 +210,9 @@ $(document).ready(function() {
 	initialiseProfessorRatingsForm();
 	$("#b").fadeIn('slow');
 });
+$(window).bind('pageshow', function(event) {
+	if (event.originalEvent.persisted) {
+		window.location.reload() 
+    	}
+});
+
