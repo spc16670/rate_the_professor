@@ -2,12 +2,46 @@
 {% load static %}
 
 {% block body_block %}
+
+
+ <div class="row">
+
+
+
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8" >
+
+         <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
+    the clicking of the button all  -->
+
+        <div class="form-group">
+
+			<form class="input-group" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
+             {% csrf_token %}
+                <span class="input-group-addon">Search the site:</span>
+
+                <input  type="text" class="form-control" name="query" value="" id="query">
+
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-default" name="submit" value="Search">Search</button>
+                </span>
+					</form>
+
+            <!-- AJAX call updates this div  -->
+				<div id="suggested_professors" class="dropdown">
+					<ul id="search-dropdown" class="dropdown-menu" role="menu" action="go to"></ul>
+				</div>
+         </div>
+
+
+    </div>
+
 <div class="row">
 
 	<div class="col-md-8">
 		<!-- MOST RECENT RATINGS -->
 		<div class="well" id="ratings-main">
-			<h3>Recent Ratings</h3>
+			<h1 class = "centered-text">Recent Ratings</h1>
 			{% if recent_ratings %}
 				{% for rating in recent_ratings %}
 					<hr>
@@ -38,29 +72,15 @@
 	</div>
 
 	<div class="col-md-4">
-	    <!-- Search is AJAXed, suggested_professors div displays X number of results when typing,
-	    the clicking of the button all  -->
-
-		    <div class="well-sm">
-				<form class="form-inline" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
-			        {% csrf_token %}
-		            <input type="text" class="form-control" name="query" value="" id="query" placeholder="Search for a Professor"/>
-		            <button type="submit" class="btn btn-primary" name="submit" value="Search">Search</button>
-				</form>
-
-		        <!-- AJAX call updates this div  -->
-				<div id="suggested_professors" class="dropdown">
-					<ul id="search-dropdown" class="dropdown-menu" role="menu"></ul>
-				</div>
-		    </div>
 
 		<!-- TOP 5 LECTURERS -->
-		<div class="well">
-            {% include "rate_the_professor/top_rating.html" with professors=top_professors title="Best Professors"%}
-		</div>
+	<div class="well">
+		<h2 class="centered-text">Top Professors</h2>
+            {% include "rate_the_professor/top_rating.html" with professors=top_professors%}
+	</div>
 
         <div class="well">
-            <a href="/rate_the_professor/ranking/" class="btn btn-primary">Ranking</a>
+            <a href="/rate_the_professor/ranking/" class="btn btn-primary btn-lg btn-block">View All Rankings</a>
 		</div>
 
 

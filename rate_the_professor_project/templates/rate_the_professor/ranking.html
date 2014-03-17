@@ -5,29 +5,70 @@
 <div class="col-md-12">
     <div class="row">
         <div class="col-md-4">
-            {% include "rate_the_professor/top_rating.html" with professors=best_communicators title="Best Communicators"%}
+
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="centered-text">Best Communicators</h3></div>
+              <div class="panel-body">
+                {% include "rate_the_professor/top_rating.html" with professors=best_communicators%}
+              </div>
+            </div>
+
         </div>
 
         <div class="col-md-4">
-            {% include "rate_the_professor/top_rating.html" with professors=easily_approachable title="Easily Approachable"%}
+
+             <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="centered-text">Most Approachable</h3></div>
+              <div class="panel-body">
+
+            {% include "rate_the_professor/top_rating.html" with professors=easily_approachable%}
+              </div>
+            </div>
+
         </div>
 
         <div class="col-md-4">
-            {% include "rate_the_professor/top_rating.html" with professors=wise_owls title="Wise owls"%}
+             <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="centered-text">Wise Owls</h3></div>
+              <div class="panel-body">
+            {% include "rate_the_professor/top_rating.html" with professors=wise_owls %}
+              </div>
+            </div>
+
+
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-4">
-            {% include "rate_the_professor/top_rating.html" with professors=most_enthusiastic title="Most Enthusiastic"%}
+             <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="centered-text">Most Enthusiastic</h3></div>
+              <div class="panel-body">
+                  {% include "rate_the_professor/top_rating.html" with professors=most_enthusiastic%}
+              </div>
+            </div>
+
         </div>
 
         <div class="col-md-4">
-           {% include "rate_the_professor/top_rating.html" with professors=best_clarity title="Best Clarity of Expression"%}
+
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="centered-text">Most Clearly Understood</h3></div>
+              <div class="panel-body">
+
+            {% include "rate_the_professor/top_rating.html" with professors=best_clarity%}
+              </div>
+            </div>
         </div>
 
         <div class="col-md-4">
-           {% include "rate_the_professor/top_rating.html" with professors=totally_awesome title="Just Awesome"%}
+           <div class="panel panel-default">
+              <div class="panel-heading"><h3 class="centered-text">Just Awesome!</h3></div>
+              <div class="panel-body">
+           {% include "rate_the_professor/top_rating.html" with professors=totally_awesome%}
+              </div>
+            </div>
+
         </div>
     </div>
 </div>

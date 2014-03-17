@@ -6,8 +6,8 @@
     {% if user %}
         <!-- USER DETAILS -->
         <div class="col-md-3 panel panel-default panel-footer">
-            <div class="panel-heading"><h3>Your Profile</h3></div>
-            
+            <div class="panel-heading"><h3 class = "centered-text">Your Profile</h3></div>
+
             <div class="panel-body">
                 <div class="profpic">
                     {% if user_profile.picture %}
@@ -32,7 +32,7 @@
 
         <!-- USER RECENT RATINGS -->
         <div class="col-md-8 col-md-offset-1 well">
-            <h3>Ratings</h3>
+            <h3 class = "centered-text">Your Ratings</h3>
             {% if ratings %}
                 {% for rating in ratings %}
                     <hr>
@@ -66,7 +66,7 @@
                     </div>
                 {% endfor %}
             {% else %}
-                <strong>You haven't left any ratings yet.</strong>
+                <h4 class = "centered-text text-warning">You haven't left any ratings yet.</h4>
             {% endif %}
         </div>
 

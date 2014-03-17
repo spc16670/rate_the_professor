@@ -1,8 +1,13 @@
 {% extends 'rate_the_professor/base.html' %}
 
 {% block body_block %}
-<div class="span8" id="suggest_a_professor">
-    <h3>Suggest a professor to be added</h3>
+<div class = "row">
+<div class="col-md-1"></div>
+<div class="col-md-10" id="suggest_a_professor">
+
+    <div class="panel panel-default">
+  <div class="panel-heading"><h3>Suggest a professor to be added</h3></div>
+  <div class="panel-body">
 
     {% if suggested %}
         <strong>Thank you for your suggestion! Please check on the website later.</strong>
@@ -24,9 +29,9 @@
         <!-- Provide a button to click to submit the form. -->
         <br><input type="submit" name="submit" value="Suggest Professor" />
     </form>
-
     {% endif %}
-
+<div class="col-md-1"></div>
 </div>
-
+</div>
+</div>
 {% endblock %}
