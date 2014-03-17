@@ -2,10 +2,12 @@
 {% load static %}
 
 {% block body_block %}
+
+
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <!-- Search is AJAXed, suggested_professors div displays X number of results when typing -->
-        <div class="form-group">
+	<div class="col-md-8">
+	
+	        <div class="form-group">
 			<form class="input-group" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
 	            {% csrf_token %}
                 <span class="input-group-addon">Search the site:</span>
@@ -19,12 +21,8 @@
 			<div id="suggested_professors" class="dropdown">
 				<ul id="search-dropdown" class="dropdown-menu" role="menu"></ul>
 			</div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-	<div class="col-md-8">
+        	</div>
+        
 		<!-- MOST RECENT RATINGS -->
 		<div class="well" id="ratings-main">
 			<h1 class = "centered-text">Recent Ratings</h1>
