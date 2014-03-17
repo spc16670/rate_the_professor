@@ -203,7 +203,7 @@
 		var data2 = "";		
 		$("#search_form").submit(function(event) {
 			event.preventDefault();
-			/*
+			
 			event.preventDefault();
 			var $form = $( this ),
 			url = $form.attr( 'action' );
@@ -211,16 +211,16 @@
 			posting.done(function( data ) {
 				if (data !== "") {
 						if (data2 !== data)
-						$('#ratings-main').fadeOut('fast', function(){$('#ratings-main').html(data);});
+							$('#ratings-main').fadeOut('fast', function(){$('#ratings-main').html(data);});
 					
 					$('#ratings-main').fadeIn('fast');
 					$('#query').val("");
-					$('#suggested_professors').hide('fast');
-					$('#suggested_professors').html("");
+					//$('#suggested_professors').hide('fast');
+					$('#search-dropdown').html("");
 					data2 = data;
 				}
 			});
-		*/
+		
 		});
 
 		// ----- CHANGE NUMERICAL RATING COLOUR DEPENDING ON VALUE ---------- //
