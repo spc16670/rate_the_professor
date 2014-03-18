@@ -41,32 +41,40 @@ $('#query').keyup(function(event) {
 
 // ------- MAKE THE SEARCH DROPDOWN MENU DISAPPEAR ON FOCUSOUT ------ //
 $('#query').focusout(function() {
-	$('#search-dropdown').css("display", "none");
+	setTimeout(function() {
+		$('#search-dropdown').css("display", "none")
+	}, 100);
 })
 
-// ---------------- search form stuff --------------------------------//
-var data2 = "";		
+// ---------- HITTING ENTER IN THE SEARCH BAR ------------------------//
+var data2 = "";
 $("#search_form").submit(function(event) {
 	event.preventDefault();
-	
-	event.preventDefault();
+	//var startHtml = "<h4 class='pullup'>Search Results</h4><hr><ul>";
+	var startHtml = "<button type='button' class='close'>&times;</button><h4>Search Results</h4><hr><ul>";
 	var $form = $( this ),
 	url = $form.attr( 'action' );
 	var posting = $.get( url, { suggestion: $('#query').val(), max_results: 0 } );
 	posting.done(function( data ) {
 		if (data !== "") {
-				if (data2 !== data)
-					$('#ratings-main').fadeOut('fast', function(){$('#ratings-main').html(data);});
+			if (data2 !== data)
+				$('#search-results').html(startHtml + data + "</ul>");
 			
-			$('#ratings-main').fadeIn('fast');
+			$('#search-results').hide();
+			$('#search-results').slideDown('fast');
 			$('#query').val("");
-			//$('#suggested_professors').hide('fast');
-			$('#search-dropdown').html("");
+			$('#search-dropdown').hide('fast');
+			//$('#suggested_professors').html("");
 			data2 = data;
 		}
 	});
-
 });
+
+// ------------ ADD EVENT TO SEARCH RESULTS CLOSE BUTTON ------------ //
+
+$('#search-results').on("click", ".close", function() {
+	$('#search-results').slideUp('fast');
+})
 
 // ----- CHANGE NUMERICAL RATING COLOUR DEPENDING ON VALUE ---------- //
 function colourNumberRating() {

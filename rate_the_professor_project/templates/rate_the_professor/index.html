@@ -7,24 +7,27 @@
 	<div class="col-md-8">	
 		<!-- SEARCH BAR -->
         <div class="form-group">
-		<form class="input-group" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
-            {% csrf_token %}
-            <span class="input-group-addon">Search the site:</span>
-            <input type="text" class="form-control" name="query" value="" id="query">
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-default" name="submit" value="Search">Search</button>
-            </span>
-		</form>
+			<form class="input-group" role="form" id="search_form" method="post" action="/rate_the_professor/suggest_professor/">
+	            {% csrf_token %}
+	            <span class="input-group-addon">Search the site:</span>
+	            <input type="text" class="form-control" name="query" value="" id="query">
+	            <span class="input-group-btn">
+	                <button type="submit" class="btn btn-default" name="submit" value="Search">Search</button>
+	            </span>
+			</form>
 
-        <!-- AJAX call updates this div  -->
-		<div id="suggested_professors" class="dropdown">
-			<ul id="search-dropdown" class="dropdown-menu" role="menu"></ul>
-		</div>
+	        <!-- AJAX call updates this dropdown div  -->
+			<div id="suggested_professors" class="dropdown">
+				<ul id="search-dropdown" class="dropdown-menu" role="menu"></ul>
+			</div>
+    	</div>
+
+    	<div id="search-results" class="alert alert-info">
     	</div>
         
 		<!-- MOST RECENT RATINGS -->
 		<div class="well" id="ratings-main">
-			<h1 class = "centered-text">Recent Ratings</h1>
+			<h1 class="centered-text">Recent Ratings</h1>
 			{% if recent_ratings %}
 				{% for rating in recent_ratings %}
 					<hr>

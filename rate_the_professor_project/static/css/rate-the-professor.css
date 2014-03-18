@@ -66,3 +66,13 @@ div #login_result {
 .centered-text {
 	text-align: center;
 }
+#search-results {
+	display: none;
+}
+#search-results li {
+	list-style: none;
+	margin-left: -40px;
+}
+#search-results a {
+	text-decoration: none;
+}
