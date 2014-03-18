@@ -12,7 +12,7 @@ from decimal import Decimal
 
 def index(request):
     context = RequestContext(request)
-    user_id = request.user.id
+
 
     # RECENT RATINGS
     recent_ratings = Rating.objects.order_by('-id')[:12]
@@ -21,6 +21,7 @@ def index(request):
     context_dict = {'recent_ratings': recent_ratings, 'top_professors': top_professors}
 
     #Gets the user information for the thumbnail picture
+    user_id = request.user.id
     try:
         user = User.objects.get(id=user_id)
         context_dict['user'] = user
@@ -53,6 +54,15 @@ def ranking(request):
         , 'best_clarity': best_clarity
         , 'totally_awesome': totally_awesome
     }
+    #Gets the user information for the thumbnail picture
+    user_id = request.user.id
+    try:
+        user = User.objects.get(id=user_id)
+        context_dict['user'] = user
+
+        context_dict['user_profile'] = UserProfile.objects.get(user=user)
+    except User.DoesNotExist:
+        pass
     return render_to_response('rate_the_professor/ranking.html', context_dict, context)
 
 
@@ -131,6 +141,16 @@ def professor(request, professor_id):
     except Professor.DoesNotExist:
         pass
     context_dict['form'] = form
+
+    #Gets the user information for the thumbnail picture
+    user_id = request.user.id
+    try:
+        user = User.objects.get(id=user_id)
+        context_dict['user'] = user
+
+        context_dict['user_profile'] = UserProfile.objects.get(user=user)
+    except User.DoesNotExist:
+        pass
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
 
@@ -326,6 +346,7 @@ def user_login(request):
     #defines a view which will handle the suggest a professor form
 def suggestion (request):
     context = RequestContext(request)
+    context_dict={}
     suggested = False
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
@@ -344,9 +365,18 @@ def suggestion (request):
     # These forms will be blank, ready for user input.
     else:
         suggestion_form = SuggestionForm()
+
+        context_dict= {'suggestion_form': suggestion_form,'suggested': suggested}
+    #Gets the user information for the thumbnail picture
+    user_id = request.user.id
+    try:
+        user = User.objects.get(id=user_id)
+        context_dict['user'] = user
+        context_dict['user_profile'] = UserProfile.objects.get(user=user)
+    except User.DoesNotExist:
+        pass
     # Render the template depending on the context.
-    return render_to_response('rate_the_professor/suggestion.html', {'suggestion_form': suggestion_form,
-                                                                     'suggested': suggested}, context)
+    return render_to_response('rate_the_professor/suggestion.html',context_dict , context)
 
 
 def get_professors_list(max_results=0, starts_with=['','']):

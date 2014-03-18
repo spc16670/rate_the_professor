@@ -54,7 +54,7 @@ def populate():
     professor_christina = add_professor('Dr.', 'Christina', 'Cobbold', 'c_cobbold.jpg', 'http://www.maths.gla.ac.uk/~cc/', university_gla)
 
     #Sample ratings
-    rating_leif = add_rating(professor_leif, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(), 'Comedian!')
+    rating_leif = add_rating(professor_leif, 5,5,5,5,5,5, 'Thanks Leif, for all the feedback and for putting up the best course for this year')
     rating_ron = add_rating(professor_ron, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(), 'Creepy!')
     rating_ron2 = add_rating(professor_ron, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(),'Boring')
     rating_ron3 = add_rating(professor_ron, get_random(),get_random(),get_random(),get_random(),get_random(),get_random(), 'I want to go to sleep')
@@ -208,7 +208,7 @@ def populate():
             #awesomeness
             p.sum_of_awesomeness += r.awesomeness
             p.no_of_awesomeness += 1
-            overall_awesomeness = p.sum_of_awesomeness / p.no_of_awesomeness
+            p.overall_awesomeness = p.sum_of_awesomeness / p.no_of_awesomeness
 
             #overall
             p.sum_of_ratings += (r.communication + r.knowledge + r.approachability
@@ -255,7 +255,7 @@ def add_course(course_name, university, department, start_date):
 
 # A function which returns a random number between 1 and 5 in order to give values for the ratings
 def get_random():
-    return random.randrange(2,6)
+    return random.randrange(1,6)
 
 # a new comment
 # Start execution here!
