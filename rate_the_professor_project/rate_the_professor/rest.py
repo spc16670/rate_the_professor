@@ -58,7 +58,7 @@ def get_amazon_suggestions(keyword):
             url_node = item_link.getElementsByTagName('URL')[0]
             url = url_node.childNodes[0].nodeValue
 
-            item_attributes = dom.getElementsByTagName('ItemAttributes')
+            item_attributes = item.getElementsByTagName('ItemAttributes')
             for attribute in item_attributes:
                 author_list = attribute.getElementsByTagName('Author')
                 for a in author_list:
