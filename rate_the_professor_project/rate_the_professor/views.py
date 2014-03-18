@@ -12,11 +12,23 @@ from decimal import Decimal
 
 def index(request):
     context = RequestContext(request)
+    user_id = request.user.id
+
     # RECENT RATINGS
     recent_ratings = Rating.objects.order_by('-id')[:12]
     # TOP 5
     top_professors = Professor.objects.order_by('-overall_rating')[:5]
     context_dict = {'recent_ratings': recent_ratings, 'top_professors': top_professors}
+
+    #Gets the user information for the thumbnail picture
+    try:
+        user = User.objects.get(id=user_id)
+        context_dict['user'] = user
+
+        context_dict['user_profile'] = UserProfile.objects.get(user=user)
+    except User.DoesNotExist:
+        pass
+
     return render_to_response('rate_the_professor/index.html', context_dict, context)
 
 
