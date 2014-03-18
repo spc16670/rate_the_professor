@@ -8,9 +8,7 @@
 .navbar {
 	background: url(/static/img/banner.jpg);
 }
-#b { 
-	display: none;
-}
+
 .navbar-brand {
 	height: 200px;
 }
