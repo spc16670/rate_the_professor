@@ -207,12 +207,8 @@ function refreshRating(ratingId) {
 	}
 }
 
-
-
 $(document).ready(function() {
 	ratingToStars();
 	colourNumberRating();
 	initialiseProfessorRatingsForm();
 });
-
-
