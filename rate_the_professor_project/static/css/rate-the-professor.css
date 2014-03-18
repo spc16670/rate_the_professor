@@ -8,7 +8,6 @@
 .navbar {
 	background: url(/static/img/banner.jpg);
 }
-
 .navbar-brand {
 	height: 200px;
 }
@@ -73,4 +72,7 @@ div #login_result {
 }
 #search-results a {
 	text-decoration: none;
+}
+.number-rating {
+	font-size: 32pt;
 }
