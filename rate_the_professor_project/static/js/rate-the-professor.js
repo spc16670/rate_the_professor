@@ -207,20 +207,12 @@ function refreshRating(ratingId) {
 	}
 }
 
-$("a").click(function(event) {
-	event.stopImmediatePropagation();
-	$("#b").fadeOut('slow');			
-});
+
 
 $(document).ready(function() {
 	ratingToStars();
 	colourNumberRating();
 	initialiseProfessorRatingsForm();
-	$("#b").fadeIn('slow');
 });
-$(window).bind('pageshow', function(event) {
-	if (event.originalEvent.persisted) {
-		window.location.reload() 
-    	}
-});
+
 
