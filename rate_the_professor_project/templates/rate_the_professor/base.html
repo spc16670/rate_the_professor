@@ -31,7 +31,7 @@
 							<a href="/rate_the_professor/user/" class="btn btn-lg btn-link">
 								<div class="thumbnail">
 									{% if user_profile.picture %}
-										<img class= "thumbnail" src="/media/user/{{ user_profile.picture }}">
+										<img class= "thumbnail" src="/media/{{ user_profile.picture }}">
 									{% else %}
 										<img class= "thumbnail" src="{% static 'img/profpic.png' %}">
 									{% endif %}

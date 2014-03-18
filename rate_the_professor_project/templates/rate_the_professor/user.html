@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div class="profpic">
                     {% if user_profile.picture %}
-                        <img src="/media/user/{{ user_profile.picture }}">
+                        <img src="/media/{{ user_profile.picture }}">
                     {% else %}
                         <img src="{% static 'img/profpic.png' %}">
                     {% endif %}
