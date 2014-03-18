@@ -43,7 +43,7 @@ $('#query').keyup(function(event) {
 $('#query').focusout(function() {
 	setTimeout(function() {
 		$('#search-dropdown').css("display", "none")
-	}, 100);
+	}, 300);
 })
 
 // ---------- HITTING ENTER IN THE SEARCH BAR ------------------------//
