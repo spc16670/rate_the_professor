@@ -9,6 +9,8 @@ from rate_the_professor.forms import UserForm, UserProfileForm, RatingForm, Sugg
 from rate_the_professor.rest import get_amazon_suggestions
 from decimal import Decimal
 
+# Please note: the retrieval of objects from the database is done in the simplest way. No attempt was made to ensure
+# running with a partitioned or restricted set of data etc.
 
 # Index page view
 def index(request):

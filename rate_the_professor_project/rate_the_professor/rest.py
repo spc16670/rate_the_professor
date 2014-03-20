@@ -8,6 +8,11 @@ import urllib2
 
 
 # Call Amazon API and search for books by a keyword
+# Currently the the call is made before the page is rendered what slows the load time. The way to go would be AJAX
+# with some clever retry mechanism which would make another call if the first one return an invalid response
+# (The API sometimes complains about the incorrect hash that is calculated dynamically on every call, this might be
+# caused by the caching somewhere, if there the suggestions do not show, hit F5. Also keep in mind, some professors will
+# have noting on sale on Amazon)
 def get_amazon_suggestions(keyword):
     amazon_access_key = "AKIAJLEWU2SSPY43LYTQ"
     host = "http://ecs.amazonaws.com"
@@ -28,12 +33,9 @@ def get_amazon_suggestions(keyword):
         "Version=2011-08-01"
 
     string_to_sign = sign_head + params
-
     dig = hmac.new(b'mERr4dAusZ9Tk1cwHXW4lpdY4C6w6LFNuzWe6gl8', msg=string_to_sign, digestmod=hashlib.sha256).digest()
     signature = base64.b64encode(dig).decode()
-
     request = host + service + params + "&Signature=" + signature
-
     books = []
 
     try:
