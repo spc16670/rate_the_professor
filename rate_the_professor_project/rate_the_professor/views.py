@@ -85,7 +85,6 @@ def professor(request, professor_id):
         user_id = request.user.id
         if user_id is not None:
             user = User.objects.get(id=user_id)
-            user_profile = UserProfile.objects.get(user=user)
             old_rating = Rating.objects.get(user=user, professor=professor.id)
         else:
             old_rating = None
@@ -93,10 +92,6 @@ def professor(request, professor_id):
         old_rating = None
     except User.DoesNotExist:
         pass
-    except UserProfile.DoesNotExist:
-        user_profile = None
-
-    context_dict['user_profile'] = user_profile
 
     # Are we posting some data?
     if request.method == 'POST':
@@ -144,6 +139,7 @@ def professor(request, professor_id):
         pass
     except Course.DoesNotExist:
         pass
+    context_dict = add_user_profile(request, context_dict)
     context_dict['form'] = form
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
