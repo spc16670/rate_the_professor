@@ -8,6 +8,7 @@ TEMPLATE_PATH = os.path.join(PROJECT_PATH, 'templates')
 STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
 DATABASE_PATH = os.path.join(PROJECT_PATH, 'rtp.db')
 
+# Left to True to make marking easier;)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -31,8 +32,11 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
+
+# Commented out make marking easier;)
 #ALLOWED_HOSTS = ['coolfeature.pythonanywhere.com']
 ALLOWED_HOSTS = []
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
