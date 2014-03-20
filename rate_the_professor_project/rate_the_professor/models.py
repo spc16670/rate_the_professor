@@ -51,6 +51,7 @@ class Course(models.Model):
     department = models.ForeignKey(Department)
     start_date = models.DateField()
 
+    # Add instance property
     def _course_date(self):
         return self.start_date.strftime("'%Y")
     course_date = property(_course_date)

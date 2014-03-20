@@ -10,79 +10,69 @@ from rate_the_professor.rest import get_amazon_suggestions
 from decimal import Decimal
 
 
+# Index page view
 def index(request):
     context = RequestContext(request)
-
-
-    # RECENT RATINGS
-    recent_ratings = Rating.objects.order_by('-id')[:12]
-    # TOP 5
-    top_professors = Professor.objects.order_by('-overall_rating')[:5]
-    context_dict = {'recent_ratings': recent_ratings, 'top_professors': top_professors}
-
-    #Gets the user information for the thumbnail picture
-    user_id = request.user.id
+    context_dict = {}
     try:
-        user = User.objects.get(id=user_id)
-        context_dict['user'] = user
-
-        context_dict['user_profile'] = UserProfile.objects.get(user=user)
-    except User.DoesNotExist:
+        # RECENT RATINGS
+        recent_ratings = Rating.objects.order_by('-id')[:12]
+        context_dict['recent_ratings'] = recent_ratings
+         # TOP 5
+        top_professors = Professor.objects.order_by('-overall_rating')[:5]
+        context_dict['top_professors'] = top_professors
+    except Rating.DoesNotExist:
         pass
-
+    except Professor.DoesNotExist:
+        pass
+    context_dict = add_user_profile(request, context_dict)
     return render_to_response('rate_the_professor/index.html', context_dict, context)
 
 
+# Ranking page view
 def ranking(request):
     context = RequestContext(request)
-    # BEST COMMUNICATORS
-    best_communicators = Professor.objects.order_by('-overall_communication')[:5]
-     # EASILY APPROACHABLE
-    easily_approachable = Professor.objects.order_by('-overall_approachability')[:5]
-    #WISE OWLS
-    wise_owls = Professor.objects.order_by('-overall_knowledge')[:5]
-    #MOST ENTHUSIASTIC
-    most_enthusiastic = Professor.objects.order_by('-overall_enthusiasm')[:5]
-    #BEST CLARITY
-    best_clarity = Professor.objects.order_by('-overall_clarity')[:5]
-    #TOTALLY AWESOME
-    totally_awesome =Professor.objects.order_by('-overall_awesomeness')[:5]
-    context_dict = {'best_communicators': best_communicators
-        , 'easily_approachable': easily_approachable
-        , 'wise_owls': wise_owls
-        , 'most_enthusiastic': most_enthusiastic
-        , 'best_clarity': best_clarity
-        , 'totally_awesome': totally_awesome
-    }
-    #Gets the user information for the thumbnail picture
-    user_id = request.user.id
+    context_dict = {}
     try:
-        user = User.objects.get(id=user_id)
-        context_dict['user'] = user
-
-        context_dict['user_profile'] = UserProfile.objects.get(user=user)
-    except User.DoesNotExist:
+        # BEST COMMUNICATORS
+        best_communicators = Professor.objects.order_by('-overall_communication')[:5]
+        context_dict['best_communicators'] = best_communicators
+         # EASILY APPROACHABLE
+        easily_approachable = Professor.objects.order_by('-overall_approachability')[:5]
+        context_dict['easily_approachable'] = easily_approachable
+        #WISE OWLS
+        wise_owls = Professor.objects.order_by('-overall_knowledge')[:5]
+        context_dict['wise_owls'] = wise_owls
+        #MOST ENTHUSIASTIC
+        most_enthusiastic = Professor.objects.order_by('-overall_enthusiasm')[:5]
+        context_dict['most_enthusiastic'] = most_enthusiastic
+        #BEST CLARITY
+        best_clarity = Professor.objects.order_by('-overall_clarity')[:5]
+        context_dict['best_clarity'] = best_clarity
+        #TOTALLY AWESOME
+        totally_awesome =Professor.objects.order_by('-overall_awesomeness')[:5]
+        context_dict['totally_awesome'] = totally_awesome
+    except Professor.DoesNotExist:
         pass
+    context_dict = add_user_profile(request, context_dict)
     return render_to_response('rate_the_professor/ranking.html', context_dict, context)
 
 
+# User profile page view
 def user(request):
     context = RequestContext(request)
     user_id = request.user.id
     context_dict = {'user_id': user_id}
     try:
-        user = User.objects.get(id=user_id)
-        context_dict['user'] = user
-        #user_profile = User.user_profile
-
-        context_dict['user_profile'] = UserProfile.objects.get(user=user)
         ratings = Rating.objects.filter(user=user_id)
         context_dict['ratings'] = ratings
-    except User.DoesNotExist:
+    except Rating.DoesNotExist:
         pass
+    context_dict = add_user_profile(request, context_dict)
     return render_to_response('rate_the_professor/user.html', context_dict, context)
 
 
+# Professor profile page view
 def professor(request, professor_id):
     context = RequestContext(request)
     context_dict = {'professor_id': professor_id}
@@ -93,11 +83,18 @@ def professor(request, professor_id):
         user_id = request.user.id
         if user_id is not None:
             user = User.objects.get(id=user_id)
+            user_profile = UserProfile.objects.get(user=user)
             old_rating = Rating.objects.get(user=user, professor=professor.id)
         else:
             old_rating = None
     except Rating.DoesNotExist:
         old_rating = None
+    except User.DoesNotExist:
+        pass
+    except UserProfile.DoesNotExist:
+        user_profile = None
+
+    context_dict['user_profile'] = user_profile
 
     # Are we posting some data?
     if request.method == 'POST':
@@ -128,32 +125,28 @@ def professor(request, professor_id):
         form = RatingForm()
 
     context_dict['old_rating'] = old_rating
+
     # Display professor info
     try:
         professor = Professor.objects.get(id=professor_id)
+        context_dict['professor'] = professor
         ratings = Rating.objects.filter(professor=professor_id).order_by('-datetime')[:10]
         context_dict['ratings'] = ratings
-        context_dict['professor'] = professor
         courses_taught = Course.objects.filter(professor__id=professor_id)
         context_dict['courses_taught'] = courses_taught
         book_suggestions = get_amazon_suggestions(professor.first_name + " " + professor.last_name)
         context_dict['book_suggestions'] = book_suggestions[:7]
     except Professor.DoesNotExist:
         pass
-    context_dict['form'] = form
-
-    #Gets the user information for the thumbnail picture
-    user_id = request.user.id
-    try:
-        user = User.objects.get(id=user_id)
-        context_dict['user'] = user
-
-        context_dict['user_profile'] = UserProfile.objects.get(user=user)
-    except User.DoesNotExist:
+    except Rating.DoesNotExist:
         pass
+    except Course.DoesNotExist:
+        pass
+    context_dict['form'] = form
     return render_to_response('rate_the_professor/professor.html', context_dict, context)
 
 
+# A helper method used to update a professor's scores
 def update_professor_scores(professor, old_rating, new_rating):
     if old_rating is not None:
         increment = 0
@@ -249,6 +242,7 @@ def update_professor_scores(professor, old_rating, new_rating):
     )
 
 
+# Registration page view
 def register(request):
     context = RequestContext(request)
     registered = False
@@ -281,8 +275,7 @@ def register(request):
             registered = True
 
             #Login the user after registration
-            user = authenticate(username=request.POST['username'],
-                                    password=request.POST['password'])
+            user = authenticate(username=request.POST['username'], password=request.POST['password'])
             login(request, user)
 
             return HttpResponseRedirect('/rate_the_professor/')
@@ -305,6 +298,7 @@ def register(request):
         , 'registered': registered}, context)
 
 
+# Login handling machinery
 def user_login(request):
     context = RequestContext(request)
     # If the request is a HTTP POST, try to pull out the relevant information.
@@ -343,8 +337,8 @@ def user_login(request):
         return render_to_response('rate_the_professor/login.html', {}, context)
 
 
-    #defines a view which will handle the suggest a professor form
-def suggestion (request):
+# Defines a view which will handle the suggest a professor form
+def suggestion(request):
     context = RequestContext(request)
     context_dict={}
     suggested = False
@@ -365,21 +359,28 @@ def suggestion (request):
     # These forms will be blank, ready for user input.
     else:
         suggestion_form = SuggestionForm()
+        context_dict = {'suggestion_form': suggestion_form, 'suggested': suggested}
 
-        context_dict= {'suggestion_form': suggestion_form,'suggested': suggested}
-    #Gets the user information for the thumbnail picture
-    user_id = request.user.id
+    context_dict = add_user_profile(request, context_dict)
+    return render_to_response('rate_the_professor/suggestion.html', context_dict, context)
+
+
+# A helper method used to avoid repetition
+def add_user_profile(request, context_dict):
     try:
+        user_id = request.user.id
         user = User.objects.get(id=user_id)
         context_dict['user'] = user
         context_dict['user_profile'] = UserProfile.objects.get(user=user)
     except User.DoesNotExist:
         pass
-    # Render the template depending on the context.
-    return render_to_response('rate_the_professor/suggestion.html',context_dict , context)
+    except UserProfile.DoesNotExist:
+        pass
+    return context_dict
 
 
-def get_professors_list(max_results=0, starts_with=['','']):
+# A helper method used by suggest_professor(request)
+def get_professors_list(max_results=0, starts_with=['', '']):
     prof_list = []
     uni_list1 = []
     prof_list1 = []
@@ -407,6 +408,7 @@ def get_professors_list(max_results=0, starts_with=['','']):
     return prof_list
 
 
+# Search suggestions AJAX handler
 def suggest_professor(request):
         context = RequestContext(request)
         prof_list = []

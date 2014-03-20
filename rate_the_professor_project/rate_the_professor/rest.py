@@ -7,14 +7,14 @@ import base64
 import urllib2
 
 
+# Call Amazon API and search for books by a keyword
 def get_amazon_suggestions(keyword):
     amazon_access_key = "AKIAJLEWU2SSPY43LYTQ"
-
     host = "http://ecs.amazonaws.com"
     service = "/onca/xml?"
-
     datetime_utc = strftime("%Y-%m-%dT%H:%M:%SZ", gmtime())
     datetime_utc_enc = datetime_utc.replace(":", "%3A")
+    # The keyword is a professor's first and last name
     keyword_f = keyword.replace(" ", "%20")
     sign_head = "GET\necs.amazonaws.com\n/onca/xml\n"
 
@@ -78,7 +78,6 @@ def get_amazon_suggestions(keyword):
         print'HTTPException'
     except Exception:
         import traceback
-        print 'generic exception: ' + traceback.format_exc()
-
+        print 'Generic exception: ' + traceback.format_exc()
 
     return books

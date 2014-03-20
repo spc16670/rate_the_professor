@@ -2,22 +2,25 @@ from django.contrib import admin
 from rate_the_professor.models import Admin, UserProfile, Rating, University, Course, Professor, Department, Suggestion
 
 
-# Just pass for now
+# class stub
 class PageAdmin(admin.ModelAdmin):
     pass
 
 
 class SuggestionAdmin(admin.ModelAdmin):
-    list_display = ('full_name','university', 'courses_taught','date_added')
+    list_display = ('full_name', 'university', 'courses_taught', 'date_added')
+
 
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('university','department_name')
+    list_display = ('university', 'department_name')
+
 
 class ProfessorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'university', 'no_of_ratings', 'overall_rating')
 
+
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('course_name','university','department','start_date')
+    list_display = ('course_name', 'university', 'department', 'start_date')
 
 # Register models
 admin.site.register(Admin, PageAdmin)
